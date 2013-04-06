@@ -6,22 +6,3 @@
 
 include_once 'fserver.features.inc';
 
-/**
- * Implements hook_field_widget_info().
- */
-function fserver_field_widget_info() {
-  // Add a "version" widget for entering version numbers
-  return array(
-    'text_versionfield' => array(
-      'label' => t('Version field'),
-      'field types' => array('text'),
-      'settings' => array('size' => 60, 'pattern' => ''),
-      'behaviors' => array(
-        'multiple values' => FIELD_BEHAVIOR_DEFAULT,
-        'default value' => FIELD_BEHAVIOR_DEFAULT,
-      ),
-    ),
-  );
-}
-
-// @todo add widget form
