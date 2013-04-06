@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Feature Server feature.
+ */
+
+include_once 'fserver.features.inc';
