@@ -63,6 +63,12 @@ function fserver_eck_bundle_info() {
   'name' => 'release',
   'label' => 'Release',
 ),
+  'release_unstable' => array(
+  'machine_name' => 'release_unstable',
+  'entity_type' => 'release',
+  'name' => 'unstable',
+  'label' => 'Unstable',
+),
   );
   return $items;
 }
