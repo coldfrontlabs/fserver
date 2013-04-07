@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_ctools_plugin_api().
+ */
+function fserver_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => "1");
+  }
+}
+
+/**
  * Implements hook_eck_bundle_info().
  */
 function fserver_eck_bundle_info() {
@@ -81,15 +91,35 @@ $items = array(
       'type' => 'text',
       'behavior' => 'title',
     ),
-    'created' => array(
-      'label' => 'Created',
-      'type' => 'integer',
-      'behavior' => 'created',
+    'short_name' => array(
+      'label' => 'Name',
+      'type' => 'text',
+      'behavior' => '',
     ),
-    'changed' => array(
-      'label' => 'Changed',
-      'type' => 'integer',
-      'behavior' => 'changed',
+    'api_version' => array(
+      'label' => 'API Version',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'recommended_major' => array(
+      'label' => 'Recommended Major',
+      'type' => 'positive_integer',
+      'behavior' => '',
+    ),
+    'supported_majors' => array(
+      'label' => 'Supported Majors',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'link' => array(
+      'label' => 'Link',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'project_status' => array(
+      'label' => 'Project Status',
+      'type' => 'text',
+      'behavior' => '',
     ),
   ),
 ),
@@ -97,18 +127,88 @@ $items = array(
   'name' => 'release',
   'label' => 'Release',
   'properties' => array(
-    'title' => array(
-      'label' => 'Title',
+    'name' => array(
+      'label' => 'name',
       'type' => 'text',
       'behavior' => 'title',
     ),
-    'created' => array(
-      'label' => 'Created',
+    'version' => array(
+      'label' => 'Version',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'tag' => array(
+      'label' => 'Tag',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'version_major' => array(
+      'label' => 'Version Major',
       'type' => 'integer',
+      'behavior' => '',
+    ),
+    'version_patch' => array(
+      'label' => 'Version Patch',
+      'type' => 'integer',
+      'behavior' => '',
+    ),
+    'version_extra' => array(
+      'label' => 'Version extra',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'mdhash' => array(
+      'label' => 'MDHash',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'filesize' => array(
+      'label' => 'Filesize',
+      'type' => 'integer',
+      'behavior' => '',
+    ),
+    'release_link' => array(
+      'label' => 'Release Link',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'download_link' => array(
+      'label' => 'Download Link',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'date' => array(
+      'label' => 'Date',
+      'type' => 'positive_integer',
       'behavior' => 'created',
     ),
   ),
 ),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_node_info().
+ */
+function fserver_node_info() {
+  $items = array(
+    'project_info' => array(
+      'name' => t('Project Info'),
+      'base' => 'node_content',
+      'description' => t('Project information and description'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'release_info' => array(
+      'name' => t('Release Info'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
   );
   return $items;
 }
