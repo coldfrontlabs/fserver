@@ -57,12 +57,6 @@ function fserver_eck_bundle_info() {
   'name' => 'rc',
   'label' => 'Release Candidate',
 ),
-  'release_release' => array(
-  'machine_name' => 'release_release',
-  'entity_type' => 'release',
-  'name' => 'release',
-  'label' => 'Release',
-),
   'release_unstable' => array(
   'machine_name' => 'release_unstable',
   'entity_type' => 'release',
