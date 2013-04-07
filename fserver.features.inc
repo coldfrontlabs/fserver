@@ -15,6 +15,13 @@ function fserver_ctools_plugin_api() {
 }
 
 /**
+ * Implements hook_views_api().
+ */
+function fserver_views_api() {
+  return array("api" => "3.0");
+}
+
+/**
  * Implements hook_eck_bundle_info().
  */
 function fserver_eck_bundle_info() {
