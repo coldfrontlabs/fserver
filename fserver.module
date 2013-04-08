@@ -7,6 +7,32 @@
 include_once 'fserver.features.inc';
 
 /**
+ * Preprocess xml output template.
+ */
+function template_preprocess_views_data_export_xml_header(&$vars) {
+  $view =& $vars['view'];
+  
+  if (isset($view->name) and $view->name == 'fserver_projects') {
+    $root_node = "projects";
+    // @todo determine if this is necessary
+    $vars['root_node'] = _views_data_export_xml_tag_clean($root_node);
+  }
+  else {
+    // @todo see if there's a way to conditionally preprocess without
+    // disabling other modules/themes capacity to preprocess
+    
+    // Pass through to the generic preprocess function
+    template_preprocess_views_data_export_xml_header($vars);
+  }
+  // Compute the root XML node, using the base table, and appending an 's' if needed.
+  $root_node = $vars['view']->base_table;
+  if (rtrim($root_node, 's') == $root_node) {
+    $root_node .= 's';
+  }
+  $vars['root_node'] = _views_data_export_xml_tag_clean($root_node);
+}
+
+/**
  * Implements template_process_views_data_export_xml_body().
  */
 function fserver_process_views_data_export_xml_body(&$vars) {
