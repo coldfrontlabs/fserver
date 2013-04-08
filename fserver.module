@@ -32,3 +32,11 @@ function fserver_preprocess_views_data_export_xml_header(&$vars) {
 function fserver_process_views_data_export_xml_body(&$vars) {
   //dpm($vars);
 }
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function fserver_views_data_alter(&$data) {
+  dpm($data);
+}
+
