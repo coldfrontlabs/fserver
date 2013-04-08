@@ -10,20 +10,20 @@ include_once 'fserver.features.inc';
  * Preprocess xml output template.
  */
 function fserver_preprocess_views_data_export_xml_header(&$vars) {
-  $view =& $vars['view'];
-  
+/*  $view =& $vars['view'];
+
   if (isset($view->name) and $view->name == 'fserver_projects') {
     $root_node = "projects";
     // @todo determine if this is necessary
     $vars['root_node'] = _views_data_export_xml_tag_clean($root_node);
   }
-  else {
+  else {// */
     // @todo see if there's a way to conditionally preprocess without
     // disabling other modules/themes capacity to preprocess
-    
+
     // Pass through to the generic preprocess function
     template_preprocess_views_data_export_xml_header($vars);
-  }
+  //}
 }
 
 /**
@@ -37,6 +37,14 @@ function fserver_process_views_data_export_xml_body(&$vars) {
  * Implements hook_views_data_alter().
  */
 function fserver_views_data_alter(&$data) {
-  dpm($data);
+  if (isset($data['eck_project'])) {
+    $data['projects'] = $data['eck_project'];
+    unset($data['eck_project']);
+  }
+
+  if (isset($data['eck_release'])) {
+    $data['releases'] = $data['eck_release'];
+    unset($data['eck_release']);
+  }
 }
 
