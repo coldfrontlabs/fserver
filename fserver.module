@@ -24,17 +24,11 @@ function fserver_preprocess_views_data_export_xml_header(&$vars) {
     // Pass through to the generic preprocess function
     template_preprocess_views_data_export_xml_header($vars);
   }
-  // Compute the root XML node, using the base table, and appending an 's' if needed.
-  $root_node = $vars['view']->base_table;
-  if (rtrim($root_node, 's') == $root_node) {
-    $root_node .= 's';
-  }
-  $vars['root_node'] = _views_data_export_xml_tag_clean($root_node);
 }
 
 /**
  * Implements template_process_views_data_export_xml_body().
  */
 function fserver_process_views_data_export_xml_body(&$vars) {
-  dpm($vars);
+  //dpm($vars);
 }
