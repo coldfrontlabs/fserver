@@ -5,3 +5,10 @@
  */
 
 include_once 'fserver.features.inc';
+
+/**
+ * Implements template_process_views_data_export_xml_body().
+ */
+function fserver_process_views_data_export_xml_body(&$vars) {
+  dpm($vars);
+}
