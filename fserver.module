@@ -10,49 +10,10 @@ define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
 define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 
 /**
- * Implements template_preprocess_views_data_export_xml_body().
- *//*
-function fserver_preprocess_views_data_export_xml_body(&$vars) {
-  $view =& $vars['view'];
-  
-  switch ($view->name) {
-    case FSERVER_VIEW_NAME_PROJECTS_ALL:
-      _fserver_preprocess_views_data_export_xml_body_projects_all($vars);
-    break;
-    default:
-      // @todo see if there's a way to conditionally preprocess without
-      // disabling other modules/themes capacity to preprocess
-
-      // Pass through to the generic preprocess function
-      template_preprocess_views_data_export_xml_body($vars);
-  }
-}// */
-
-/**
- * Implement hook_views_pre_render().
- *//*
-function fserver_views_pre_render(&$view) {
-  if ($view->name == 'fserver_projects') {
-    // Load the releases view data into this view
-    if (!empty($view->result)) {
-      foreach ($view->result as $key => $value) {
-        $releases = views_get_view('fserver_releases');
-        $releases->set_arguments(array($value->id));
-        $releases->set_display('fserver_releases_xml');
-        $releases->execute();
-        $view->fserver_extra['releases'][$value->id] = $releases;
-      }
-    }    
-  }
-//  dpm($view);
-
-}
-//*/
-
-/**
  * Preprocess xml output template.
  */
 function fserver_preprocess_views_data_export_xml_body(&$vars) {
+  // Only preprocess certain views
   if ($vars['view']->name = 'fserver_projects') {
     _views_data_export_header_shared_preprocess($vars);
     // We support not outputting fields when they are empty, so indicate so.
@@ -70,7 +31,6 @@ function fserver_preprocess_views_data_export_xml_body(&$vars) {
 
     foreach ($vars['themed_rows'] as $num => $row) {
       foreach ($row as $field => $content) {
-        dpm($field);
         if ($field != 'view') {
           // Prevent double encoding of the ampersand. Look for the entities produced by check_plain().
           $content = preg_replace('/&(?!(amp|quot|#039|lt|gt);)/', '&amp;', $content);
