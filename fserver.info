@@ -72,6 +72,7 @@ features[variable][] = node_preview_release_info
 features[variable][] = node_submitted_project_info
 features[variable][] = node_submitted_release_info
 features[views_view][] = fserver_projects
+features[views_view][] = fserver_releases
 features_exclude[field][release-dev-field_release_files] = release-dev-field_release_files
 features_exclude[field][release-dev-field_project_reference] = release-dev-field_project_reference
 features_exclude[field][project-module-field_project_releases] = project-module-field_project_releases

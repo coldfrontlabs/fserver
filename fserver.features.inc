@@ -20,7 +20,7 @@ function fserver_ctools_plugin_api() {
 function fserver_views_api() {
   return array(
     "api" => "3.0",
-    "template path" => drupal_get_path('module', 'fserver') . '/templates',
+    "template path" => drupal_get_path('module', 'fserver') . "/templates",
   );
 }
 

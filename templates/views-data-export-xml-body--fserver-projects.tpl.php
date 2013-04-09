@@ -10,16 +10,17 @@
  * - $themed_rows: a array of rows with themed fields.
  * @ingroup views_templates
  */
-dpm($rows);
-dpm($header);
 ?>
 <?php foreach ($themed_rows as $count => $row): ?>
   <<?php print $item_node; ?>>
-<?php foreach ($row as $field => $content): ?>
-    <<?php print $xml_tag[$field]; ?>><?php print $content; ?></<?php print $xml_tag[$field]; ?>>
-<?php endforeach; ?>
-  <?php
-    // Load releases view
-  ?>
+  <?php foreach ($row as $field => $content): ?>
+    <?php if (isset($field) and $field != 'view') : ?>
+    <<?php print $xml_tag[$field]; ?>>
+    <?php endif; ?>
+    <?php print $content; ?>
+    <?php if (isset($field) and $field != 'view') : ?>
+    </<?php print $xml_tag[$field]; ?>>
+    <?php endif?>
+  <?php endforeach; ?>
   </<?php print $item_node; ?>>
 <?php endforeach; ?>
