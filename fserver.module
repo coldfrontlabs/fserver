@@ -6,29 +6,24 @@
 
 include_once 'fserver.features.inc';
 
+define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
+define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
+
 /**
- * Preprocess xml output template.
- */
-function fserver_preprocess_views_data_export_xml_header(&$vars) {
+ * Implements template_preprocess_views_data_export_xml_body().
+ *//*
+function fserver_preprocess_views_data_export_xml_body(&$vars) {
   $view =& $vars['view'];
+  
+  switch ($view->name) {
+    case FSERVER_VIEW_NAME_PROJECTS_ALL:
+      _fserver_preprocess_views_data_export_xml_body_projects_all($vars);
+    break;
+    default:
+      // @todo see if there's a way to conditionally preprocess without
+      // disabling other modules/themes capacity to preprocess
 
-  if (isset($view->name) and $view->name == 'fserver_projects') {
-    $root_node = "projects";
-    // @todo determine if this is necessary
-    $vars['root_node'] = _views_data_export_xml_tag_clean($root_node);
+      // Pass through to the generic preprocess function
+      template_preprocess_views_data_export_xml_body($vars);
   }
-  else {// */
-    // @todo see if there's a way to conditionally preprocess without
-    // disabling other modules/themes capacity to preprocess
-
-    // Pass through to the generic preprocess function
-    template_preprocess_views_data_export_xml_header($vars);
-  }
-}
-
-/**
- * Implements template_process_views_data_export_xml_body().
- */
-function fserver_process_views_data_export_xml_body(&$vars) {
-  //dpm($vars);
-}
+}// */
