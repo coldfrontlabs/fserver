@@ -174,68 +174,17 @@ function fserver_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Release: Id */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  /* Field: Release: Date */
-  $handler->display->display_options['fields']['date']['id'] = 'date';
-  $handler->display->display_options['fields']['date']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['date']['field'] = 'date';
-  $handler->display->display_options['fields']['date']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['date']['date_format'] = 'custom';
-  $handler->display->display_options['fields']['date']['custom_date_format'] = 'U';
-  $handler->display->display_options['fields']['date']['timezone'] = 'UTC';
-  /* Field: Release: Download Link */
-  $handler->display->display_options['fields']['download_link']['id'] = 'download_link';
-  $handler->display->display_options['fields']['download_link']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['download_link']['field'] = 'download_link';
-  $handler->display->display_options['fields']['download_link']['element_label_colon'] = FALSE;
-  /* Field: Release: Files */
-  $handler->display->display_options['fields']['field_release_files']['id'] = 'field_release_files';
-  $handler->display->display_options['fields']['field_release_files']['table'] = 'field_data_field_release_files';
-  $handler->display->display_options['fields']['field_release_files']['field'] = 'field_release_files';
-  $handler->display->display_options['fields']['field_release_files']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_release_files']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_release_files']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_release_files']['multi_type'] = 'ul';
-  /* Field: Release: Filesize */
-  $handler->display->display_options['fields']['filesize']['id'] = 'filesize';
-  $handler->display->display_options['fields']['filesize']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['filesize']['field'] = 'filesize';
-  $handler->display->display_options['fields']['filesize']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['filesize']['separator'] = '';
-  /* Field: Release: MDHash */
-  $handler->display->display_options['fields']['mdhash']['id'] = 'mdhash';
-  $handler->display->display_options['fields']['mdhash']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['mdhash']['field'] = 'mdhash';
-  $handler->display->display_options['fields']['mdhash']['element_label_colon'] = FALSE;
   /* Field: Release: name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'eck_release';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = 'Name';
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Release: Release Link */
-  $handler->display->display_options['fields']['release_link']['id'] = 'release_link';
-  $handler->display->display_options['fields']['release_link']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['release_link']['field'] = 'release_link';
-  $handler->display->display_options['fields']['release_link']['element_label_colon'] = FALSE;
-  /* Field: Release: Tag */
-  $handler->display->display_options['fields']['tag']['id'] = 'tag';
-  $handler->display->display_options['fields']['tag']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['tag']['field'] = 'tag';
-  $handler->display->display_options['fields']['tag']['element_label_colon'] = FALSE;
   /* Field: Release: Version */
   $handler->display->display_options['fields']['version']['id'] = 'version';
   $handler->display->display_options['fields']['version']['table'] = 'eck_release';
   $handler->display->display_options['fields']['version']['field'] = 'version';
   $handler->display->display_options['fields']['version']['element_label_colon'] = FALSE;
-  /* Field: Release: Version extra */
-  $handler->display->display_options['fields']['version_extra']['id'] = 'version_extra';
-  $handler->display->display_options['fields']['version_extra']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['version_extra']['field'] = 'version_extra';
-  $handler->display->display_options['fields']['version_extra']['element_label_colon'] = FALSE;
   /* Field: Release: Version Major */
   $handler->display->display_options['fields']['version_major']['id'] = 'version_major';
   $handler->display->display_options['fields']['version_major']['table'] = 'eck_release';
@@ -248,6 +197,55 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['version_patch']['field'] = 'version_patch';
   $handler->display->display_options['fields']['version_patch']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['version_patch']['separator'] = '';
+  /* Field: Release: Version extra */
+  $handler->display->display_options['fields']['version_extra']['id'] = 'version_extra';
+  $handler->display->display_options['fields']['version_extra']['table'] = 'eck_release';
+  $handler->display->display_options['fields']['version_extra']['field'] = 'version_extra';
+  $handler->display->display_options['fields']['version_extra']['element_label_colon'] = FALSE;
+  /* Field: Release: Files */
+  $handler->display->display_options['fields']['field_release_files']['id'] = 'field_release_files';
+  $handler->display->display_options['fields']['field_release_files']['table'] = 'field_data_field_release_files';
+  $handler->display->display_options['fields']['field_release_files']['field'] = 'field_release_files';
+  $handler->display->display_options['fields']['field_release_files']['label'] = 'Download Link';
+  $handler->display->display_options['fields']['field_release_files']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_release_files']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_release_files']['type'] = 'file_url_plain';
+  $handler->display->display_options['fields']['field_release_files']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_release_files']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_release_files']['separator'] = '';
+  /* Field: Release: Date */
+  $handler->display->display_options['fields']['date']['id'] = 'date';
+  $handler->display->display_options['fields']['date']['table'] = 'eck_release';
+  $handler->display->display_options['fields']['date']['field'] = 'date';
+  $handler->display->display_options['fields']['date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['date']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['date']['custom_date_format'] = 'U';
+  $handler->display->display_options['fields']['date']['timezone'] = 'UTC';
+  /* Field: Release: Tag */
+  $handler->display->display_options['fields']['tag']['id'] = 'tag';
+  $handler->display->display_options['fields']['tag']['table'] = 'eck_release';
+  $handler->display->display_options['fields']['tag']['field'] = 'tag';
+  $handler->display->display_options['fields']['tag']['element_label_colon'] = FALSE;
+  /* Field: File Size */
+  $handler->display->display_options['fields']['field_release_files_1']['id'] = 'field_release_files_1';
+  $handler->display->display_options['fields']['field_release_files_1']['table'] = 'field_data_field_release_files';
+  $handler->display->display_options['fields']['field_release_files_1']['field'] = 'field_release_files';
+  $handler->display->display_options['fields']['field_release_files_1']['ui_name'] = 'File Size';
+  $handler->display->display_options['fields']['field_release_files_1']['label'] = 'Size';
+  $handler->display->display_options['fields']['field_release_files_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_release_files_1']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_release_files_1']['type'] = 'file_size';
+  $handler->display->display_options['fields']['field_release_files_1']['delta_limit'] = '1';
+  $handler->display->display_options['fields']['field_release_files_1']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_release_files_1']['separator'] = '';
+  /* Field: Release: Files */
+  $handler->display->display_options['fields']['field_release_files_2']['id'] = 'field_release_files_2';
+  $handler->display->display_options['fields']['field_release_files_2']['table'] = 'field_data_field_release_files';
+  $handler->display->display_options['fields']['field_release_files_2']['field'] = 'field_release_files';
+  $handler->display->display_options['fields']['field_release_files_2']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_release_files_2']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_release_files_2']['type'] = 'file_fserver_xml';
+  $handler->display->display_options['fields']['field_release_files_2']['delta_offset'] = '0';
   /* Contextual filter: Release: Project Reference (field_project_reference) */
   $handler->display->display_options['arguments']['field_project_reference_target_id']['id'] = 'field_project_reference_target_id';
   $handler->display->display_options['arguments']['field_project_reference_target_id']['table'] = 'field_data_field_project_reference';
@@ -287,21 +285,17 @@ function fserver_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Id'),
-    t('.'),
-    t(','),
-    t('Date'),
-    t('Download Link'),
-    t('Files'),
-    t('Filesize'),
-    t('MDHash'),
     t('Name'),
-    t('Release Link'),
-    t('Tag'),
     t('Version'),
-    t('Version extra'),
     t('Version Major'),
+    t('.'),
     t('Version Patch'),
+    t('Version extra'),
+    t('Download Link'),
+    t('Date'),
+    t('Tag'),
+    t('Size'),
+    t('Files'),
     t('All'),
     t('Releases XML'),
   );

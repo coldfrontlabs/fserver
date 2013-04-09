@@ -167,26 +167,6 @@ $items = array(
       'type' => 'text',
       'behavior' => '',
     ),
-    'mdhash' => array(
-      'label' => 'MDHash',
-      'type' => 'text',
-      'behavior' => '',
-    ),
-    'filesize' => array(
-      'label' => 'Filesize',
-      'type' => 'integer',
-      'behavior' => '',
-    ),
-    'release_link' => array(
-      'label' => 'Release Link',
-      'type' => 'text',
-      'behavior' => '',
-    ),
-    'download_link' => array(
-      'label' => 'Download Link',
-      'type' => 'text',
-      'behavior' => '',
-    ),
     'date' => array(
       'label' => 'Date',
       'type' => 'positive_integer',
