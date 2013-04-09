@@ -18,5 +18,8 @@ dpm($header);
 <?php foreach ($row as $field => $content): ?>
     <<?php print $xml_tag[$field]; ?>><?php print $content; ?></<?php print $xml_tag[$field]; ?>>
 <?php endforeach; ?>
+  <?php
+    // Load releases view
+  ?>
   </<?php print $item_node; ?>>
 <?php endforeach; ?>
