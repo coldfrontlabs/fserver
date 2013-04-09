@@ -145,6 +145,10 @@ function fserver_field_formatter_info() {
       'label' => t('File Size'),
       'field types' => array('file'),
     ),
+    'file_hash_md5' => array(
+      'label' => t('File MD5'),
+      'field types' => array('file'),
+    ),
   );
   
 }
@@ -168,6 +172,16 @@ function fserver_field_formatter_view($entity_type, $entity, $field, $instance, 
     case 'file_size': 
       foreach ($items as $delta => $item) {
         $element[$delta] = array('#markup' => $item['filesize']);
+      }
+    break;
+    case 'file_hash_md5': 
+      foreach ($items as $delta => $item) {
+        if (isset($item['filehash']['md5'])) {
+          $element[$delta] = array('#markup' => $item['filehash']['md5']);          
+        }
+        else {
+          watchdog('fserver', 'No MD5 hash exists for fid: @fid', array('@fid' => $item['fid']), WATCHDOG_WARNING);
+        }
       }
     break;
   }
