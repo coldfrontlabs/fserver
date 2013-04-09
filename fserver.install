@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install tasks for fserver
+ */
+
+
+/**
+ * Implements hook_requirements().
+ */
+function fserver_requirements($phase) {
+  // @todo add check on filehash module and ensure that MD5 is enabled
+}
+

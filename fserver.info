@@ -9,6 +9,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_validation
 dependencies[] = file
+dependencies[] = filehash
 dependencies[] = list
 dependencies[] = options
 dependencies[] = strongarm
