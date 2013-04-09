@@ -27,3 +27,24 @@ function fserver_preprocess_views_data_export_xml_body(&$vars) {
       template_preprocess_views_data_export_xml_body($vars);
   }
 }// */
+
+/**
+ * Implement hook_views_pre_render().
+ */
+function fserver_views_pre_render(&$view) {
+  // @todo load the releases view data into this view
+  
+  // @todo
+  /*
+  $view = views_get_view('machine_name_of_view');
+  $view->set_arguments(array( 'argument1', 'argument2', 3 ));
+  $view->execute();
+  */
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function fserver_views_post_execute(&$view) {
+
+}
