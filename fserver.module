@@ -8,6 +8,7 @@ include_once 'fserver.features.inc';
 
 define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
 define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
+define("FSERVER_VIEW_NAME_RELEASES_ALL", 'fserver_releases');
 
 /**
  * Preprocess xml output template.
