@@ -1,0 +1,6 @@
+name = Feature Server Services
+description = Expose project/release API via Services
+core = 7.x
+
+dependencies[] = fserver
+dependencies[] = services
