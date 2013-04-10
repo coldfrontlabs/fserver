@@ -80,11 +80,13 @@ function _fserver_file_fserver_xml($item) {
   elseif (FALSE !== strpos($item['filename'], '.tar')) {
     $archive_type = 'tar';
   }
-  dpm($item);
-  $xml = "<file>\r\n";
-  $xml .= '<size>' . check_plain($item['filesize']) . "</size>\r\n";
+
+  $xml = "\r\n<file>\r\n";
   $xml .= '<url>' . file_create_url($item['uri']) . "</url>\r\n";
   $xml .= '<archive_type>' . $archive_type . "</archive_type>\r\n";
+  $xml .= '<md5>' . $item['filehash']['md5'] . "</md5>\r\n";
+  $xml .= '<size>' . check_plain($item['filesize']) . "</size>\r\n";
+  $xml .= '<filedate>' . $item['timestamp'] . "</filedate>\r\n";
   $xml .= "</file>\r\n";
 
   return $xml;
