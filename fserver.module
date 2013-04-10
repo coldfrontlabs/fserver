@@ -74,13 +74,13 @@ function _fserver_file_fserver_xml($item) {
   // @todo find a better way to detect the file extension
   // Defaults to zip
   $archive_type = 'zip';
-  if (FALSE !== strpos($item['filename'], '.tar.gz')) {
+  if ('.tar.gz' == drupal_substr($item['filename'], -7)) {
     $archive_type = 'tar.gz';
   }
-  elseif (FALSE !== strpos($item['filename'], '.tar')) {
+  elseif ('.tar' == drupal_substr($item['filename'], -4)) {
     $archive_type = 'tar';
   }
-  elseif (FALSE !== strpos($item['filename'], '.tgz')) {
+  elseif ('.tgz' == drupal_substr($item['filename'], -4)) {
     $archive_type = 'tgz';
   }
 
