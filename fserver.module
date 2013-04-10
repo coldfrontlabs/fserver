@@ -132,6 +132,8 @@ class Project extends Entity {
     // @todo add constructor validation
     parent::__construct($values, 'project');
   }
+  
+  // @todo add function to load project by shortname
 }
 
 /**
@@ -142,4 +144,6 @@ class Release extends Entity {
     // @todo add release validation
     parent::__construct($values, 'release');
   }
+  
+  // @todo add function to load release by name
 }
