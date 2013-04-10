@@ -12,6 +12,15 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 // @todo add project and release entity API functions
 
 /**
+ * Implements hook_entity_info_alter().
+ */
+function fserver_entity_info_alter(&$entity_info) {
+  // Set the entity class for projects and releases
+  $entity_info['project']['entity class'] = 'Project';
+  $entity_info['release']['entity class'] = 'Release';
+}
+
+/**
  * Implements hook_field_formatter_info().
  */
 function fserver_field_formatter_info() {
@@ -97,4 +106,24 @@ function _fserver_file_fserver_xml($item) {
   $xml .= "</file>\r\n";
 
   return $xml;
+}
+
+/**
+ * Base class for Project entities
+ */
+class Project extends Entity {
+  public function __construct($values = array()) {
+    // @todo add constructor validation
+    parent::__construct($values, 'project');
+  }
+}
+
+/**
+ * Base class for Release entities
+ */
+class Release extends Entity {
+  public function __construct($values = array()) {
+    // @todo add release validation
+    parent::__construct($values, 'release');
+  }
 }
