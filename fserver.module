@@ -71,8 +71,7 @@ function fserver_field_formatter_view($entity_type, $entity, $field, $instance, 
  */
 function _fserver_file_fserver_xml($item) {
   $filename = $item['filename'];
-  // @todo find a better way to detect the file extension
-  // Defaults to zip
+
   $archive_type = '';
   if ('.tar.gz' == drupal_substr($item['filename'], -7)) {
     $archive_type = 'tar.gz';
