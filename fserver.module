@@ -17,7 +17,23 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 function fserver_entity_info_alter(&$entity_info) {
   // Set the entity class for projects and releases
   $entity_info['project']['entity class'] = 'Project';
+  $entity_info['project']['access callback'] = 'fserver_project_access';
   $entity_info['release']['entity class'] = 'Release';
+  $entity_info['release']['access callback'] = 'fserver_release_access';
+}
+
+/**
+ * Access callback for project entities
+ */
+function fserver_project_access($op, $project = NULL, $account = NULL) {
+  return TRUE;
+}
+
+/**
+ * Access callback for release entities
+ */
+function fserver_release_access($op, $release = NULL, $account = NULL) {
+  return TRUE;
 }
 
 /**
