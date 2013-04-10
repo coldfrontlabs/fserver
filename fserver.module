@@ -80,6 +80,9 @@ function _fserver_file_fserver_xml($item) {
   elseif (FALSE !== strpos($item['filename'], '.tar')) {
     $archive_type = 'tar';
   }
+  elseif (FALSE !== strpos($item['filename'], '.tgz')) {
+    $archive_type = 'tgz';
+  }
 
   $xml = "\r\n<file>\r\n";
   $xml .= '<url>' . file_create_url($item['uri']) . "</url>\r\n";
