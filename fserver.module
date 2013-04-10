@@ -80,7 +80,7 @@ function _fserver_file_fserver_xml($item) {
   elseif (FALSE !== strpos($item['filename'], '.tar')) {
     $archive_type = 'tar';
   }
-
+  dpm($item);
   $xml = "<file>\r\n";
   $xml .= '<size>' . check_plain($item['filesize']) . "</size>\r\n";
   $xml .= '<url>' . file_create_url($item['uri']) . "</url>\r\n";
