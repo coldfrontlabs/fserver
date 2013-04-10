@@ -23,11 +23,13 @@ function fserver_services_resources() {
           ),
           'callback' => '_fserver_services_retrieve_project',
           'args' => array(
-            'name' => 'short_name',
-            'optional' => FALSE,
-            'source' => array('path' => 0),
-            'type' => 'string',
-            'description' => 'The short name (i.e. machine name) of a project.',
+            array(
+              'name' => 'short_name',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+              'type' => 'string',
+              'description' => 'The short name (i.e. machine name) of a project.',
+            ),
           ),
         ),
         'create' => array(),
