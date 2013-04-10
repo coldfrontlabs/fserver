@@ -3,4 +3,4 @@ description = Expose project/release API via Services
 core = 7.x
 
 dependencies[] = fserver
-dependencies[] = services
+dependencies[] = services (3.x)

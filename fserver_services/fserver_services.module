@@ -5,3 +5,43 @@
  * Feature Server - Services integration
  */
 
+/**
+ * Implements hook_services_resources().
+ */
+function fserver_services_resources() {
+  $resources = array();
+  
+  // Project resource
+  $project_resource = array(
+    'project' => array(
+      'operations' => array(
+        'retrieve' => array(),
+        'create' => array(),
+        'update' => array(),
+        'delete' => array(),
+        'index' => array(),
+      ),
+      'targeted_actions' => array(),
+      'relationships' => array(),
+    ),
+  );
+  $resources['project'] = $project_resource;
+  
+  // Release resource
+  $release_resource = array(
+    'project' => array(
+      'operations' => array(
+        'retrieve' => array(),
+        'create' => array(),
+        'update' => array(),
+        'delete' => array(),
+        'index' => array(),
+      ),
+      'targeted_actions' => array(),
+      'relationships' => array(),
+    ),
+  );
+  $resources['release'] = $release_resource;
+  
+  return $resources;
+}
