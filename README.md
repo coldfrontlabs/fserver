@@ -5,10 +5,9 @@ Feature server for Drupal 7
 
 More documentation coming soon
 
-Known Issues
-============
+Views Data Alter
+----------------
 
-If you have a table in your database named "projects" or "releases" and you'd
-like to use that table with Views, you will conflict on that namespace.
-Describe your table to views using a different table key.
-See http://views-help.doc.logrus.com/help/views/api-tables
+At the moment, we use [views_data_export](http://drupal.org/project/views_data_export)
+to generate the XML. To do so, we have a few patches which should be
+incorporated into the project for the time being.
