@@ -5,7 +5,7 @@ Feature server for Drupal 7
 
 More documentation coming soon
 
-Views Data Alter
+Views Data Export
 ----------------
 
 At the moment, we use [views_data_export](http://drupal.org/project/views_data_export)
