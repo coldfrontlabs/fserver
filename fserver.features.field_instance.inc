@@ -141,97 +141,9 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'release-dev-field_project_reference'
-  $field_instances['release-dev-field_project_reference'] = array(
-    'bundle' => 'dev',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'release',
-    'field_name' => 'field_project_reference',
-    'label' => 'Project Reference',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance: 'release-dev-field_release_files'
-  $field_instances['release-dev-field_release_files'] = array(
-    'bundle' => 'dev',
-    'deleted' => 0,
-    'description' => 'Files related to the release.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'release',
-    'field_name' => 'field_release_files',
-    'label' => 'Files',
-    'required' => 1,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => 'fserver/releases',
-      'file_extensions' => 'tar.gz zip tar',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 2,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
-  t('Files');
-  t('Files related to the release.');
-  t('Project Reference');
   t('Releases');
 
   return $field_instances;

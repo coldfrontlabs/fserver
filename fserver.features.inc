@@ -18,10 +18,7 @@ function fserver_ctools_plugin_api() {
  * Implements hook_views_api().
  */
 function fserver_views_api() {
-  return array(
-    "api" => "3.0",
-    "template path" => drupal_get_path('module', 'fserver') . "/templates",
-  );
+  return array("api" => "3.0");
 }
 
 /**
@@ -47,41 +44,11 @@ function fserver_eck_bundle_info() {
   'name' => 'theme',
   'label' => 'Theme',
 ),
-  'release_alpha' => array(
-  'machine_name' => 'release_alpha',
+  'release_release' => array(
+  'machine_name' => 'release_release',
   'entity_type' => 'release',
-  'name' => 'alpha',
-  'label' => 'Alpha',
-),
-  'release_beta' => array(
-  'machine_name' => 'release_beta',
-  'entity_type' => 'release',
-  'name' => 'beta',
-  'label' => 'Beta',
-),
-  'release_dev' => array(
-  'machine_name' => 'release_dev',
-  'entity_type' => 'release',
-  'name' => 'dev',
-  'label' => 'Development',
-),
-  'release_full' => array(
-  'machine_name' => 'release_full',
-  'entity_type' => 'release',
-  'name' => 'full',
-  'label' => 'Full',
-),
-  'release_rc' => array(
-  'machine_name' => 'release_rc',
-  'entity_type' => 'release',
-  'name' => 'rc',
-  'label' => 'Release Candidate',
-),
-  'release_unstable' => array(
-  'machine_name' => 'release_unstable',
-  'entity_type' => 'release',
-  'name' => 'unstable',
-  'label' => 'Unstable',
+  'name' => 'release',
+  'label' => 'Release',
 ),
   );
   return $items;
