@@ -145,12 +145,12 @@ function fserver_project_load($shortname) {
     ->EntityCondition("entity_type", "project")
     ->propertyCondition("short_name", $shortname)
     ->execute();
-  if (count($project['project']) == 0) {
+  if (!isset($project['project'])) {
     return FALSE;
   }
 
   $project = array_keys($project['project']);
-  return entity_load('project', array($project));
+  return entity_load('project', $project);
 }
 
 
@@ -160,7 +160,7 @@ function fserver_project_update($project) {
 
 
 function fserver_project_delete($shortname) {
-  $project = fserver_release_load($shortname);
+  $project = fserver_project_load($shortname);
   if ($project === FALSE) {
     return FALSE;
   }
@@ -179,12 +179,12 @@ function fserver_release_load($name) {
     ->EntityCondition("entity_type", "release")
     ->propertyCondition("name", $name)
     ->execute();
-  if (count($release['release']) == 0) {
+  if (!isset($release['release'])) {
     return FALSE;
   }
 
   $release = array_keys($release['release']);
-  return entity_load('release', array($release));
+  return entity_load('release', $release);
 }
 
 
@@ -217,6 +217,7 @@ class fserverProject extends Entity {
  */
 class fserverProjectController extends EntityAPIController {
   public function delete($ids, DatabaseTransaction $transaction = NULL) {
+
     $entities = $ids ? $this->load($ids) : FALSE;
     if (!$entities) {
       // Do nothing, in case invalid or no ids have been passed.
