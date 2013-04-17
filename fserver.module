@@ -16,10 +16,16 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
  */
 function fserver_entity_info_alter(&$entity_info) {
   // Set the entity class for projects and releases
-  $entity_info['project']['entity class'] = 'Project';
-  $entity_info['project']['access callback'] = 'fserver_project_access';
-  $entity_info['release']['entity class'] = 'Release';
-  $entity_info['release']['access callback'] = 'fserver_release_access';
+  if (isset($entity_info['project'])) {
+    $entity_info['project']['entity class'] = 'fserverProject';
+    $entity_info['project']['access callback'] = 'fserver_project_access';
+    $entity_info['project']['controller class'] = 'fserverProjectController';
+  }
+
+  if (isset($entity_info['release'])) {
+    $entity_info['release']['entity class'] = 'fserverRelease';
+    $entity_info['release']['access callback'] = 'fserver_release_access';
+  }
 }
 
 /**
@@ -124,10 +130,82 @@ function _fserver_file_fserver_xml($item) {
   return $xml;
 }
 
+
+function fserver_project_create($project) {
+
+}
+
+
+/**
+ * Load a fserver project by shortname
+ */
+function fserver_project_load($shortname) {
+  $query = new EntityFieldQuery();
+  $project = $query
+    ->EntityCondition("entity_type", "project")
+    ->propertyCondition("short_name", $shortname)
+    ->execute();
+  if (count($project['project']) == 0) {
+    return FALSE;
+  }
+
+  $project = array_keys($project['project']);
+  return entity_load('project', array($project));
+}
+
+
+function fserver_project_update($project) {
+
+}
+
+
+function fserver_project_delete($shortname) {
+  $project = fserver_release_load($shortname);
+  if ($project === FALSE) {
+    return FALSE;
+  }
+  return entity_delete('project', $project->id);
+}
+
+
+function fserver_release_create($release) {
+
+}
+
+
+function fserver_release_load($name) {
+  $query = new EntityFieldQuery();
+  $release = $query
+    ->EntityCondition("entity_type", "release")
+    ->propertyCondition("name", $name)
+    ->execute();
+  if (count($release['release']) == 0) {
+    return FALSE;
+  }
+
+  $release = array_keys($release['release']);
+  return entity_load('release', array($release));
+}
+
+
+function fserver_release_update($release) {
+
+}
+
+
+function fserver_release_delete($name) {
+  $release = fserver_release_load($name);
+  if ($release === FALSE) {
+    return FALSE;
+  }
+  return entity_delete('release', $release->id);
+}
+
+
 /**
  * Base class for Project entities
  */
-class Project extends Entity {
+class fserverProject extends Entity {
   public function __construct($values = array()) {
     // @todo add constructor validation
     parent::__construct($values, 'project');
@@ -137,9 +215,34 @@ class Project extends Entity {
 }
 
 /**
+ * Controller class for Project entities
+ */
+class fserverProjectController extends EntityAPIController {
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+    $entities = $ids ? $this->load($ids) : FALSE;
+    if (!$entities) {
+      // Do nothing, in case invalid or no ids have been passed.
+      return;
+    } else {
+      foreach ($entities as $entity) {
+        $query = new EntityFieldQuery();
+        $releases = $query
+          ->entityCondition('entity_type', 'release')
+          ->propertyCondition('short_name', $entity->short_name)
+          ->execute();
+        if (isset($releases['release'])) {
+          entity_delete_multiple('release', array_keys($releases['release']));
+        }
+      }
+    }
+    parent::delete($ids, $transaction);
+  }
+}
+
+/**
  * Base class for Release entities
  */
-class Release extends Entity {
+class fserverRelease extends Entity {
   public function __construct($values = array()) {
     // @todo add release validation
     parent::__construct($values, 'release');
