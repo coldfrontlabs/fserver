@@ -226,7 +226,7 @@ class fserverProjectController extends EntityAPIController {
         $query = new EntityFieldQuery();
         $releases = $query
           ->entityCondition('entity_type', 'release')
-          ->propertyCondition('short_name', $entity->short_name)
+          ->propertyCondition('project_short_name', $entity->short_name)
           ->execute();
         if (isset($releases['release'])) {
           entity_delete_multiple('release', array_keys($releases['release']));
