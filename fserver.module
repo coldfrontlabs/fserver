@@ -145,5 +145,18 @@ class Release extends Entity {
     parent::__construct($values, 'release');
   }
   
-  // @todo add function to load release by name
+  /**
+   * Generate release name
+   *
+   * Pattern: <project_name> <api_version>-<release_version>
+   * Ex: views 7.x-1.x-dev
+   */
+  protected function generateReleaseName() {
+    $name = $this->__get('project_short_name');
+    $name .= ' ' . $this->__get('api_version');
+    $name .= $this->__get('version');
+    $name .= $this->__get('tag');
+    
+    return $name;
+  }
 }
