@@ -149,28 +149,3 @@ $items = array(
   );
   return $items;
 }
-
-/**
- * Implements hook_node_info().
- */
-function fserver_node_info() {
-  $items = array(
-    'project_info' => array(
-      'name' => t('Project Info'),
-      'base' => 'node_content',
-      'description' => t('Project information and description'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'release_info' => array(
-      'name' => t('Release Info'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-  );
-  return $items;
-}
