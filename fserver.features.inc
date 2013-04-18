@@ -73,11 +73,6 @@ $items = array(
       'type' => 'text',
       'behavior' => '',
     ),
-    'api_version' => array(
-      'label' => 'API Version',
-      'type' => 'text',
-      'behavior' => '',
-    ),
     'recommended_major' => array(
       'label' => 'Recommended Major',
       'type' => 'positive_integer',
@@ -141,6 +136,11 @@ $items = array(
     ),
     'project_short_name' => array(
       'label' => 'Project Short Name',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'api' => array(
+      'label' => 'API Version',
       'type' => 'text',
       'behavior' => '',
     ),
