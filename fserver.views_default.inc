@@ -43,7 +43,7 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['id']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['id']['separator'] = '';
-  /* Field: Releases Placeholder (Hidden) */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['view']['id'] = 'view';
   $handler->display->display_options['fields']['view']['table'] = 'views';
   $handler->display->display_options['fields']['view']['field'] = 'view';
@@ -52,9 +52,6 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['view']['exclude'] = TRUE;
   $handler->display->display_options['fields']['view']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['view']['view'] = 'fserver_releases';
-  $handler->display->display_options['fields']['view']['display'] = 'fserver_releases_xml';
-  $handler->display->display_options['fields']['view']['arguments'] = '[!id]';
   /* Field: Project: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'eck_project';
@@ -102,7 +99,7 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['recommended_major']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['recommended_major']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['recommended_major']['separator'] = '';
-  /* Field: Releases Display */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['raw_xml']['id'] = 'raw_xml';
   $handler->display->display_options['fields']['raw_xml']['table'] = 'views_data_export_global';
   $handler->display->display_options['fields']['raw_xml']['field'] = 'raw_xml';
@@ -138,33 +135,9 @@ function fserver_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'views_data_export_xml';
   $handler->display->display_options['style_options']['provide_file'] = 0;
   $handler->display->display_options['style_options']['parent_sort'] = 0;
-  $handler->display->display_options['style_options']['custom_root_node'] = 'projects';
-  $handler->display->display_options['style_options']['custom_item_node'] = 'project';
   $handler->display->display_options['style_options']['transform'] = 1;
   $handler->display->display_options['style_options']['transform_type'] = 'underline';
-  $handler->display->display_options['style_options']['transform_case'] = 'lowercase';
   $handler->display->display_options['path'] = 'fserver/%/%';
-  $handler->display->display_options['segment_size'] = '100';
-  $translatables['fserver_projects'] = array(
-    t('Master'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('.'),
-    t('Releases Placeholder'),
-    t('Title'),
-    t('Short Name'),
-    t('API Version'),
-    t('project status'),
-    t('supported majors'),
-    t('recommended major'),
-    t('[view]'),
-    t('All'),
-    t('Projects XML'),
-  );
   $export['fserver_projects'] = $view;
 
   $view = new view();
@@ -187,7 +160,7 @@ function fserver_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Broken/missing handler */
+  /* Field: Release Files (Hidden) */
   $handler->display->display_options['fields']['field_release_files_2']['id'] = 'field_release_files_2';
   $handler->display->display_options['fields']['field_release_files_2']['table'] = 'field_data_field_release_files';
   $handler->display->display_options['fields']['field_release_files_2']['field'] = 'field_release_files';
@@ -223,7 +196,7 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['version_extra']['table'] = 'eck_release';
   $handler->display->display_options['fields']['version_extra']['field'] = 'version_extra';
   $handler->display->display_options['fields']['version_extra']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Release: File */
   $handler->display->display_options['fields']['field_release_files']['id'] = 'field_release_files';
   $handler->display->display_options['fields']['field_release_files']['table'] = 'field_data_field_release_files';
   $handler->display->display_options['fields']['field_release_files']['field'] = 'field_release_files';
@@ -242,20 +215,20 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['tag']['table'] = 'eck_release';
   $handler->display->display_options['fields']['tag']['field'] = 'tag';
   $handler->display->display_options['fields']['tag']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: File Size */
   $handler->display->display_options['fields']['field_release_files_1']['id'] = 'field_release_files_1';
   $handler->display->display_options['fields']['field_release_files_1']['table'] = 'field_data_field_release_files';
   $handler->display->display_options['fields']['field_release_files_1']['field'] = 'field_release_files';
   $handler->display->display_options['fields']['field_release_files_1']['ui_name'] = 'File Size';
   $handler->display->display_options['fields']['field_release_files_1']['label'] = 'Size';
   $handler->display->display_options['fields']['field_release_files_1']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Release: File */
   $handler->display->display_options['fields']['field_release_files_3']['id'] = 'field_release_files_3';
   $handler->display->display_options['fields']['field_release_files_3']['table'] = 'field_data_field_release_files';
   $handler->display->display_options['fields']['field_release_files_3']['field'] = 'field_release_files';
   $handler->display->display_options['fields']['field_release_files_3']['label'] = 'MDHash';
   $handler->display->display_options['fields']['field_release_files_3']['element_label_colon'] = FALSE;
-  /* Field: Release Files Display */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['raw_xml']['id'] = 'raw_xml';
   $handler->display->display_options['fields']['raw_xml']['table'] = 'views_data_export_global';
   $handler->display->display_options['fields']['raw_xml']['field'] = 'raw_xml';
@@ -281,43 +254,9 @@ function fserver_views_default_views() {
   $handler->display->display_options['style_plugin'] = 'views_data_export_xml';
   $handler->display->display_options['style_options']['provide_file'] = 0;
   $handler->display->display_options['style_options']['parent_sort'] = 0;
-  $handler->display->display_options['style_options']['custom_root_node'] = 'releases';
-  $handler->display->display_options['style_options']['custom_item_node'] = 'release';
   $handler->display->display_options['style_options']['transform'] = 1;
   $handler->display->display_options['style_options']['transform_type'] = 'underline';
-  $handler->display->display_options['style_options']['transform_case'] = 'lowercase';
   $handler->display->display_options['path'] = 'releases';
-  $translatables['fserver_releases'] = array(
-    t('Master'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('Files'),
-    t('Name'),
-    t('Version'),
-    t('Version Major'),
-    t('.'),
-    t('Version Patch'),
-    t('Version extra'),
-    t('Download Link'),
-    t('Date'),
-    t('Tag'),
-    t('Size'),
-    t('MDHash'),
-    t('[field_release_files_2]'),
-    t('All'),
-    t('Releases XML'),
-  );
   $export['fserver_releases'] = $view;
 
   return $export;
