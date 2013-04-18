@@ -197,12 +197,12 @@ function fserver__project_delete($shortname) {
  * Create an fserver release
  * 
  * $release array(
+ *   'project_short_name' => 'project_name',
  *   'api' = '7.x',
  *   'type' => 'release',
  *   'version_major' => '1',
- *   'version_patch' => '',
- *   'version_extra' => 'dev',
- *   'project_short_name' => 'project_name',
+ *   'version_patch' => '',  // Optional
+ *   'version_extra' => 'dev',  // Optional
  * );
  */
 function fserver__release_create($release) {
