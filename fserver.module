@@ -25,6 +25,7 @@ function fserver_entity_info_alter(&$entity_info) {
   if (isset($entity_info['release'])) {
     $entity_info['release']['entity class'] = 'fserverRelease';
     $entity_info['release']['access callback'] = 'fserver_release_access';
+    $entity_info['release']['controller class'] = 'fserverReleaseController';
   }
 }
 
@@ -276,20 +277,36 @@ class fserverRelease extends Entity {
   public function __construct($values = array()) {
     // @todo add release validation
     parent::__construct($values, 'release');
+    $this->generateReleaseName();
   }
-  
+
   /**
    * Generate release name
    *
    * Pattern: <project_name> <api_version>-<release_version>
    * Ex: views 7.x-1.x-dev
    */
-  protected function generateReleaseName() {
-    $name = $this->__get('project_short_name');
-    $name .= ' ' . $this->__get('api_version');
-    $name .= $this->__get('version');
-    $name .= $this->__get('tag');
-    
-    return $name;
+  public function generateReleaseName() {
+
+    if (!empty($this->version_patch)) {
+      $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch . '-' . $this->version_extra;
+      $this->version = $this->tag;
+    } else {
+      $this->tag = $this->api . '-' . $this->version_major . '.x';
+      $this->version = $this->tag . '-' . $this->version_extra;
+    }
+
+    $this->name = $this->project_short_name . ' ' . $this->version;
+  }
+}
+
+/**
+ * Controller class for Release entities
+ */
+class fserverReleaseController extends EntityAPIController {
+  public function save($entity, DatabaseTransaction $transaction = NULL) {
+    $entity->date = time();
+    $entity->generateReleaseName();
+    parent::save($entity, $transaction);
   }
 }
