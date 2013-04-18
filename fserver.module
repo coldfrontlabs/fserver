@@ -134,15 +134,19 @@ function _fserver_file_fserver_xml($item) {
 /**
  * Create an fserver project
  */
-function fserver_project_create($project) {
-  return entity_create('project', $project);
+function fserver__project_create($project) {
+  $entity = entity_create('project', $project);
+  if ($entity === FALSE) {
+    return FALSE;
+  }
+  return entity_save('project', $entity);
 }
 
 
 /**
  * Load an fserver project by shortname
  */
-function fserver_project_load($shortname) {
+function fserver__project_load($shortname) {
   $query = new EntityFieldQuery();
   $project = $query
     ->EntityCondition("entity_type", "project")
@@ -153,14 +157,15 @@ function fserver_project_load($shortname) {
   }
 
   $project = array_keys($project['project']);
-  return entity_load('project', $project);
+  $project = entity_load('project', $project);
+  return array_pop($project);
 }
 
 
 /**
  *  Update an fserver project
  */
-function fserver_project_update($project) {
+function fserver__project_update($project) {
   return entity_save('project', (object) $project);
 }
 
@@ -168,8 +173,8 @@ function fserver_project_update($project) {
 /**
  * Delete an fserver project
  */
-function fserver_project_delete($shortname) {
-  $project = fserver_project_load($shortname);
+function fserver__project_delete($shortname) {
+  $project = fserver__project_load($shortname);
   if ($project === FALSE) {
     return FALSE;
   }
@@ -180,15 +185,19 @@ function fserver_project_delete($shortname) {
 /**
  * Create an fserver release
  */
-function fserver_release_create($release) {
-  return entity_create('release', $release);
+function fserver__release_create($release) {
+  $entity = entity_create('release', $release);
+  if ($entity === FALSE) {
+    return FALSE;
+  }
+  return entity_save('project', $entity);
 }
 
 
 /**
  * Load an fserver release
  */
-function fserver_release_load($name) {
+function fserver__release_load($name) {
   $query = new EntityFieldQuery();
   $release = $query
     ->EntityCondition("entity_type", "release")
@@ -199,14 +208,15 @@ function fserver_release_load($name) {
   }
 
   $release = array_keys($release['release']);
-  return entity_load('release', $release);
+  $release = entity_load('release', $release);
+  return array_pop($release);
 }
 
 
 /**
  * Update an fserver release
  */
-function fserver_release_update($release) {
+function fserver__release_update($release) {
   return entity_save('release', (object) $release);
 }
 
@@ -214,8 +224,8 @@ function fserver_release_update($release) {
 /**
  * Delete an fserver release
  */
-function fserver_release_delete($name) {
-  $release = fserver_release_load($name);
+function fserver__release_delete($name) {
+  $release = fserver__release_load($name);
   if ($release === FALSE) {
     return FALSE;
   }
