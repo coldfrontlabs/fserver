@@ -16,10 +16,16 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
  */
 function fserver_entity_info_alter(&$entity_info) {
   // Set the entity class for projects and releases
-  $entity_info['project']['entity class'] = 'Project';
-  $entity_info['project']['access callback'] = 'fserver_project_access';
-  $entity_info['release']['entity class'] = 'Release';
-  $entity_info['release']['access callback'] = 'fserver_release_access';
+  if (isset($entity_info['project'])) {
+    $entity_info['project']['entity class'] = 'fserverProject';
+    $entity_info['project']['access callback'] = 'fserver_project_access';
+    $entity_info['project']['controller class'] = 'fserverProjectController';
+  }
+
+  if (isset($entity_info['release'])) {
+    $entity_info['release']['entity class'] = 'fserverRelease';
+    $entity_info['release']['access callback'] = 'fserver_release_access';
+  }
 }
 
 /**
@@ -124,26 +130,166 @@ function _fserver_file_fserver_xml($item) {
   return $xml;
 }
 
+
+/**
+ * Create an fserver project
+ */
+function fserver__project_create($project) {
+  $entity = entity_create('project', $project);
+  if ($entity === FALSE) {
+    return FALSE;
+  }
+  return entity_save('project', $entity);
+}
+
+
+/**
+ * Load an fserver project by shortname
+ */
+function fserver__project_load($shortname) {
+  $query = new EntityFieldQuery();
+  $project = $query
+    ->EntityCondition("entity_type", "project")
+    ->propertyCondition("short_name", $shortname)
+    ->execute();
+  if (!isset($project['project'])) {
+    return FALSE;
+  }
+
+  $project = array_keys($project['project']);
+  $project = entity_load('project', $project);
+  return array_pop($project);
+}
+
+
+/**
+ *  Update an fserver project
+ */
+function fserver__project_update($project) {
+  return entity_save('project', (object) $project);
+}
+
+
+/**
+ * Delete an fserver project
+ */
+function fserver__project_delete($shortname) {
+  $project = fserver__project_load($shortname);
+  if ($project === FALSE) {
+    return FALSE;
+  }
+  return entity_delete('project', $project->id);
+}
+
+
+/**
+ * Create an fserver release
+ */
+function fserver__release_create($release) {
+  $entity = entity_create('release', $release);
+  if ($entity === FALSE) {
+    return FALSE;
+  }
+  return entity_save('project', $entity);
+}
+
+
+/**
+ * Load an fserver release
+ */
+function fserver__release_load($name) {
+  $query = new EntityFieldQuery();
+  $release = $query
+    ->EntityCondition("entity_type", "release")
+    ->propertyCondition("name", $name)
+    ->execute();
+  if (!isset($release['release'])) {
+    return FALSE;
+  }
+
+  $release = array_keys($release['release']);
+  $release = entity_load('release', $release);
+  return array_pop($release);
+}
+
+
+/**
+ * Update an fserver release
+ */
+function fserver__release_update($release) {
+  return entity_save('release', (object) $release);
+}
+
+
+/**
+ * Delete an fserver release
+ */
+function fserver__release_delete($name) {
+  $release = fserver__release_load($name);
+  if ($release === FALSE) {
+    return FALSE;
+  }
+  return entity_delete('release', $release->id);
+}
+
+
 /**
  * Base class for Project entities
  */
-class Project extends Entity {
+class fserverProject extends Entity {
   public function __construct($values = array()) {
     // @todo add constructor validation
     parent::__construct($values, 'project');
   }
-  
-  // @todo add function to load project by shortname
+}
+
+/**
+ * Controller class for Project entities
+ */
+class fserverProjectController extends EntityAPIController {
+  public function delete($ids, DatabaseTransaction $transaction = NULL) {
+
+    $entities = $ids ? $this->load($ids) : FALSE;
+    if (!$entities) {
+      // Do nothing, in case invalid or no ids have been passed.
+      return;
+    } else {
+      foreach ($entities as $entity) {
+        $query = new EntityFieldQuery();
+        $releases = $query
+          ->entityCondition('entity_type', 'release')
+          ->propertyCondition('project_short_name', $entity->short_name)
+          ->execute();
+        if (isset($releases['release'])) {
+          entity_delete_multiple('release', array_keys($releases['release']));
+        }
+      }
+    }
+    parent::delete($ids, $transaction);
+  }
 }
 
 /**
  * Base class for Release entities
  */
-class Release extends Entity {
+class fserverRelease extends Entity {
   public function __construct($values = array()) {
     // @todo add release validation
     parent::__construct($values, 'release');
   }
   
-  // @todo add function to load release by name
+  /**
+   * Generate release name
+   *
+   * Pattern: <project_name> <api_version>-<release_version>
+   * Ex: views 7.x-1.x-dev
+   */
+  protected function generateReleaseName() {
+    $name = $this->__get('project_short_name');
+    $name .= ' ' . $this->__get('api_version');
+    $name .= $this->__get('version');
+    $name .= $this->__get('tag');
+    
+    return $name;
+  }
 }

@@ -139,6 +139,11 @@ $items = array(
       'type' => 'positive_integer',
       'behavior' => 'created',
     ),
+    'project_short_name' => array(
+      'label' => 'Project Short Name',
+      'type' => 'text',
+      'behavior' => '',
+    ),
   ),
 ),
   );
