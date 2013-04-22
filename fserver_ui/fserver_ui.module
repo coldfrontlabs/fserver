@@ -17,6 +17,15 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
  * Implements hook_form_alter().
  */
 function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
+
+  $form['project_short_name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Project Short Name'),
+    '#description' => t('Machine-name of the project for this release.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );
+
   $form['api'] = array(
     '#type' => 'textfield',
     '#title' => t('API'),
@@ -34,7 +43,30 @@ function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$f
     // @todo change to numberfield
   );
 
+  $form['version_patch'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Version Patch'),
+    '#size' => 6,
+    '#maxlength' => 4,
+  );
+  
+  $form['version_extra'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Version Extra'),
+    '#description' => t('Ex: dev, alpha1'),
+    '#size' => 40,
+    '#maxlength' => 255,
+  );  
+  
   // Disable the title field
   $form['name']['#disabled'] = TRUE;
+  
+  $form['#submit'][] = 'fserver_ui_release_form_submit';
 }
 
+/**
+ * Submit callback
+ */
+function fserver_ui_release_form_submit(&$form, &$form_state) {
+  dpm('submit!');
+}
