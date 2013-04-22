@@ -9,7 +9,14 @@ include_once 'fserver_ui.features.inc';
 /**
  * Implements hook_form_alter().
  */
-function fserver_ui_form_alter(&$form, &$form_state, $form_id) {
-  dpm($form_id);
+function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$form_state, $form_id) {
+  dpm('alter!');
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
+  dpm('alter!');
 }
 
