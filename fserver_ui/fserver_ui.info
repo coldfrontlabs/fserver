@@ -1,0 +1,5 @@
+name = Feature Server UI
+description = UI components for Feature Server
+core = 7.x
+
+dependencies[] = fserver
