@@ -5,3 +5,11 @@
  */
 
 include_once 'fserver_ui.features.inc';
+
+/**
+ * Implements hook_form_alter().
+ */
+function fserver_ui_form_alter(&$form, &$form_state, $form_id) {
+  dpm($form_id);
+}
+
