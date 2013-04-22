@@ -10,7 +10,6 @@ dependencies[] = features
 dependencies[] = field_validation
 dependencies[] = file
 dependencies[] = filehash
-dependencies[] = fserver
 dependencies[] = image
 dependencies[] = list
 dependencies[] = options
