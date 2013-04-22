@@ -17,6 +17,24 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
  * Implements hook_form_alter().
  */
 function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
-  dpm('alter!');
+  $form['api'] = array(
+    '#type' => 'textfield',
+    '#title' => t('API'),
+    '#description' => t('API version (i.e. 7.x)'),
+    '#size' => 5,
+    '#maxlength' => 4,
+    // @todo add element validator
+  );
+
+  $form['version_major'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Version Major'),
+    '#size' => 3,
+    '#maxlength' => 3,
+    // @todo change to numberfield
+  );
+
+  // Disable the title field
+  $form['name']['#disabled'] = TRUE;
 }
 
