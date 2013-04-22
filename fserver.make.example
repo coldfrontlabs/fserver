@@ -1,0 +1,13 @@
+api = 2
+core = 7.x
+
+projects[] = eck
+projects[] = entityreference
+projects[] = features
+projects[] = field_validation
+projects[] = file
+projects[] = filehash
+projects[] = strongarm
+projects[] = url
+projects[] = views
+projects[] = views_data_export
