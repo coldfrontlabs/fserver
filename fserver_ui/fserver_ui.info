@@ -1,5 +1,11 @@
 name = Feature Server UI
-description = UI components for Feature Server
+description = Default UI for Feature Server
 core = 7.x
-
+package = Features
 dependencies[] = fserver
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[views_view][] = fserver_ui_projects
+features[views_view][] = fserver_ui_releases
+features_exclude[dependencies][ctools] = ctools

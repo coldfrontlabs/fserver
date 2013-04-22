@@ -1,7 +1,7 @@
 <?php
-
 /**
  * @file
- * UI Components for Feature Server
+ * Code for the Feature Server UI feature.
  */
 
+include_once 'fserver_ui.features.inc';
