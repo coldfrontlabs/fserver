@@ -11,3 +11,5 @@ projects[] = strongarm
 projects[] = url
 projects[] = views
 projects[] = views_data_export
+
+projects[views_data_export][patch][] = http://drupal.org/files/1964392-case-transform.patch
