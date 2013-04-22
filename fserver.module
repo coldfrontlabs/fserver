@@ -9,7 +9,14 @@ include_once 'fserver.features.inc';
 define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
 define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 
-// @todo add project and release entity API functions
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function fserver_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'eck' && $plugin_type == 'property_behavior') {
+    return 'plugins/' . $plugin_type;
+  }
+}
 
 /**
  * Implements hook_entity_info_alter().
