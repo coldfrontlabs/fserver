@@ -15,7 +15,7 @@ function fserver_field_default_field_bases() {
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
-    'entity_types' => array(),
+    'entity_types' => array('project', 'release'),
     'field_name' => 'field_api_version',
     'foreign keys' => array(),
     'indexes' => array(
