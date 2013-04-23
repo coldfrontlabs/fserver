@@ -21,6 +21,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
       'source' => array('title'),
       'label' => t('Project short name'),
     ),
+    '#weight' => 10,
   );
   
   $form['recommended_major'] = array(
@@ -31,6 +32,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#maxlength' => 255,
     // @todo set to number field
     // @todo validate the major version exists
+    '#weight' => 10,
   );
   
   $form['supported_majors'] = array(
@@ -40,6 +42,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#size' => 40,
     '#maxlength' => 255,
     // @todo limit based on available major versions
+    '#weight' => 10,
   );
   
   $form['default_major'] = array(
@@ -49,18 +52,20 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#size' => 40,
     '#maxlength' => 255,
     // @todo set to number field
+    '#weight' => 10,
   );
   
   $form['project_status'] = array(
     '#type' => 'select',
     '#title' => t('Project Status'),
-    '#multiple' => TRUE,
+    '#multiple' => FALSE,
     '#description' => t('Status code for the project. Affects how updates are displayed by the Update module.'),
     '#options' => array(
       'published' => t('Published'),
       // @todo add the rest of the status codes
     ),
     '#default_value' => -1,
+    '#weight' => 10,
   );
   
   
