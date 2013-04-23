@@ -12,10 +12,10 @@ function fserver_views_default_views() {
 
   $view = new view();
   $view->name = 'fserver_projects';
-  $view->description = 'List of projects and their release information';
-  $view->tag = 'default';
+  $view->description = 'XML List of projects';
+  $view->tag = 'Fserver XML';
   $view->base_table = 'eck_project';
-  $view->human_name = 'Projects';
+  $view->human_name = 'Projects (XML)';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -67,7 +67,7 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['short_name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['short_name']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['short_name']['hide_empty'] = TRUE;
-  /* Field: Project: API Version */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['api_version']['id'] = 'api_version';
   $handler->display->display_options['fields']['api_version']['table'] = 'eck_project';
   $handler->display->display_options['fields']['api_version']['field'] = 'api_version';
@@ -99,14 +99,6 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['recommended_major']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['recommended_major']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['recommended_major']['separator'] = '';
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['raw_xml']['id'] = 'raw_xml';
-  $handler->display->display_options['fields']['raw_xml']['table'] = 'views_data_export_global';
-  $handler->display->display_options['fields']['raw_xml']['field'] = 'raw_xml';
-  $handler->display->display_options['fields']['raw_xml']['ui_name'] = 'Releases Display';
-  $handler->display->display_options['fields']['raw_xml']['label'] = '';
-  $handler->display->display_options['fields']['raw_xml']['alter']['text'] = '[view]';
-  $handler->display->display_options['fields']['raw_xml']['element_label_colon'] = FALSE;
   /* Contextual filter: Project: Name */
   $handler->display->display_options['arguments']['short_name']['id'] = 'short_name';
   $handler->display->display_options['arguments']['short_name']['table'] = 'eck_project';
@@ -118,7 +110,7 @@ function fserver_views_default_views() {
   $handler->display->display_options['arguments']['short_name']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['short_name']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['short_name']['limit'] = '0';
-  /* Contextual filter: Project: API Version */
+  /* Contextual filter: Broken/missing handler */
   $handler->display->display_options['arguments']['api_version']['id'] = 'api_version';
   $handler->display->display_options['arguments']['api_version']['table'] = 'eck_project';
   $handler->display->display_options['arguments']['api_version']['field'] = 'api_version';
@@ -126,7 +118,6 @@ function fserver_views_default_views() {
   $handler->display->display_options['arguments']['api_version']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['api_version']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['api_version']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['api_version']['limit'] = '0';
 
   /* Display: Projects XML */
   $handler = $view->new_display('views_data_export', 'Projects XML', 'fserver_projects_xml');
@@ -138,14 +129,33 @@ function fserver_views_default_views() {
   $handler->display->display_options['style_options']['transform'] = 1;
   $handler->display->display_options['style_options']['transform_type'] = 'underline';
   $handler->display->display_options['path'] = 'fserver/%/%';
+  $translatables['fserver_projects'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('.'),
+    t('Releases Placeholder'),
+    t('Title'),
+    t('Short Name'),
+    t('Broken handler eck_project.api_version'),
+    t('project status'),
+    t('supported majors'),
+    t('recommended major'),
+    t('All'),
+    t('Projects XML'),
+  );
   $export['fserver_projects'] = $view;
 
   $view = new view();
   $view->name = 'fserver_releases';
-  $view->description = 'Lists releases for a given project. This view is not meant to be consumed directly.';
-  $view->tag = 'default';
+  $view->description = 'XML list of releases to be included in the update xml feed';
+  $view->tag = 'Fserver XML';
   $view->base_table = 'eck_release';
-  $view->human_name = 'Releases';
+  $view->human_name = 'Releases (XML)';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -228,24 +238,6 @@ function fserver_views_default_views() {
   $handler->display->display_options['fields']['field_release_files_3']['field'] = 'field_release_files';
   $handler->display->display_options['fields']['field_release_files_3']['label'] = 'MDHash';
   $handler->display->display_options['fields']['field_release_files_3']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['raw_xml']['id'] = 'raw_xml';
-  $handler->display->display_options['fields']['raw_xml']['table'] = 'views_data_export_global';
-  $handler->display->display_options['fields']['raw_xml']['field'] = 'raw_xml';
-  $handler->display->display_options['fields']['raw_xml']['ui_name'] = 'Release Files Display';
-  $handler->display->display_options['fields']['raw_xml']['label'] = 'Files';
-  $handler->display->display_options['fields']['raw_xml']['alter']['text'] = '[field_release_files_2]';
-  $handler->display->display_options['fields']['raw_xml']['element_label_colon'] = FALSE;
-  /* Contextual filter: Broken/missing handler */
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['id'] = 'field_project_reference_target_id';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['table'] = 'field_data_field_project_reference';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['field'] = 'field_project_reference_target_id';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['default_argument_skip_url'] = TRUE;
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_project_reference_target_id']['summary_options']['items_per_page'] = '25';
 
   /* Display: Releases XML */
   $handler = $view->new_display('views_data_export', 'Releases XML', 'fserver_releases_xml');
@@ -257,6 +249,35 @@ function fserver_views_default_views() {
   $handler->display->display_options['style_options']['transform'] = 1;
   $handler->display->display_options['style_options']['transform_type'] = 'underline';
   $handler->display->display_options['path'] = 'releases';
+  $translatables['fserver_releases'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Files'),
+    t('Name'),
+    t('Version'),
+    t('Version Major'),
+    t('.'),
+    t('Version Patch'),
+    t('Version extra'),
+    t('Download Link'),
+    t('Date'),
+    t('Tag'),
+    t('Size'),
+    t('MDHash'),
+    t('Releases XML'),
+  );
   $export['fserver_releases'] = $view;
 
   return $export;

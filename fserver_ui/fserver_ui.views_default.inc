@@ -207,28 +207,39 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No releases available.';
-  /* Field: Release: name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Release: Date */
-  $handler->display->display_options['fields']['date']['id'] = 'date';
-  $handler->display->display_options['fields']['date']['table'] = 'eck_release';
-  $handler->display->display_options['fields']['date']['field'] = 'date';
-  $handler->display->display_options['fields']['date']['label'] = '';
-  $handler->display->display_options['fields']['date']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['date']['date_format'] = 'short';
+  /* Relationship: Release: Release project */
+  $handler->display->display_options['relationships']['project_short_name']['id'] = 'project_short_name';
+  $handler->display->display_options['relationships']['project_short_name']['table'] = 'eck_release';
+  $handler->display->display_options['relationships']['project_short_name']['field'] = 'project_short_name';
+  /* Field: Release: Version */
+  $handler->display->display_options['fields']['version']['id'] = 'version';
+  $handler->display->display_options['fields']['version']['table'] = 'eck_release';
+  $handler->display->display_options['fields']['version']['field'] = 'version';
+  $handler->display->display_options['fields']['version']['element_label_colon'] = FALSE;
   /* Field: Release: File */
   $handler->display->display_options['fields']['field_release_files']['id'] = 'field_release_files';
   $handler->display->display_options['fields']['field_release_files']['table'] = 'field_data_field_release_files';
   $handler->display->display_options['fields']['field_release_files']['field'] = 'field_release_files';
-  $handler->display->display_options['fields']['field_release_files']['label'] = '';
+  $handler->display->display_options['fields']['field_release_files']['label'] = 'Downloads';
   $handler->display->display_options['fields']['field_release_files']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_release_files']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_release_files']['type'] = 'file_table';
+  $handler->display->display_options['fields']['field_release_files']['delta_limit'] = '2';
   $handler->display->display_options['fields']['field_release_files']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_release_files']['separator'] = ' |  ';
+  /* Field: Release: Date */
+  $handler->display->display_options['fields']['date']['id'] = 'date';
+  $handler->display->display_options['fields']['date']['table'] = 'eck_release';
+  $handler->display->display_options['fields']['date']['field'] = 'date';
+  $handler->display->display_options['fields']['date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['date']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['date']['custom_date_format'] = 'Y-M-d';
+  /* Field: Release: Link */
+  $handler->display->display_options['fields']['view_link']['id'] = 'view_link';
+  $handler->display->display_options['fields']['view_link']['table'] = 'eck_release';
+  $handler->display->display_options['fields']['view_link']['field'] = 'view_link';
+  $handler->display->display_options['fields']['view_link']['label'] = 'Links';
+  $handler->display->display_options['fields']['view_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_link']['text'] = 'Notes';
 
   /* Display: Releases Bock */
   $handler = $view->new_display('block', 'Releases Bock', 'fserver_ui_block_releases');
@@ -243,6 +254,12 @@ function fserver_ui_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('No releases available.'),
+    t('project'),
+    t('Version'),
+    t('Downloads'),
+    t('Date'),
+    t('Links'),
+    t('Notes'),
     t('Releases Bock'),
     t('List of releases for a given project'),
   );
