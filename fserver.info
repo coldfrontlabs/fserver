@@ -5,7 +5,6 @@ package = Features
 php = 5.2.4
 dependencies[] = ctools
 dependencies[] = eck
-dependencies[] = eck
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_validation
