@@ -81,7 +81,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#size' => 40,
     '#maxlength' => 255,
   );
-
+  dpm($form);
+  dpm($form_state);
   $form['api'] = array(
     '#type' => 'textfield',
     '#title' => t('API'),
@@ -114,6 +115,6 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#maxlength' => 255,
   );  
   
-  // Disable the title field
-  $form['name']['#disabled'] = TRUE;
+  // Change to a hidden field since we generate this value anyway
+  $form['name']['#type'] = 'hidden';
 }
