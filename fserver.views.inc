@@ -30,7 +30,6 @@ function fserver_views_data_alter(&$data) {
       'label' => t('project'),
     );
   }
-  dpm($data);
 }
 
 
