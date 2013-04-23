@@ -10,7 +10,7 @@
  */
 function fserver_services_resources() {
   $resources = array();
-  
+
   // Project resource
   $project_resource = array(
     'project' => array(
@@ -42,7 +42,7 @@ function fserver_services_resources() {
     ),
   );
   $resources['project'] = $project_resource;
-  
+
   // Release resource
   $release_resource = array(
     'project' => array(
@@ -58,6 +58,6 @@ function fserver_services_resources() {
     ),
   );
   $resources['release'] = $release_resource;
-  
+
   return $resources;
 }
