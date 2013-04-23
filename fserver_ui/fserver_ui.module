@@ -82,6 +82,7 @@ function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$f
     '#description' => t('Machine-name of the project for this release.'),
     '#size' => 40,
     '#maxlength' => 255,
+    '#default_value' => $form['entity']->project_short_name,
   );
 
   $form['api'] = array(
