@@ -140,6 +140,29 @@ function _fserver_file_fserver_xml($item) {
 
 
 /**
+ * Check if project exists
+ *
+ * @param string $shortname
+ *  Project short name
+ *
+ * @return boolean
+ *  Returns TRUE if a project by that name exists, FALSE otherwise.
+ */
+function fserver__project_exists($shortname) {
+  $query = new EntityFieldQuery();
+  $project = $query
+    ->EntityCondition("entity_type", "project")
+    ->propertyCondition("short_name", $shortname)
+    ->execute();
+  if (!isset($project['project'])) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
  * Create an fserver project
  *
  * $project array(
