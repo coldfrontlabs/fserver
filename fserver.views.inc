@@ -21,7 +21,7 @@ function fserver_views_data_alter(&$data) {
   }
 
   if (isset($data['eck_release']['project_short_name'])) {
-    $data['eck_project']['short_name']['relationship'] = array(
+    $data['eck_release']['short_name']['relationship'] = array(
       'title' => t('Release project'),
       'help' => t('Add relationship to the project via shortname'),
       'handler' => 'views_handler_relationship',
