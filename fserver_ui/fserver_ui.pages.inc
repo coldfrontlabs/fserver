@@ -21,17 +21,19 @@ function fserver_ui_project_form(&$form, &$form_state) {
       'label' => t('Project short name'),
     ),
     '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->short_name) ? $form['entity']['#value']->short_name : '',
   );
   
   $form['recommended_major'] = array(
-    '#type' => 'textfield',
+    '#type' => 'numberfield',
     '#title' => t('Recommended Major'),
     '#description' => t('Major version which is recommended.'),
     '#size' => 40,
     '#maxlength' => 255,
-    // @todo set to number field
+    '#min' => 1,
     // @todo validate the major version exists
     '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->recommended_major) ? $form['entity']['#value']->recommended_major : '',
   );
   
   $form['supported_majors'] = array(
@@ -42,6 +44,7 @@ function fserver_ui_project_form(&$form, &$form_state) {
     '#maxlength' => 255,
     // @todo limit based on available major versions
     '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->supported_majors) ? $form['entity']['#value']->supported_majors : '',
   );
   
   $form['default_major'] = array(
@@ -52,6 +55,7 @@ function fserver_ui_project_form(&$form, &$form_state) {
     '#maxlength' => 255,
     // @todo set to number field
     '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->default_major) ? $form['entity']['#value']->default_major : '',
   );
   
   $form['project_status'] = array(
@@ -65,6 +69,7 @@ function fserver_ui_project_form(&$form, &$form_state) {
     ),
     '#default_value' => -1,
     '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->project_status) ? $form['entity']['#value']->project_status : '',
   );
 }
 
@@ -89,19 +94,18 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#description' => t('API version (i.e. 7.x)'),
     '#size' => 5,
     '#maxlength' => 4,
-    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
+    '#default_value' => isset($form['entity']['#value']->api) ? $form['entity']['#value']->api : '',
 
     // @todo add element validator
   );
 
   $form['version_major'] = array(
-    '#type' => 'textfield',
+    '#type' => 'numberfield',
     '#title' => t('Version Major'),
     '#size' => 3,
+    '#min' => 1,
     '#maxlength' => 3,
-    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
-
-    // @todo change to numberfield
+    '#default_value' => isset($form['entity']['#value']->version_major) ? $form['entity']['#value']->version_major : '',
   );
 
   $form['version_patch'] = array(
@@ -109,8 +113,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#title' => t('Version Patch'),
     '#size' => 6,
     '#maxlength' => 4,
-    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
-
+    '#default_value' => isset($form['entity']['#value']->version_patch) ? $form['entity']['#value']->version_patch : '',
+    // @todo add custom validator
   );
   
   $form['version_extra'] = array(
@@ -119,8 +123,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#description' => t('Ex: dev, alpha1'),
     '#size' => 40,
     '#maxlength' => 255,
-    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
-
+    '#default_value' => isset($form['entity']['#value']->version_extra) ? $form['entity']['#value']->version_extra : '',
+    // @todo add custom validator
   );  
   
   // Change to a hidden field since we generate this value anyway
