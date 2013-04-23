@@ -129,9 +129,9 @@ function fserver_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'fserver',
+        'module' => 'file',
         'settings' => array(),
-        'type' => 'file_hash_md5',
+        'type' => 'file_default',
         'weight' => 1,
       ),
       'teaser' => array(

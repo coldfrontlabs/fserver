@@ -46,34 +46,31 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No projects available.';
-  /* Field: Project: Id */
-  $handler->display->display_options['fields']['id']['id'] = 'id';
-  $handler->display->display_options['fields']['id']['table'] = 'eck_project';
-  $handler->display->display_options['fields']['id']['field'] = 'id';
-  /* Field: Project: Link */
-  $handler->display->display_options['fields']['view_link']['id'] = 'view_link';
-  $handler->display->display_options['fields']['view_link']['table'] = 'eck_project';
-  $handler->display->display_options['fields']['view_link']['field'] = 'view_link';
-  /* Field: Project: Name */
-  $handler->display->display_options['fields']['short_name']['id'] = 'short_name';
-  $handler->display->display_options['fields']['short_name']['table'] = 'eck_project';
-  $handler->display->display_options['fields']['short_name']['field'] = 'short_name';
-  /* Field: Project: Project Status */
-  $handler->display->display_options['fields']['project_status']['id'] = 'project_status';
-  $handler->display->display_options['fields']['project_status']['table'] = 'eck_project';
-  $handler->display->display_options['fields']['project_status']['field'] = 'project_status';
-  /* Field: Project: project type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'eck_project';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  /* Field: Project: Recommended Major */
-  $handler->display->display_options['fields']['recommended_major']['id'] = 'recommended_major';
-  $handler->display->display_options['fields']['recommended_major']['table'] = 'eck_project';
-  $handler->display->display_options['fields']['recommended_major']['field'] = 'recommended_major';
   /* Field: Project: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'eck_project';
   $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_type'] = 'h2';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
+  /* Field: Project: project type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'eck_project';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = 'Type';
+  /* Field: Project: Project Status */
+  $handler->display->display_options['fields']['project_status']['id'] = 'project_status';
+  $handler->display->display_options['fields']['project_status']['table'] = 'eck_project';
+  $handler->display->display_options['fields']['project_status']['field'] = 'project_status';
+  $handler->display->display_options['fields']['project_status']['label'] = 'Status';
+  /* Field: Project: Link */
+  $handler->display->display_options['fields']['view_link']['id'] = 'view_link';
+  $handler->display->display_options['fields']['view_link']['table'] = 'eck_project';
+  $handler->display->display_options['fields']['view_link']['field'] = 'view_link';
+  $handler->display->display_options['fields']['view_link']['label'] = '';
+  $handler->display->display_options['fields']['view_link']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_link']['text'] = 'more';
   /* Sort criterion: Project: Name */
   $handler->display->display_options['sorts']['short_name']['id'] = 'short_name';
   $handler->display->display_options['sorts']['short_name']['table'] = 'eck_project';
@@ -134,16 +131,9 @@ function fserver_ui_views_default_views() {
     t('next ›'),
     t('last »'),
     t('No projects available.'),
-    t('Id'),
-    t('.'),
-    t(','),
-    t('Link'),
-    t('Name'),
-    t('Project Status'),
-    t('project type'),
-    t('Recommended Major'),
-    t('Title'),
     t('Type'),
+    t('Status'),
+    t('Name'),
     t('Compatibility'),
     t('Projects Page'),
   );

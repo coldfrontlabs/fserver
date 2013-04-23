@@ -99,11 +99,6 @@ $items = array(
   'name' => 'release',
   'label' => 'Release',
   'properties' => array(
-    'name' => array(
-      'label' => 'name',
-      'type' => 'text',
-      'behavior' => 'title',
-    ),
     'version' => array(
       'label' => 'Version',
       'type' => 'text',
@@ -141,6 +136,11 @@ $items = array(
     ),
     'api' => array(
       'label' => 'API Version',
+      'type' => 'text',
+      'behavior' => '',
+    ),
+    'name' => array(
+      'label' => 'name',
       'type' => 'text',
       'behavior' => '',
     ),
