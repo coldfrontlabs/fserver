@@ -10,23 +10,39 @@
  */
 function fserver_views_data_alter(&$data) {
   if (isset($data['eck_project']['short_name'])) {
+    // Add join info
+    $data['eck_project']['table']['join'] = array(
+        'eck_release' => array(
+          'left_field' => 'project_short_name',
+          'field' => 'short_name',
+        ),
+      );
+
     $data['eck_project']['short_name']['relationship'] = array(
       'title' => t('Project release'),
       'help' => t('Add relationship to release via shortname'),
       'handler' => 'views_handler_relationship',
       'base' => 'eck_release',
-      'field' => 'project_short_name',
+      'base field' => 'project_short_name',
       'label' => t('release'),
     );
   }
 
   if (isset($data['eck_release']['project_short_name'])) {
+    // Add join info
+    $data['eck_release']['table']['join'] = array(
+        'eck_project' => array(
+          'left_field' => 'short_name',
+          'field' => 'project_short_name',
+        ),
+      );
+
     $data['eck_release']['project_short_name']['relationship'] = array(
       'title' => t('Release project'),
       'help' => t('Add relationship to the project via shortname'),
       'handler' => 'views_handler_relationship',
       'base' => 'eck_project',
-      'field' => 'short_name',
+      'base field' => 'short_name',
       'label' => t('project'),
     );
   }
