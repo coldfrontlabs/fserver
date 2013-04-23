@@ -18,6 +18,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#maxlength' => 255,
     '#machine_name' => array(
       'exists' => 'fserver__project_exists',
+      'source' => array('title'),
       'label' => t('Project short name'),
     ),
   );
