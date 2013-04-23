@@ -80,9 +80,9 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#description' => t('Machine-name of the project for this release.'),
     '#size' => 40,
     '#maxlength' => 255,
+    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
   );
-  dpm($form);
-  dpm($form_state);
+
   $form['api'] = array(
     '#type' => 'textfield',
     '#title' => t('API'),
