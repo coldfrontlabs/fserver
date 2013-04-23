@@ -10,6 +10,8 @@ include_once 'fserver_ui.features.inc';
  * Implements hook_form_alter().
  */
 function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$form_state, $form_id) {
+  // @todo set field order properly
+  
   $form['short_name'] = array(
     '#type' => 'machine_name',
     '#title' => t('Project Short Name'),
@@ -67,16 +69,6 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#default_value' => -1,
     '#weight' => 20,
   );
-  
-  
-  $form['#submit'][] = 'fserver_ui_project_module_form_submit';
-}
-
-/**
- * Submit callback for module project bundle
- */
-function fserver_ui_project_module_form_submit(&$form, &$form_state) {
-  
 }
 
 /**
@@ -126,13 +118,4 @@ function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$f
   
   // Disable the title field
   $form['name']['#disabled'] = TRUE;
-  
-  $form['#submit'][] = 'fserver_ui_release_form_submit';
-}
-
-/**
- * Submit callback
- */
-function fserver_ui_release_form_submit(&$form, &$form_state) {
-  dpm('submit!');
 }

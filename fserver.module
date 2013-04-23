@@ -326,7 +326,8 @@ class fserverRelease extends Entity {
   public function __construct($values = array()) {
     // @todo add release validation
     parent::__construct($values, 'release');
-    $this->generateReleaseName();
+
+    $this->generateReleaseName($values);
   }
 
   /**
@@ -334,18 +335,30 @@ class fserverRelease extends Entity {
    *
    * Pattern: <project_name> <api_version>-<release_version>
    * Ex: views 7.x-1.x-dev
+   *
+   * @param array $args [optional]
+   *  List of arguments passed into the constructor. Used to determine
+   *  how the release object is being created.
    */
-  public function generateReleaseName() {
+  public function generateReleaseName($args = array()) {
 
-    if (!empty($this->version_patch)) {
-      $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch . '-' . $this->version_extra;
-      $this->version = $this->tag;
-    } else {
-      $this->tag = $this->api . '-' . $this->version_major . '.x';
-      $this->version = $this->tag . '-' . $this->version_extra;
+    if (isset($args['is_new']) and $args['is_new'] == TRUE) {
+      // For now we do basic detection on new objects. But we
+      // should instead detect if the values for the name field
+      // are set.
+      // @todo
     }
+    else {
+      if (!empty($this->version_patch)) {
+        $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch . '-' . $this->version_extra;
+        $this->version = $this->tag;
+      } else {
+        $this->tag = $this->api . '-' . $this->version_major . '.x';
+        $this->version = $this->tag . '-' . $this->version_extra;
+      }
 
-    $this->name = $this->project_short_name . ' ' . $this->version;
+      $this->name = $this->project_short_name . ' ' . $this->version;      
+    }
   }
 }
 
