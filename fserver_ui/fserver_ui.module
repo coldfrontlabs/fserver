@@ -21,7 +21,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
       'source' => array('title'),
       'label' => t('Project short name'),
     ),
-    '#weight' => 10,
+    '#weight' => 20,
   );
   
   $form['recommended_major'] = array(
@@ -32,7 +32,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#maxlength' => 255,
     // @todo set to number field
     // @todo validate the major version exists
-    '#weight' => 10,
+    '#weight' => 20,
   );
   
   $form['supported_majors'] = array(
@@ -42,7 +42,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#size' => 40,
     '#maxlength' => 255,
     // @todo limit based on available major versions
-    '#weight' => 10,
+    '#weight' => 20,
   );
   
   $form['default_major'] = array(
@@ -52,7 +52,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     '#size' => 40,
     '#maxlength' => 255,
     // @todo set to number field
-    '#weight' => 10,
+    '#weight' => 20,
   );
   
   $form['project_status'] = array(
@@ -65,7 +65,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
       // @todo add the rest of the status codes
     ),
     '#default_value' => -1,
-    '#weight' => 10,
+    '#weight' => 20,
   );
   
   
