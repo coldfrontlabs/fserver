@@ -23,6 +23,47 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
     ),
   );
   
+  $form['recommended_major'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Recommended Major'),
+    '#description' => t('Major version which is recommended.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    // @todo set to number field
+    // @todo validate the major version exists
+  );
+  
+  $form['supported_majors'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Supported Majors'),
+    '#description' => t('Major versions which are supported.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    // @todo limit based on available major versions
+  );
+  
+  $form['default_major'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default Major'),
+    '#description' => t('Default major branch.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    // @todo set to number field
+  );
+  
+  $form['project_status'] = array(
+    '#type' => 'select',
+    '#title' => t('Project Status'),
+    '#multiple' => TRUE,
+    '#description' => t('Status code for the project. Affects how updates are displayed by the Update module.'),
+    '#options' => array(
+      'published' => t('Published'),
+      // @todo add the rest of the status codes
+    ),
+    '#default_value' => -1,
+  );
+  
+  
   $form['#submit'][] = 'fserver_ui_project_module_form_submit';
 }
 
