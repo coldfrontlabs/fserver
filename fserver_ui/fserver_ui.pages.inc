@@ -126,7 +126,4 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#default_value' => isset($form['entity']['#value']->version_extra) ? $form['entity']['#value']->version_extra : '',
     // @todo add custom validator
   );  
-  
-  // Change to a hidden field since we generate this value anyway
-  $form['name']['#type'] = 'hidden';
 }
