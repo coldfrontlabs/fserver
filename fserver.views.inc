@@ -30,5 +30,9 @@ function fserver_views_data_alter(&$data) {
       'label' => t('project'),
     );
   }
+  dpm($data);
 }
 
+
+// @todo add custom sort plugin to sort releases
+// @todo add custom grouping plugin to group releases
