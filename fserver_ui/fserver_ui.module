@@ -10,7 +10,7 @@ include_once 'fserver_ui.features.inc';
  * Implements hook_form_alter().
  */
 function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$form_state, $form_id) {
-  module_load_include('fserver_ui', 'inc', 'fserver.pages');
+  module_load_include('inc', 'fserver_ui', 'fserver_ui.pages');
   fserver_ui_project_form($form, $form_state);
 }
 
@@ -18,7 +18,7 @@ function fserver_ui_form_eck__entity__form_add_project_module_alter(&$form, &$fo
  * Implements hook_form_alter().
  */
 function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
-  module_load_include('fserver_ui', 'inc', 'fserver.pages');
+  module_load_include('inc', 'fserver_ui', 'fserver_ui.pages');
   fserver_ui_release_form($form, $form_state);
 }
 
@@ -26,6 +26,6 @@ function fserver_ui_form_eck__entity__form_add_release_release_alter(&$form, &$f
  * Implements hook_form_alter().
  */
 function fserver_ui_form_eck__entity__form_edit_release_release_alter(&$form, &$form_state) {
-  module_load_include('fserver_ui', 'inc', 'fserver.pages');
+  module_load_include('inc', 'fserver_ui', 'fserver_ui.pages');
   fserver_ui_release_form($form, $form_state);
 }
