@@ -45,7 +45,7 @@ function fserver_services_resources() {
 
   // Release resource
   $release_resource = array(
-    'project' => array(
+    'release' => array(
       'operations' => array(
         'retrieve' => array(),
         'create' => array(),
