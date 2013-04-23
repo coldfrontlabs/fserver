@@ -12,52 +12,46 @@ function fserver_services_resources() {
   $resources = array();
 
   // Project resource
-  $project_resource = array(
-    'project' => array(
-      'operations' => array(
-        'retrieve' => array(
-          'file' => array(
-            'type' => 'inc',
-            'module' => 'fserver_services',
-            'name' => 'resources/fserver_services.project'
-          ),
-          'callback' => '_fserver_services_retrieve_project',
-          'args' => array(
-            array(
-              'name' => 'short_name',
-              'optional' => FALSE,
-              'source' => array('path' => 0),
-              'type' => 'string',
-              'description' => 'The short name (i.e. machine name) of a project.',
-            ),
+  $resources['project'] =
+    'operations' => array(
+      'retrieve' => array(
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'fserver_services',
+          'name' => 'resources/fserver_services.project'
+        ),
+        'callback' => '_fserver_services_retrieve_project',
+        'args' => array(
+          array(
+            'name' => 'short_name',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'string',
+            'description' => 'The short name (i.e. machine name) of a project.',
           ),
         ),
-        'create' => array(),
-        'update' => array(),
-        'delete' => array(),
-        'index' => array(),
       ),
-      'targeted_actions' => array(),
-      'relationships' => array(),
+      //'create' => array(),
+      //'update' => array(),
+      //'delete' => array(),
+      //'index' => array(),
     ),
+    //'targeted_actions' => array(),
+    //'relationships' => array(),
   );
-  $resources['project'] = $project_resource;
 
   // Release resource
-  $release_resource = array(
-    'release' => array(
-      'operations' => array(
-        'retrieve' => array(),
-        'create' => array(),
-        'update' => array(),
-        'delete' => array(),
-        'index' => array(),
-      ),
-      'targeted_actions' => array(),
-      'relationships' => array(),
+  $resources['release'] = array(
+    'operations' => array(
+      'retrieve' => array(),
+      'create' => array(),
+      'update' => array(),
+      'delete' => array(),
+      'index' => array(),
     ),
+    'targeted_actions' => array(),
+    'relationships' => array(),
   );
-  $resources['release'] = $release_resource;
 
   return $resources;
 }
