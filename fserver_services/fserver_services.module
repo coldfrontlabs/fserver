@@ -12,7 +12,7 @@ function fserver_services_resources() {
   $resources = array();
 
   // Project resource
-  $resources['project'] =
+  $resources['project'] = array(
     'operations' => array(
       'retrieve' => array(
         'file' => array(
