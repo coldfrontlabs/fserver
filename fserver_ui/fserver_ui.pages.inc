@@ -89,6 +89,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#description' => t('API version (i.e. 7.x)'),
     '#size' => 5,
     '#maxlength' => 4,
+    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
+
     // @todo add element validator
   );
 
@@ -97,6 +99,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#title' => t('Version Major'),
     '#size' => 3,
     '#maxlength' => 3,
+    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
+
     // @todo change to numberfield
   );
 
@@ -105,6 +109,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#title' => t('Version Patch'),
     '#size' => 6,
     '#maxlength' => 4,
+    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
+
   );
   
   $form['version_extra'] = array(
@@ -113,6 +119,8 @@ function fserver_ui_release_form(&$form, &$form_state) {
     '#description' => t('Ex: dev, alpha1'),
     '#size' => 40,
     '#maxlength' => 255,
+    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
+
   );  
   
   // Change to a hidden field since we generate this value anyway
