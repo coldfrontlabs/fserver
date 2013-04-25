@@ -8,7 +8,7 @@
  /**
   * Form settings for the Project entity
   */
- function fserver_ui_project_form(&$form, &$form_state) {
+ function fserver_project_form(&$form, &$form_state) {
    $form['short_name'] = array(
      '#type' => 'machine_name',
      '#title' => t('Project Short Name'),
@@ -78,7 +78,7 @@
  /**
   * Form settings for the Release entity
   */
- function fserver_ui_release_form(&$form, &$form_state) {
+ function fserver_release_form(&$form, &$form_state) {
    $form['project_short_name'] = array(
      '#type' => 'textfield',
      '#title' => t('Project Short Name'),
