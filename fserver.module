@@ -24,7 +24,7 @@ function fserver_ctools_plugin_directory($owner, $plugin_type) {
  */
 function fserver_form_eck__entity__form_add_project_module_alter(&$form, &$form_state) {
   module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_ui_project_form($form, $form_state);
+  fserver_project_form($form, $form_state);
 }
 
 /**
@@ -32,7 +32,7 @@ function fserver_form_eck__entity__form_add_project_module_alter(&$form, &$form_
  */
 function fserver_form_eck__entity__form_add_project_theme_alter(&$form, &$form_state) {
   module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_ui_project_form($form, $form_state);
+  fserver_project_form($form, $form_state);
 }
 
 /**
@@ -40,7 +40,7 @@ function fserver_form_eck__entity__form_add_project_theme_alter(&$form, &$form_s
  */
 function fserver_form_eck__entity__form_add_project_distribution_alter(&$form, &$form_state) {
   module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_ui_project_form($form, $form_state);
+  fserver_project_form($form, $form_state);
 }
 
 /**
@@ -48,7 +48,7 @@ function fserver_form_eck__entity__form_add_project_distribution_alter(&$form, &
  */
 function fserver_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
   module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_ui_release_form($form, $form_state);
+  fserver_release_form($form, $form_state);
 }
 
 /**
@@ -56,7 +56,7 @@ function fserver_form_eck__entity__form_add_release_release_alter(&$form, &$form
  */
 function fserver_form_eck__entity__form_edit_release_release_alter(&$form, &$form_state) {
   module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_ui_release_form($form, $form_state);
+  fserver_release_form($form, $form_state);
 }
 
 /**
