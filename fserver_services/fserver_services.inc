@@ -20,7 +20,7 @@ class FeatureServerProjectXMLView extends RESTServerView {
     $root = $doc->createElement('project');
     $doc->appendChild($root);
 
-    $this->fserver_xml_recurse($doc, $root, $data);
+    $this->xml_recurse($doc, $root, $data);
 
     return $doc->saveXML();
   }
