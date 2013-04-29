@@ -20,6 +20,9 @@ function fserver_services_resources() {
           'module' => 'fserver_services',
           'name' => 'resources/fserver_services.project'
         ),
+        'access callback' => '_fserver_services_access',
+        'access arguments' => array('view'),
+        'access arguments append' => TRUE,
         'callback' => '_fserver_services_retrieve_project',
         'args' => array(
           array(
