@@ -21,5 +21,5 @@ function _fserver_services_retrieve_project($short_name, $api) {
   $releases = fserver__release_load_by_project($short_name, $api);
   
   // Build return object
-  // @todo
+  return $project;
 }
