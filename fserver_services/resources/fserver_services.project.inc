@@ -21,9 +21,17 @@ function _fserver_services_retrieve_project($short_name, $api) {
 
   // Build return object
   $project->releases = $releases;
+  
+  // Clean uncessearry data
+  unset($project->id);
+  
+  // Removing fields
   if (isset($project->field_compatibility)) {
     unset($project->field_compatibility);
   }
+
+  // Allow other modules to modify the XML before rendering
+  drupal_alter('fserver_services_xml', $project);
 
   return $project;
 }
