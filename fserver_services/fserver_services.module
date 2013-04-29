@@ -65,6 +65,6 @@ function fserver_services_resources() {
   return $resources;
 }
 
-function _fserver_services_retrieve_project($op) {
+function _fserver_services_access($op) {
   return TRUE;
 }
