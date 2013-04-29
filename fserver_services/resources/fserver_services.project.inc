@@ -47,7 +47,7 @@ function _fserver_services_retrieve_project($short_name, $api) {
 function _fserver_services_clean_releases(&$releases) {
   if (is_array($releases)) {
     foreach ($releases as &$release) {
-      unset($release['id']);
+      unset($release->id);
     }    
   }
   else {
