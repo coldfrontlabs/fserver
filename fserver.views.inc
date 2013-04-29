@@ -14,17 +14,18 @@ function fserver_views_plugins() {
   return array(
     'style' => array(
       'fserver_xml_style' => array(
-        'title' => t('Feature Server XML'),
+        'even empty' => FALSE,
         'help' => t('Display the results in an XML feed. Typically used to provide updates regarding Drupal projects.'),
         'handler' => 'fserver_views_plugin_style_fserver_xml',
         'theme' => 'fserver_xml_style',
         'theme file' => 'fserver.theme.inc',
         'theme path' => drupal_get_path('module', 'fserver') . '/theme',
+        'title' => t('Feature Server XML'),
+        'type' => 'normal',
         'uses row plugin' => TRUE,
         'uses fields' => TRUE,
         'uses options' => FALSE,
         'uses grouping' => FALSE,
-        'even empty' => FALSE,
       ),
     ),
   );
