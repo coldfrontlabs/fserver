@@ -45,7 +45,12 @@ function _fserver_services_retrieve_project($short_name, $api) {
  * Remove unwanted data from release objects
  */
 function _fserver_services_clean_releases(&$releases) {
-  foreach ($releases as &$release) {
-    unset($release['id']);
+  if (is_array($releases)) {
+    foreach ($releases as &$release) {
+      unset($release['id']);
+    }    
+  }
+  else {
+    // @todo
   }
 }
