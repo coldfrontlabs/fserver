@@ -25,7 +25,9 @@ function _fserver_services_retrieve_project($short_name, $api) {
   $releases = fserver__release_load_by_project($short_name, $api);
 
   // Build return object
-  $project->releases = _fserver_services_clean_releases($releases);
+  _fserver_services_clean_releases($releases);
+  
+  $project->releases = $releases;
   
   // Clean uncessearry data
   unset($project->id);
