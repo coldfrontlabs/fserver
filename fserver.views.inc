@@ -10,7 +10,7 @@
  *
  * This function annnounces the style plugin for flexslider views.
  */
-function fserver_views_views_plugins() {
+function fserver_views_plugins() {
   return array(
     'style' => array(
       'fserver_xml_style' => array(
