@@ -70,8 +70,17 @@ function fserver_services_resources() {
  */
 function fserver_services_rest_server_response_formatters_alter(&$formatters) {
   $formatters['x'] = $formatters['xml'];
+  $formatters['x']['view'] = 'FeatureServerProjectXMLView';
 }
 
+/**
+ * Access callback for Feature Server services
+ *
+ * @param string $op
+ *  Operation
+ * @return boolean
+ *  Return TRUE to grant access, FALSE otherwise.
+ */
 function _fserver_services_access($op) {
   return TRUE;
 }
