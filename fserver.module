@@ -109,7 +109,7 @@ function fserver_field_formatter_info() {
       'field types' => array('file'),
     ),
   );
-  
+
 }
 
 /**
@@ -128,15 +128,15 @@ function fserver_field_formatter_view($entity_type, $entity, $field, $instance, 
         $element[$delta] = array('#markup' => _fserver_file_fserver_xml($item));
       }
     break;
-    case 'file_size': 
+    case 'file_size':
       foreach ($items as $delta => $item) {
         $element[$delta] = array('#markup' => $item['filesize']);
       }
     break;
-    case 'file_hash_md5': 
+    case 'file_hash_md5':
       foreach ($items as $delta => $item) {
         if (isset($item['filehash']['md5'])) {
-          $element[$delta] = array('#markup' => $item['filehash']['md5']);          
+          $element[$delta] = array('#markup' => $item['filehash']['md5']);
         }
         else {
           watchdog('fserver', 'No MD5 hash exists for fid: @fid', array('@fid' => $item['fid']), WATCHDOG_WARNING);
@@ -227,6 +227,9 @@ function fserver__project_create($project) {
 
 /**
  * Load an fserver project by shortname
+ *
+ * @param string $shortname
+ *  Project shortname
  */
 function fserver__project_load($shortname) {
   $query = new EntityFieldQuery();
@@ -266,7 +269,7 @@ function fserver__project_delete($shortname) {
 
 /**
  * Create an fserver release
- * 
+ *
  * $release array(
  *   'project_short_name' => 'project_name',
  *   'api' = '7.x',
@@ -303,6 +306,44 @@ function fserver__release_load($name) {
   return array_pop($release);
 }
 
+/**
+ * Load all release entities for a given project
+ *
+ * Note that the dev release will also be the last item in the array.
+ *
+ * @param string $shortname
+ *  Project short name
+ * @param string $api
+ *  API version
+ * @return array|boolean
+ *  Returns an array of entities, FALSE otherwise.
+ */
+function fserver__release_load_by_project($shortname, $api) {
+  $query = new EntityFieldQuery();
+  $release = $query
+    ->EntityCondition("entity_type", "release")
+    ->propertyCondition("project_short_name", $shortname)
+    ->propertyCondition("api", $api)
+    ->propertyOrderBy('date', 'DESC')
+    ->execute();
+  if (!isset($release['release'])) {
+    return FALSE;
+  }
+
+  $releases = array_keys($release['release']);
+  $releases = entity_load('release', $release);
+
+  // Append dev release to the end of the array
+  foreach ($releases as $id = $release) {
+    if ($release->version_extra == 'dev') {
+      unset($releases[$id]);
+      $releases[] = $release;
+      break;
+    }
+  }
+
+  return $releases;
+}
 
 /**
  * Update an fserver release
@@ -398,7 +439,7 @@ class fserverRelease extends Entity {
         $this->version = $this->tag . '-' . $this->version_extra;
       }
 
-      $this->name = $this->project_short_name . ' ' . $this->version;      
+      $this->name = $this->project_short_name . ' ' . $this->version;
     }
   }
 }
