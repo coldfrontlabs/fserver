@@ -9,6 +9,7 @@ class FeatureServerProjectXMLView extends RESTServerViewBuiltIn {
   public function render() {
     switch ($this->arguments['format']) {
       case 'x':
+      case 'xml':
         return $this->render_x($this->model);
     }
     return '';
@@ -19,8 +20,38 @@ class FeatureServerProjectXMLView extends RESTServerViewBuiltIn {
     $root = $doc->createElement('project');
     $doc->appendChild($root);
 
-    $this->xml_recurse($doc, $root, $data);
+    $this->fserver_xml_recurse($doc, $root, $data);
 
     return $doc->saveXML();
+  }
+
+  private function fserver_xml_recurse(&$doc, &$parent, $data) {
+    if (is_object($data)) {
+      $data = get_object_vars($data);
+    }
+
+    if (is_array($data)) {
+      $assoc = FALSE || empty($data);
+      foreach ($data as $key => $value) {
+        if (is_numeric($key)) {
+          $key = 'item';
+        }
+        else {
+          $assoc = TRUE;
+          $key = preg_replace('/[^A-Za-z0-9_]/', '_', $key);
+          $key = preg_replace('/^([0-9]+)/', '_$1', $key);
+        }
+        $element = $doc->createElement($key);
+        $parent->appendChild($element);
+        $this->xml_recurse($doc, $element, $value);
+      }
+
+      if (!$assoc) {
+        $parent->setAttribute('is_array', 'true');
+      }
+    }
+    elseif ($data !== NULL) {
+      $parent->appendChild($doc->createTextNode($data));
+    }
   }
 }
