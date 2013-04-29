@@ -320,18 +320,18 @@ function fserver__release_load($name) {
  */
 function fserver__release_load_by_project($shortname, $api) {
   $query = new EntityFieldQuery();
-  $release = $query
+  $releases = $query
     ->EntityCondition("entity_type", "release")
     ->propertyCondition("project_short_name", $shortname)
     ->propertyCondition("api", $api)
     ->propertyOrderBy('date', 'DESC')
     ->execute();
-  if (!isset($release['release'])) {
+  if (!isset($releases['release'])) {
     return FALSE;
   }
 
-  $releases = array_keys($release['release']);
-  $releases = entity_load('release', $release);
+  $releases = array_keys($releases['release']);
+  $releases = entity_load('release', $releases);
 
   // Append dev release to the end of the array
   foreach ($releases as $id => $release) {
