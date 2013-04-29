@@ -12,27 +12,6 @@
  */
 function fserver_views_views_plugins() {
   return array(
-    'display' => array(
-      'fserver_xml_display' => array(
-        'accept attachments' => FALSE,
-        'admin' => t('Feature Server XML'),
-        'contextual links locations' => array(),
-        'help' => t('Display Feature Server project information in XML format. Typically used for providing updates to Drupal sites.'),
-        'handler' => 'fserver_views_plugin_display_fserver_xml',
-        'no remove' => FALSE,
-        'no ui' => FALSE, // @todo change to TRUE once dev is complete
-        'parent' => 'views_plugin_display_embed',
-        'theme' => 'fserver_xml_view',
-        'title' => t('Feature Server XML'),
-        'type' => 'fserver',
-        'use ajax' => FALSE,
-        'use pager' => FALSE,
-        'use more' => FALSE,
-        'uses hook block' => FALSE,
-        'uses hook menu' => FALSE,
-        'uses options' => FALSE,
-      ),
-    ),
     'style' => array(
       'fserver_xml_style' => array(
         'title' => t('Feature Server XML'),
@@ -45,7 +24,6 @@ function fserver_views_views_plugins() {
         'uses fields' => TRUE,
         'uses options' => FALSE,
         'uses grouping' => FALSE,
-        'type' => 'fserver',
         'even empty' => FALSE,
       ),
     ),
