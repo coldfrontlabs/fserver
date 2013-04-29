@@ -17,6 +17,11 @@ function _fserver_services_retrieve_project($short_name, $api) {
   }
 
   // Load releases
+  
+  // Since the .x is removed by Services (which mistakenly assumes it is
+  // a file extension) we must put it back
+  $api .= '.x';
+
   $releases = fserver__release_load_by_project($short_name, $api);
 
   // Build return object
