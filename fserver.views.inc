@@ -27,17 +27,6 @@ function fserver_views_plugins() {
         'even empty' => FALSE,
       ),
     ),
-    'row' => array(
-      'fserver_xml_row' => array(
-        'title' => t('Feature Server XML'),
-        'help' => t('Row plugin for Feature Server XML.'),
-        'handler' => 'fserver_views_plugin_row_fserver_xml',
-        'theme' => 'fserver_xml_row',
-        'theme file' => 'fserver.theme.inc',
-        'theme path' => drupal_get_path('module', 'fserver') . '/theme',
-        'uses fields' => TRUE,
-      ),
-    ),
   );
 }
 
