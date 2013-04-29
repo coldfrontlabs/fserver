@@ -9,25 +9,6 @@
  * Implements hook_views_data_alter().
  */
 function fserver_views_data_alter(&$data) {
-  if (isset($data['eck_project']['short_name'])) {
-    // Add join info
-    $data['eck_project']['table']['join'] = array(
-        'eck_release' => array(
-          'left_field' => 'project_short_name',
-          'field' => 'short_name',
-        ),
-      );
-
-    $data['eck_project']['short_name']['relationship'] = array(
-      'title' => t('Project release'),
-      'help' => t('Add relationship to release via shortname'),
-      'handler' => 'views_handler_relationship',
-      'base' => 'eck_release',
-      'base field' => 'project_short_name',
-      'label' => t('release'),
-    );
-  }
-
   if (isset($data['eck_release']['project_short_name'])) {
     // Add join info
     $data['eck_release']['table']['join'] = array(
