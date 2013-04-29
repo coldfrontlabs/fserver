@@ -8,14 +8,13 @@
 class FeatureServerProjectXMLView extends RESTServerViewBuiltIn {
   public function render() {
     switch ($this->arguments['format']) {
-      case 'xml':
       case 'x':
-        return $this->render_xml($this->model);
+        return $this->render_x($this->model);
     }
     return '';
   }
 
-  private function render_xml($data) {
+  private function render_x($data) {
     $doc = new DOMDocument('1.0', 'utf-8');
     $root = $doc->createElement('project');
     $doc->appendChild($root);
