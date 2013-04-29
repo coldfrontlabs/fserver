@@ -334,7 +334,7 @@ function fserver__release_load_by_project($shortname, $api) {
   $releases = entity_load('release', $release);
 
   // Append dev release to the end of the array
-  foreach ($releases as $id = $release) {
+  foreach ($releases as $id => $release) {
     if ($release->version_extra == 'dev') {
       unset($releases[$id]);
       $releases[] = $release;
