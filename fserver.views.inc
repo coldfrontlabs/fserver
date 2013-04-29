@@ -5,6 +5,64 @@
  * Views integration
  */
 
+/*
+ * Implements hook_views_plugins().
+ *
+ * This function annnounces the style plugin for flexslider views.
+ */
+function fserver_views_views_plugins() {
+  return array(
+    'display' => array(
+      'fserver_xml_display' => array(
+        'accept attachments' => FALSE,
+        'admin' => t('Feature Server XML'),
+        'contextual links locations' => array(),
+        'help' => t('Display Feature Server project information in XML format. Typically used for providing updates to Drupal sites.'),
+        'handler' => 'fserver_views_plugin_display_fserver_xml',
+        'no remove' => FALSE,
+        'no ui' => FALSE, // @todo change to TRUE once dev is complete
+        'parent' => 'views_plugin_display_embed',
+        'theme' => 'fserver_xml_view',
+        'title' => t('Feature Server XML'),
+        'type' => 'fserver',
+        'use ajax' => FALSE,
+        'use pager' => FALSE,
+        'use more' => FALSE,
+        'uses hook block' => FALSE,
+        'uses hook menu' => FALSE,
+        'uses options' => FALSE,
+      ),
+    ),
+    'style' => array(
+      'fserver_xml_style' => array(
+        'title' => t('Feature Server XML'),
+        'help' => t('Display the results in an XML feed. Typically used to provide updates regarding Drupal projects.'),
+        'handler' => 'fserver_views_plugin_style_fserver_xml',
+        'theme' => 'fserver_xml_style',
+        'theme file' => 'fserver.theme.inc',
+        'theme path' => drupal_get_path('module', 'fserver') . '/theme',
+        'uses row plugin' => TRUE,
+        'uses fields' => TRUE,
+        'uses options' => FALSE,
+        'uses grouping' => FALSE,
+        'type' => 'fserver',
+        'even empty' => FALSE,
+      ),
+    ),
+    'row' => array(
+      'fserver_xml_row' => array(
+        'title' => t('Feature Server XML'),
+        'help' => t('Row plugin for Feature Server XML.'),
+        'handler' => 'fserver_views_plugin_row_fserver_xml',
+        'theme' => 'fserver_xml_row',
+        'theme file' => 'fserver.theme.inc',
+        'theme path' => drupal_get_path('module', 'fserver') . '/theme',
+        'uses fields' => TRUE,
+      ),
+    ),
+  );
+}
+
 /**
  * Implements hook_views_data_alter().
  */
