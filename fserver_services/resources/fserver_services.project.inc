@@ -9,8 +9,6 @@
  * Callback to retrieve a project
  */
 function _fserver_services_retrieve_project($short_name, $api) {
-  dpm($short_name);
-  dpm($api);
   // Load project
   $project = fserver__project_load($short_name);
 
@@ -22,5 +20,7 @@ function _fserver_services_retrieve_project($short_name, $api) {
   $releases = fserver__release_load_by_project($short_name, $api);
   
   // Build return object
+  $project->releases = $releases;
+  
   return $project;
 }
