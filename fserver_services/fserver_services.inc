@@ -5,17 +5,17 @@
  * Custom RESTServer classes
  */
 
-class FeatureServerProjectXMLView extends RESTServerViewBuiltIn {
+class FeatureServerProjectXMLView extends RESTServerView {
   public function render() {
     switch ($this->arguments['format']) {
       case 'x':
       case 'xml':
-        return $this->render_x($this->model);
+        return $this->render_xml($this->model);
     }
     return '';
   }
 
-  private function render_x($data) {
+  private function render_xml($data) {
     $doc = new DOMDocument('1.0', 'utf-8');
     $root = $doc->createElement('project');
     $doc->appendChild($root);
@@ -25,7 +25,7 @@ class FeatureServerProjectXMLView extends RESTServerViewBuiltIn {
     return $doc->saveXML();
   }
 
-  private function fserver_xml_recurse(&$doc, &$parent, $data) {
+  private function xml_recurse(&$doc, &$parent, $data) {
     if (is_object($data)) {
       $data = get_object_vars($data);
     }
@@ -54,4 +54,5 @@ class FeatureServerProjectXMLView extends RESTServerViewBuiltIn {
       $parent->appendChild($doc->createTextNode($data));
     }
   }
+
 }
