@@ -65,6 +65,13 @@ function fserver_services_resources() {
   return $resources;
 }
 
+/**
+ * Add a response formatter for .x (since update paths end with the API version)
+ */
+function fserver_services_rest_server_response_formatters_alter(&$formatters) {
+  $formatters['x'] = $formatters['xml'];
+}
+
 function _fserver_services_access($op) {
   return TRUE;
 }
