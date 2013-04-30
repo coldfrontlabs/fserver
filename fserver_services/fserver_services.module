@@ -32,12 +32,6 @@ function fserver_services_resources() {
             'type' => 'string',
             'description' => 'The short name (i.e. machine name) of a project.',
           ),
-          array(
-            'name' => 'api',
-            'optional' => FALSE,
-            'source' => array('path' => 1),
-            'description' => 'API version compatibility',
-          ),
         ),
       ),
       //'create' => array(),
