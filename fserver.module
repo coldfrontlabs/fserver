@@ -488,7 +488,7 @@ class fserverProjectRelease {
         unset($release->field_release_notes);
       }      
     }
-    $this->releases = $releases;
+    $this->project->releases = $releases;
   }
   
   /**
@@ -496,6 +496,6 @@ class fserverProjectRelease {
    */
   private function prepareProject() {
     unset($this->project->id);
-    unset($this->field_compatibility);
+    unset($this->project->field_compatibility);
   }
 }
