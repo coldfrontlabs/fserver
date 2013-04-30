@@ -18,7 +18,25 @@ function fserver_services_default_services_endpoint() {
   $endpoint->server = 'rest_server';
   $endpoint->path = 'fserver';
   $endpoint->authentication = array();
-  $endpoint->server_settings = array();
+  $endpoint->server_settings = array(
+    'formatters' => array(
+      'x' => TRUE,
+      'xml' => TRUE,
+      'bencode' => FALSE,
+      'json' => FALSE,
+      'jsonp' => FALSE,
+      'php' => FALSE,
+      'rss' => FALSE,
+    ),
+    'parsers' => array(
+      'application/xml' => TRUE,
+      'text/xml' => TRUE,
+      'application/json' => FALSE,
+      'application/vnd.php.serialized' => FALSE,
+      'application/x-www-form-urlencoded' => FALSE,
+      'multipart/form-data' => FALSE,
+    ),
+  );
   $endpoint->resources = array(
     'project' => array(
       'relationships' => array(
