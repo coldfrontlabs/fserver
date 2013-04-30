@@ -47,6 +47,34 @@ function fserver_services_resources() {
     ),
     //'targeted_actions' => array(),
     //'relationships' => array(),
+    'actions' => array(
+      'release-history' => array(
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'fserver_services',
+          'name' => 'resources/fserver_services.release_history'
+        ),
+        'access callback' => '_fserver_services_access',
+        'access arguments' => array('release-history'),
+        'access arguments append' => TRUE,
+        'callback' => '_fserver_services_release_history',
+        'args' => array(
+          array(
+            'name' => 'short_name',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'string',
+            'description' => 'The short name (i.e. machine name) of a project.',
+          ),
+          array(
+            'name' => 'api',
+            'optional' => FALSE,
+            'source' => array('path' => 1),
+            'description' => 'API version compatibility',
+          ),
+        ),
+      ),
+    ),
   );
 
   // Release resource
