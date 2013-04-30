@@ -24,7 +24,7 @@ function _fserver_services_retrieve_project($short_name, $api) {
 
   $releases = fserver__release_load_by_project($short_name, $api);
 
-  $project = fserverProjectRelease($project, $api);
+  $project = new fserverProjectRelease($project, $api);
 
   // Allow other modules to modify the XML before rendering
   drupal_alter('fserver_services_xml', $project);
