@@ -62,5 +62,4 @@ class FeatureServerProjectXMLView extends RESTServerView {
       $parent->appendChild($doc->createTextNode($data));
     }
   }
-
 }
