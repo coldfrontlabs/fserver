@@ -48,8 +48,25 @@ function fserver_services_resources() {
       //'delete' => array(),
       //'index' => array(),
     ),
-    'relationships' => array(
-      'release-history' => array(
+  );
+
+  // Release resource
+  $resources['release'] = array(
+    'operations' => array(
+      'retrieve' => array(),
+      'create' => array(),
+      'update' => array(),
+      'delete' => array(),
+      'index' => array(),
+    ),
+    'targeted_actions' => array(),
+    'relationships' => array(),
+  );
+
+  // Release History
+  $resources['release-history'] = array(
+    'operations' => array(
+      'retrieve' => array(
         'file' => array(
           'type' => 'inc',
           'module' => 'fserver_services',
@@ -77,19 +94,6 @@ function fserver_services_resources() {
         ),
       ),
     ),
-  );
-
-  // Release resource
-  $resources['release'] = array(
-    'operations' => array(
-      'retrieve' => array(),
-      'create' => array(),
-      'update' => array(),
-      'delete' => array(),
-      'index' => array(),
-    ),
-    'targeted_actions' => array(),
-    'relationships' => array(),
   );
 
   return $resources;
