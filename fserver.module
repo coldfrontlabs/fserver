@@ -475,10 +475,17 @@ class fserverProjectRelease {
         unset($release->type);
         unset($release->project_short_name);
         unset($uid);
+        
+        // Build files array
         $files = array();
         foreach ($release->field_release_files[LANGUAGE_NONE] as $key => $file) {
           $files[$key] = _fserver_release_file_format($file);
         }
+        $release->files = $files;
+        
+        // Clean out file fields
+        unset($release->field_release_files);
+        unset($release->field_release_notes);
       }      
     }
     $this->releases = $releases;
