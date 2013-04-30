@@ -490,7 +490,6 @@ class fserverProjectRelease {
         // Copy the first files entry into the main release XML as the default
         // download
         $release->download_link = $release->files[0]['url'];
-        $release->date = $release->files[0]['filedate'];
         $release->mdhash = $release->files[0]['md5'];
         $release->filesize = $release->files[0]['size'];
       }      
