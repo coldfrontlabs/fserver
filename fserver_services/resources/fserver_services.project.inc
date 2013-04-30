@@ -24,35 +24,10 @@ function _fserver_services_retrieve_project($short_name, $api) {
 
   $releases = fserver__release_load_by_project($short_name, $api);
 
-  // Build return object
-  _fserver_services_clean_releases($releases);
-  
-  $project->releases = $releases;
-  
-  // Clean uncessearry data
-  unset($project->id);
-  
-  // Removing fields
-  if (isset($project->field_compatibility)) {
-    unset($project->field_compatibility);
-  }
+  $project = fserverProjectRelease($project, $api);
 
   // Allow other modules to modify the XML before rendering
   drupal_alter('fserver_services_xml', $project);
 
-  return $project;
-}
-
-/**
- * Remove unwanted data from release objects
- */
-function _fserver_services_clean_releases(&$releases) {
-  if (is_array($releases)) {
-    foreach ($releases as &$release) {
-      unset($release->id);
-    }    
-  }
-  else {
-    // @todo
-  }
+  return $project->getProject();
 }

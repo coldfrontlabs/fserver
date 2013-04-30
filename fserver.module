@@ -96,10 +96,6 @@ function fserver_release_access($op, $release = NULL, $account = NULL) {
  */
 function fserver_field_formatter_info() {
   return array(
-    'file_fserver_xml' => array(
-      'label' => t('FServer File XML'),
-      'field types' => array('file'),
-    ),
     'file_size' => array(
       'label' => t('File Size'),
       'field types' => array('file'),
@@ -120,14 +116,6 @@ function fserver_field_formatter_view($entity_type, $entity, $field, $instance, 
   $settings = $display['settings'];
 
   switch ($display['type']) {
-    case 'file_fserver_xml':
-      // Common case: each value is displayed individually in a sub-element
-      // keyed by delta. The field.tpl.php template specifies the markup
-      // wrapping each value.
-      foreach ($items as $delta => $item) {
-        $element[$delta] = array('#markup' => _fserver_file_fserver_xml($item));
-      }
-    break;
     case 'file_size':
       foreach ($items as $delta => $item) {
         $element[$delta] = array('#markup' => $item['filesize']);
@@ -151,8 +139,7 @@ function fserver_field_formatter_view($entity_type, $entity, $field, $instance, 
 /**
  * Generate the XML for a file field
  */
-function _fserver_file_fserver_xml($item) {
-  $filename = $item['filename'];
+function _fserver_release_file_format($item) {
 
   $archive_type = '';
   if ('.tar.gz' == drupal_substr($item['filename'], -7)) {
@@ -168,15 +155,14 @@ function _fserver_file_fserver_xml($item) {
     $archive_type = 'zip';
   }
 
-  $xml = "\r\n<file>\r\n";
-  $xml .= '<url>' . file_create_url($item['uri']) . "</url>\r\n";
-  $xml .= '<archive_type>' . $archive_type . "</archive_type>\r\n";
-  $xml .= '<md5>' . $item['filehash']['md5'] . "</md5>\r\n";
-  $xml .= '<size>' . check_plain($item['filesize']) . "</size>\r\n";
-  $xml .= '<filedate>' . $item['timestamp'] . "</filedate>\r\n";
-  $xml .= "</file>\r\n";
+  $file['archive_type'] = $archive_type;
 
-  return $xml;
+  $file['url'] = file_create_url($item['uri']);
+  $file['md5'] = $item['filehash']['md5'];
+  $file['size'] = check_plain($item['filesize']);
+  $file['filedate'] = $item['timestamp'];
+
+  return $file;
 }
 
 
@@ -452,5 +438,55 @@ class fserverReleaseController extends EntityAPIController {
     $entity->date = time();
     $entity->generateReleaseName();
     parent::save($entity, $transaction);
+  }
+}
+
+/**
+ * Project and releases in one object.
+ *
+ * Used to generate the update XML for a given project.
+ */
+class fserverProjectRelease {
+  protected $project;
+
+  /**
+   * 
+   */
+  public function __construct($project, $api) {
+    if (is_object($project) and get_class($project) == 'fserverProject') {
+      $this->project = $project;
+      $this->prepareReleases();
+      $this->prepareProject();
+    }
+    else {
+      $this->project = FALSE;
+    }
+  }
+  
+  public function getProject() {
+    return $this->project;
+  }
+  
+  protected function prepareReleases($api) {
+    $releases = fserver__release_load_by_project($this->project->short_name);
+    if (is_array($releases)) {
+      foreach ($releases as &$release) {
+        unset($release->id);
+        unset($release->type);
+        unset($release->project_short_name);
+        unset($uid);
+        $files = array();
+        foreach ($release['field_release_files'][LANGUAGE_NONE] as $key => $file) {
+          $files[$key] = _fserver_release_file_format($file);
+        }
+      }      
+    }
+    
+    $releases->files = $files;
+    $this->releases = $releases;
+  }
+  
+  protected function prepareProject() {
+    unset($this->project->id);
   }
 }
