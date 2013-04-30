@@ -455,7 +455,7 @@ class fserverProjectRelease {
   public function __construct($project, $api) {
     if (is_object($project) and get_class($project) == 'fserverProject') {
       $this->project = $project;
-      $this->prepareReleases();
+      $this->prepareReleases($api);
       $this->prepareProject();
     }
     else {
@@ -467,7 +467,7 @@ class fserverProjectRelease {
     return $this->project;
   }
   
-  protected function prepareReleases($api) {
+  private function prepareReleases($api) {
     $releases = fserver__release_load_by_project($this->project->short_name);
     if (is_array($releases)) {
       foreach ($releases as &$release) {
@@ -486,7 +486,7 @@ class fserverProjectRelease {
     $this->releases = $releases;
   }
   
-  protected function prepareProject() {
+  private function prepareProject() {
     unset($this->project->id);
   }
 }
