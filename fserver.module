@@ -468,13 +468,14 @@ class fserverProjectRelease {
   }
   
   private function prepareReleases($api) {
-    $releases = fserver__release_load_by_project($this->project->short_name);
+    $releases = fserver__release_load_by_project($this->project->short_name, $api);
     if (is_array($releases)) {
       foreach ($releases as &$release) {
         unset($release->id);
         unset($release->type);
         unset($release->project_short_name);
         unset($uid);
+        unset();
         $files = array();
         foreach ($release['field_release_files'][LANGUAGE_NONE] as $key => $file) {
           $files[$key] = _fserver_release_file_format($file);
