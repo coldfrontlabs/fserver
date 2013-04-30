@@ -21,7 +21,7 @@ function fserver_services_default_services_endpoint() {
   $endpoint->server_settings = array();
   $endpoint->resources = array(
     'project' => array(
-      'actions' => array(
+      'relationships' => array(
         'release-history' => array(
           'enabled' => '1',
         ),
