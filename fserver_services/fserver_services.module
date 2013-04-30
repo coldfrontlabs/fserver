@@ -48,7 +48,6 @@ function fserver_services_resources() {
       //'delete' => array(),
       //'index' => array(),
     ),
-    //'targeted_actions' => array(),
     'relationships' => array(
       'release-history' => array(
         'file' => array(
