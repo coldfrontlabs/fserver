@@ -450,7 +450,7 @@ class fserverProjectRelease {
   protected $project;
 
   /**
-   * 
+   * Build a fserverProjectRelease object
    */
   public function __construct($project, $api) {
     if (is_object($project) and get_class($project) == 'fserverProject') {
