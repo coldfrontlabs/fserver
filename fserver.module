@@ -486,7 +486,11 @@ class fserverProjectRelease {
     $this->releases = $releases;
   }
   
+  /**
+   * Prepare the project object
+   */
   private function prepareProject() {
     unset($this->project->id);
+    unset($this->field_compatibility);
   }
 }
