@@ -56,7 +56,7 @@ function fserver_services_resources() {
           'module' => 'fserver_services',
           'name' => 'resources/fserver_services.release_history'
         ),
-        'description' => t('Project release history XML feed.'),
+        'help' => t('Project release history XML feed.'),
         'access callback' => '_fserver_services_access',
         'access arguments' => array('release-history'),
         'access arguments append' => TRUE,
