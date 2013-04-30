@@ -4,5 +4,6 @@ core = 7.x
 
 dependencies[] = fserver
 dependencies[] = services (3.x)
+dependencies[] = restserver
 
 files[] = fserver_services.inc
