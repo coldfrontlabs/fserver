@@ -38,9 +38,9 @@ function fserver_services_default_services_endpoint() {
     ),
   );
   $endpoint->resources = array(
-    'project' => array(
-      'relationships' => array(
-        'release-history' => array(
+    'release-history' => array(
+      'operations' => array(
+        'retrieve' => array(
           'enabled' => '1',
         ),
       ),
