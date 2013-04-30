@@ -49,8 +49,7 @@ function fserver_services_resources() {
       //'index' => array(),
     ),
     //'targeted_actions' => array(),
-    //'relationships' => array(),
-    'actions' => array(
+    'relationships' => array(
       'release-history' => array(
         'file' => array(
           'type' => 'inc',
