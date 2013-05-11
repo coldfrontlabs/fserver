@@ -232,7 +232,6 @@ function fserver__project_load($shortname) {
   return array_pop($project);
 }
 
-
 /**
  *  Update an fserver project
  */
