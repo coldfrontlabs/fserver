@@ -20,7 +20,7 @@ class FeatureServerProjectXMLView extends RESTServerView {
     $root = $doc->createElement('project');
     $doc->appendChild($root);
 
-    if (is_subclass_of($data, 'SimpleXMLElement')) {
+    if (is_subclass_of($data, 'SimpleXMLElement') || is_subclass_of($data, 'DOMNode')) {
       watchdog('fserver', 'xml element', array(), WATCHDOG_DEBUG);
       $doc->appendChild($data);
       return $doc->saveXML();
