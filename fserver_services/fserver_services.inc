@@ -21,19 +21,15 @@ class FeatureServerProjectXMLView extends RESTServerView {
     $doc->appendChild($root);
 
     if (is_subclass_of($data, 'SimpleXMLElement')) {
-      dpm($data);
-      dpm('xml element');
+      watchdog('fserver', 'xml element', array(), WATCHDOG_DEBUG);
       $doc->appendChild($data);
       return $doc->saveXML();
     }
     else {
-      dpm('not simple xml');
+      watchdog('fserver', 'not xml element', array(), WATCHDOG_DEBUG);
       $this->xml_recurse($doc, $root, $data);      
       return $doc->saveXML();
     }
-
-
-
   }
 
   private function xml_recurse(&$doc, &$parent, $data) {
