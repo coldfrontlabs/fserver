@@ -10,11 +10,11 @@ class FeatureServerProjectXMLView extends RESTServerView {
     switch ($this->arguments['format']) {
       case 'x':
       case 'xml':
-        if (!is_subclass_of($this->model, 'SimpleXMLElement')) {
-          return $this->render_xml($this->model);
+        if (get_class($this->model) == 'SimpleXMLElement' || is_subclass_of($this->model, 'SimpleXMLElement')) {
+          return $this->model->asXML();
         }
         else {
-          return $this->model->asXML();
+          return $this->render_xml($this->model);
         }
     }
     return '';
