@@ -10,7 +10,12 @@ class FeatureServerProjectXMLView extends RESTServerView {
     switch ($this->arguments['format']) {
       case 'x':
       case 'xml':
-        return $this->render_xml($this->model);
+        if (!is_subclass_of($this->model, 'SimpleXMLElement')) {
+          return $this->render_xml($this->model);
+        }
+        else {
+          return $this->model->asXML();
+        }
     }
     return '';
   }
@@ -31,16 +36,8 @@ class FeatureServerProjectXMLView extends RESTServerView {
     if (is_array($data)) {
       $assoc = FALSE || empty($data);
       foreach ($data as $key => $value) {
-        if ($parent->tagName == 'releases') {
-          $key = 'release';
-          $assoc = TRUE;
-        }
-        elseif ($parent->tagName == 'files') {
-          $key = 'file';
-          $assoc = TRUE;
-        }
-        elseif (is_numeric($key)) {
-          $key = 'item';
+        if (is_numeric($key)) {
+          $key = $parent->tagName;
         }
         else {
           $assoc = TRUE;
@@ -48,7 +45,7 @@ class FeatureServerProjectXMLView extends RESTServerView {
           $key = preg_replace('/^([0-9]+)/', '_$1', $key);
         }
         $element = $doc->createElement($key);
-        $parent->appendChild($element);
+        $parent->parentNode->appendChild($element);
         $this->xml_recurse($doc, $element, $value);
       }
 
