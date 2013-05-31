@@ -19,19 +19,8 @@ class FeatureServerProjectXMLView extends RESTServerView {
     $doc = new DOMDocument('1.0', 'utf-8');
     $root = $doc->createElement('project');
     $doc->appendChild($root);
-
-    // We check if services has received an XML compatible object. If so,
-    // we use it directly in the response.
-    if (is_subclass_of($data, 'SimpleXMLElement') || is_subclass_of($data, 'DOMNode')) {
-      watchdog('fserver', 'xml element', array(), WATCHDOG_DEBUG);
-      $doc->appendChild($data);
-      return $doc->saveXML();
-    }
-    else {
-      watchdog('fserver', 'not xml element', array(), WATCHDOG_DEBUG);
-      $this->xml_recurse($doc, $root, $data);      
-      return $doc->saveXML();
-    }
+    $this->xml_recurse($doc, $root, $data);      
+    return $doc->saveXML();
   }
 
   private function xml_recurse(&$doc, &$parent, $data) {
