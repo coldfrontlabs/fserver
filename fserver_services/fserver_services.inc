@@ -10,22 +10,22 @@ class FeatureServerProjectXMLView extends RESTServerView {
     switch ($this->arguments['format']) {
       case 'x':
       case 'xml':
-        if (get_class($this->model) == 'SimpleXMLElement' || is_subclass_of($this->model, 'SimpleXMLElement')) {
-          return $this->model->asXML();
-        }
-        else {
-          return $this->render_xml($this->model);
-        }
+        return $this->render_xml($this->model);
     }
     return '';
   }
 
   private function render_xml($data) {
-    $doc = new DOMDocument('1.0', 'utf-8');
-    $root = $doc->createElement('project');
-    $doc->appendChild($root);
-    $this->xml_recurse($doc, $root, $data);      
-    return $doc->saveXML();
+    if (get_class($data) == 'SimpleXMLElement' || is_subclass_of($data, 'SimpleXMLElement')) {
+      return $data->asXML();
+    }
+    else {
+      $doc = new DOMDocument('1.0', 'utf-8');
+      $root = $doc->createElement('project');
+      $doc->appendChild($root);
+      $this->xml_recurse($doc, $root, $data);      
+      return $doc->saveXML();
+    }
   }
 
   private function xml_recurse(&$doc, &$parent, $data) {
