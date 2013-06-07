@@ -17,6 +17,7 @@ class FeatureServerProjectXMLView extends RESTServerView {
 
   private function render_xml($data) {
     if (get_class($data) == 'SimpleXMLElement' || is_subclass_of($data, 'SimpleXMLElement')) {
+      watchdog('fserver_services', 'loaded special case', array(), WATCHDOG_DEBUG);
       return $data->asXML();
     }
     else {
