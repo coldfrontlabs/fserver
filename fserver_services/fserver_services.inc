@@ -10,6 +10,7 @@ class FeatureServerProjectXMLView extends RESTServerView {
     switch ($this->arguments['format']) {
       case 'x':
       case 'xml':
+        watchdog('fserver_services', 'Loaded class', array(), WATCHDOG_DEBUG);
         return $this->render_xml($this->model);
     }
     return '';
@@ -21,6 +22,7 @@ class FeatureServerProjectXMLView extends RESTServerView {
       return $data->asXML();
     }
     else {
+      watchdog('fserver_services', 'Generate XML', array(), WATCHDOG_DEBUG);
       $doc = new DOMDocument('1.0', 'utf-8');
       $root = $doc->createElement('project');
       $doc->appendChild($root);
