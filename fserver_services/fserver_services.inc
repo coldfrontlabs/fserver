@@ -5,59 +5,50 @@
  * Custom RESTServer classes
  */
 
-class FeatureServerProjectXMLView extends RESTServerView {
-  public function render() {
-    switch ($this->arguments['format']) {
-      case 'x':
-      case 'xml':
-        watchdog('fserver_services', 'Loaded class', array(), WATCHDOG_DEBUG);
-        return $this->render_xml($this->model);
-    }
-    return '';
+class FeatureServerProjectXMLFormatter extends ServicesFormatterInterface {
+  public function render($data) {
+    $doc = new DOMDocument('1.0', 'utf-8');
+    $root = $doc->createElement('result');
+    $doc->appendChild($root);
+
+    $this->xml_recursive($doc, $root, $data);
+
+    return $doc->saveXML();
   }
 
-  private function render_xml($data) {
+  private function xml_recursive(&$doc, &$parent, $data) {
     if (get_class($data) == 'SimpleXMLElement' || is_subclass_of($data, 'SimpleXMLElement')) {
       watchdog('fserver_services', 'loaded special case', array(), WATCHDOG_DEBUG);
       return $data->asXML();
     }
     else {
-      watchdog('fserver_services', 'Generate XML', array(), WATCHDOG_DEBUG);
-      $doc = new DOMDocument('1.0', 'utf-8');
-      $root = $doc->createElement('project');
-      $doc->appendChild($root);
-      $this->xml_recurse($doc, $root, $data);      
-      return $doc->saveXML();
-    }
-  }
-
-  private function xml_recurse(&$doc, &$parent, $data) {
-    if (is_object($data)) {
-      $data = get_object_vars($data);
-    }
-
-    if (is_array($data)) {
-      $assoc = FALSE || empty($data);
-      foreach ($data as $key => $value) {
-        if (is_numeric($key)) {
-          $key = $parent->tagName;
-        }
-        else {
-          $assoc = TRUE;
-          $key = preg_replace('/[^A-Za-z0-9_]/', '_', $key);
-          $key = preg_replace('/^([0-9]+)/', '_$1', $key);
-        }
-        $element = $doc->createElement($key);
-        $parent->parentNode->appendChild($element);
-        $this->xml_recurse($doc, $element, $value);
+      if (is_object($data)) {
+        $data = get_object_vars($data);
       }
 
-      if (!$assoc) {
-        $parent->setAttribute('is_array', 'true');
+      if (is_array($data)) {
+        $assoc = FALSE || empty($data);
+        foreach ($data as $key => $value) {
+          if (is_numeric($key)) {
+            $key = 'item';
+          }
+          else {
+            $assoc = TRUE;
+            $key = preg_replace('/[^A-Za-z0-9_]/', '_', $key);
+            $key = preg_replace('/^([0-9]+)/', '_$1', $key);
+          }
+          $element = $doc->createElement($key);
+          $parent->appendChild($element);
+          $this->xml_recursive($doc, $element, $value);
+        }
+
+        if (!$assoc) {
+          $parent->setAttribute('is_array', 'true');
+        }
       }
-    }
-    elseif ($data !== NULL) {
-      $parent->appendChild($doc->createTextNode($data));
+      elseif ($data !== NULL) {
+        $parent->appendChild($doc->createTextNode($data));
+      }
     }
   }
 }

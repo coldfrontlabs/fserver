@@ -100,11 +100,13 @@ function fserver_services_resources() {
 }
 
 /**
+ * Implements hook_rest_server_response_formatters_alter().
+ * 
  * Add a response formatter for .x (since update paths end with the API version)
  */
 function fserver_services_rest_server_response_formatters_alter(&$formatters) {
   $formatters['x'] = $formatters['xml'];
-  $formatters['x']['view'] = 'FeatureServerProjectXMLView';
+  $formatters['x']['view'] = 'FeatureServerProjectXMLFormatter';
 }
 
 /**
