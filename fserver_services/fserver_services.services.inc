@@ -27,6 +27,7 @@ function fserver_services_default_services_endpoint() {
       'jsonp' => FALSE,
       'php' => FALSE,
       'rss' => FALSE,
+      'yaml' => FALSE,
     ),
     'parsers' => array(
       'application/xml' => TRUE,

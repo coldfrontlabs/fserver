@@ -10,5 +10,13 @@
  */
 function fserver_requirements($phase) {
   // @todo add check on filehash module and ensure that MD5 is enabled
+  // filehash_algos_md5 == TRUE
 }
 
+/**
+ * Implements hook_enable().
+ */
+function fserver_enable() {
+  // Enable MD5 hashes on files
+  variable_set('filehash-algos-md5', TRUE);
+}
