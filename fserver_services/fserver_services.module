@@ -107,6 +107,8 @@ function fserver_services_resources() {
 function fserver_services_rest_server_response_formatters_alter(&$formatters) {
   $formatters['x'] = $formatters['xml'];
   $formatters['x']['view'] = 'FeatureServerProjectXMLFormatter';
+  unset($formatters['xml']);
+  dpm($formatters);
 }
 
 /**
