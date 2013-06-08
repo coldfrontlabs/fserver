@@ -30,7 +30,15 @@ class FeatureServerProjectXMLFormatter implements ServicesFormatterInterface {
     if (is_array($data)) {
       $assoc = FALSE || empty($data);
       foreach ($data as $key => $value) {
-        if (is_numeric($key)) {
+        if ($parent->tagName == 'releases') {
+          $key = 'release';
+          $assoc = TRUE;
+        }
+        elseif ($parent->tagName == 'files') {
+          $key = 'file';
+          $assoc = TRUE;
+        }
+        elseif (is_numeric($key)) {
           $key = 'item';
         }
         else {
