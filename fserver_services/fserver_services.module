@@ -17,7 +17,7 @@ function fserver_services_ctools_plugin_api($module, $api) {
 /**
  * Implements hook_services_resources().
  */
-function fserver_services_resources() {
+function fserver_services_services_resources() {
   $resources = array();
 
   // Project resource
