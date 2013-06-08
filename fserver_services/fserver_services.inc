@@ -8,7 +8,7 @@
 class FeatureServerProjectXMLFormatter extends ServicesFormatterInterface {
   public function render($data) {
     $doc = new DOMDocument('1.0', 'utf-8');
-    $root = $doc->createElement('result');
+    $root = $doc->createElement('project');
     $doc->appendChild($root);
 
     $this->xml_recursive($doc, $root, $data);
