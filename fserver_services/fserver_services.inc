@@ -5,7 +5,7 @@
  * Custom RESTServer classes
  */
 
-class FeatureServerProjectXMLFormatter extends ServicesFormatterInterface {
+class FeatureServerProjectXMLFormatter implements ServicesFormatterInterface {
   public function render($data) {
     if (get_class($data) == 'SimpleXMLElement' || is_subclass_of($data, 'SimpleXMLElement')) {
       watchdog('fserver_services', 'loaded special case', array(), WATCHDOG_DEBUG);
