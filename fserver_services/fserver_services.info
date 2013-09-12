@@ -1,6 +1,7 @@
 name = Feature Server Services
 description = Expose project/release API via Services
 core = 7.x
+package = Features
 
 dependencies[] = fserver
 dependencies[] = services (>=3.4)
