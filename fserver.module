@@ -235,7 +235,6 @@ function fserver__project_create($project) {
   return entity_save('project', $entity);
 }
 
-
 /**
  * Load an fserver project by shortname
  *
@@ -486,11 +485,11 @@ class fserverProjectRelease {
       $this->project = FALSE;
     }
   }
-  
+
   public function getProject() {
     return $this->project;
   }
-  
+
   private function prepareReleases($api) {
     $releases = fserver__release_load_by_project($this->project->short_name, $api);
     if (is_array($releases)) {
@@ -499,28 +498,28 @@ class fserverProjectRelease {
         unset($release->type);
         unset($release->project_short_name);
         unset($uid);
-        
+
         // Build files array
         $files = array();
         foreach ($release->field_release_files[LANGUAGE_NONE] as $key => $file) {
           $files[$key] = _fserver_release_file_format($file);
         }
         $release->files = $files;
-        
+
         // Clean out file fields
         unset($release->field_release_files);
         unset($release->field_release_notes);
-        
+
         // Copy the first files entry into the main release XML as the default
         // download
         $release->download_link = $release->files[0]['url'];
         $release->mdhash = $release->files[0]['md5'];
         $release->filesize = $release->files[0]['size'];
-      }      
+      }
     }
     $this->project->releases = $releases;
   }
-  
+
   /**
    * Prepare the project object
    */
