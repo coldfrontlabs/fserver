@@ -114,29 +114,6 @@ function fserver_ui_views_default_views() {
   /* Display: Projects Page */
   $handler = $view->new_display('page', 'Projects Page', 'fserver_ui_projects');
   $handler->display->display_options['path'] = 'fserver/project-list';
-  $translatables['fserver_ui_projects'] = array(
-    t('Master'),
-    t('Projects'),
-    t('more'),
-    t('Filter'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('No projects available.'),
-    t('Type'),
-    t('Status'),
-    t('Name'),
-    t('Compatibility'),
-    t('Projects Page'),
-  );
   $export['fserver_ui_projects'] = $view;
 
   $view = new view();
@@ -234,25 +211,6 @@ function fserver_ui_views_default_views() {
   /* Display: Releases Bock */
   $handler = $view->new_display('block', 'Releases Bock', 'fserver_ui_block_releases');
   $handler->display->display_options['display_description'] = 'List of releases for a given project';
-  $translatables['fserver_ui_releases'] = array(
-    t('Master'),
-    t('Releases'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('No releases available.'),
-    t('project'),
-    t('Version'),
-    t('Downloads'),
-    t('Date'),
-    t('Links'),
-    t('Notes'),
-    t('Releases Bock'),
-    t('List of releases for a given project'),
-  );
   $export['fserver_ui_releases'] = $view;
 
   return $export;
