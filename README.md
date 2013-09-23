@@ -1,13 +1,6 @@
 Feature Server
 =======
 
-Feature server for Drupal 7
+Feature server for Drupal 7 is built using several "Features" from contributed modules including Services, Panels/Page Manager, Views and others. It is built this way to showcase the power of Features and what is possible by simply exporting configuration from a Drupal site.
 
-More documentation coming soon
-
-Views Data Export
-----------------
-
-At the moment, we use [views_data_export](http://drupal.org/project/views_data_export)
-to generate the XML. To do so, we have a few patches which should be
-incorporated into the project for the time being.
+We believe Feature Server is an import part of the Drupal ecosystem as it allows configured components to be shared.
