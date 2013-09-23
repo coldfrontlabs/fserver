@@ -168,11 +168,32 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['sorts']['type']['field'] = 'type';
   $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['type']['expose']['label'] = 'Type';
+  /* Filter criterion: Global: Combine fields filter */
+  $handler->display->display_options['filters']['combine']['id'] = 'combine';
+  $handler->display->display_options['filters']['combine']['table'] = 'views';
+  $handler->display->display_options['filters']['combine']['field'] = 'combine';
+  $handler->display->display_options['filters']['combine']['operator'] = 'word';
+  $handler->display->display_options['filters']['combine']['group'] = 1;
+  $handler->display->display_options['filters']['combine']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['combine']['expose']['operator_id'] = 'combine_op';
+  $handler->display->display_options['filters']['combine']['expose']['label'] = 'Text Filter';
+  $handler->display->display_options['filters']['combine']['expose']['operator'] = 'combine_op';
+  $handler->display->display_options['filters']['combine']['expose']['identifier'] = 'textfilter';
+  $handler->display->display_options['filters']['combine']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['combine']['fields'] = array(
+    'title' => 'title',
+    'body' => 'body',
+  );
   /* Filter criterion: Project type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'eck_project';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['ui_name'] = 'Project type';
+  $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
@@ -186,6 +207,7 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['filters']['field_compatibility_value']['id'] = 'field_compatibility_value';
   $handler->display->display_options['filters']['field_compatibility_value']['table'] = 'field_data_field_compatibility';
   $handler->display->display_options['filters']['field_compatibility_value']['field'] = 'field_compatibility_value';
+  $handler->display->display_options['filters']['field_compatibility_value']['group'] = 1;
   $handler->display->display_options['filters']['field_compatibility_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_compatibility_value']['expose']['operator_id'] = 'field_compatibility_value_op';
   $handler->display->display_options['filters']['field_compatibility_value']['expose']['label'] = 'Compatibility';
@@ -201,6 +223,7 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['filters']['nid']['field'] = 'nid';
   $handler->display->display_options['filters']['nid']['relationship'] = 'reverse_field_project_reference_node';
   $handler->display->display_options['filters']['nid']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['nid']['group'] = 1;
 
   /* Display: Projects Page */
   $handler = $view->new_display('page', 'Projects Page', 'fserver_ui_projects');
