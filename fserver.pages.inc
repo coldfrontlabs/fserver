@@ -109,26 +109,45 @@ function fserver_release_form(&$form, &$form_state) {
     '#size' => 40,
     '#maxlength' => 255,
     '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
+    '#element_validate' => '_fserver_release_validate_project_short_name',
+    '#required' => TRUE,
   );
 
   $form['api'] = array(
-    '#type' => 'textfield',
+    '#type' => 'select',
     '#title' => t('API'),
     '#description' => t('API version (i.e. 7.x)'),
-    '#size' => 5,
-    '#maxlength' => 4,
-    '#default_value' => isset($form['entity']['#value']->api) ? $form['entity']['#value']->api : '',
-
-    // @todo add element validator
+    '#default_value' => isset($form['entity']['#value']->api) ? $form['entity']['#value']->api : '7.x',
+    '#required' => TRUE,
+    '#multiple' => FALSE,
+    '#options' => array(
+      '5.x' => t('5.x'),
+      '6.x' => t('6.x'),
+      '7.x' => t('7.x'),
+      '8.x' => t('8.x'),
+    ),
   );
 
   $form['version_major'] = array(
     '#type' => 'numberfield',
     '#title' => t('Version Major'),
-    '#size' => 3,
+    '#size' => 15,
     '#min' => 1,
     '#maxlength' => 3,
     '#default_value' => isset($form['entity']['#value']->version_major) ? $form['entity']['#value']->version_major : '',
+    '#required' => TRUE,
+    // @todo add auto-detection based on project repo data
+  );
+
+  $form['version_extra'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Version Extra'),
+    '#description' => t('Ex: dev, alpha1'),
+    '#size' => 15,
+    '#maxlength' => 20,
+    '#default_value' => isset($form['entity']['#value']->version_extra) ? $form['entity']['#value']->version_extra : '',
+    // @todo add custom validator
+    // @todo add auto-detection based on project repo data
   );
 
   $form['version_patch'] = array(
@@ -138,17 +157,23 @@ function fserver_release_form(&$form, &$form_state) {
     '#maxlength' => 4,
     '#default_value' => isset($form['entity']['#value']->version_patch) ? $form['entity']['#value']->version_patch : '',
     // @todo add custom validator
-  );
-
-  $form['version_extra'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Version Extra'),
-    '#description' => t('Ex: dev, alpha1'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    '#default_value' => isset($form['entity']['#value']->version_extra) ? $form['entity']['#value']->version_extra : '',
-    // @todo add custom validator
-  );
-  
+  );  
   # @todo add access check on form
+}
+
+/**
+ * Validate the name of the project
+ */
+function _fserver_release_validate_project_short_name($element, &$form_state, $form) {
+  $query = new EntityFieldQuery();
+  
+  $query->entityCondition('entity_type', 'project')
+    ->propertyCondition('short_name', $form_state['values']['project_short_name'])
+    ->count();
+  $result = $query->execute();
+
+  if ($result <= 0) {
+    form_error($element, t('Unknown project short name.'));
+  }
+  // @todo check that the given user has the rights to create a release for the given project
 }
