@@ -77,11 +77,11 @@ function fserver_ui_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_project_reference',
     'foreign keys' => array(
-      'node' => array(
+      'eck_project' => array(
         'columns' => array(
-          'target_id' => 'nid',
+          'target_id' => 'id',
         ),
-        'table' => 'node',
+        'table' => 'eck_project',
       ),
     ),
     'indexes' => array(
