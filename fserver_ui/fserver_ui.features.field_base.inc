@@ -39,6 +39,38 @@ function fserver_ui_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
+  // Exported field_base: 'field_fserver_demo'
+  $field_bases['field_fserver_demo'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_demo',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'url',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'url',
+  );
+
+  // Exported field_base: 'field_fserver_documentation'
+  $field_bases['field_fserver_documentation'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_documentation',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'url',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'url',
+  );
+
   // Exported field_base: 'field_fserver_image'
   $field_bases['field_fserver_image'] = array(
     'active' => 1,

@@ -29,9 +29,9 @@ function fserver_ui_views_api($module = NULL, $api = NULL) {
 function fserver_ui_node_info() {
   $items = array(
     'fserver_project_description' => array(
-      'name' => t('Project'),
+      'name' => t('Project Page'),
       'base' => 'node_content',
-      'description' => t('Create a Drupal project page for a new theme, distribution or module.'),
+      'description' => t('Create a project page for a new theme, distribution or module.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

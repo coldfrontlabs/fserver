@@ -54,6 +54,94 @@ function fserver_ui_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-fserver_project_description-field_fserver_demo'
+  $field_instances['node-fserver_project_description-field_fserver_demo'] = array(
+    'bundle' => 'fserver_project_description',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Demonstration site or URL.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'url',
+        'settings' => array(
+          'nofollow' => FALSE,
+          'trim_length' => 80,
+        ),
+        'type' => 'url_default',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_fserver_demo',
+    'label' => 'Demo',
+    'required' => 0,
+    'settings' => array(
+      'title_fetch' => 0,
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'url',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'url_external',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-fserver_project_description-field_fserver_documentation'
+  $field_instances['node-fserver_project_description-field_fserver_documentation'] = array(
+    'bundle' => 'fserver_project_description',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Link to documentation page.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'url',
+        'settings' => array(
+          'nofollow' => FALSE,
+          'trim_length' => 80,
+        ),
+        'type' => 'url_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_fserver_documentation',
+    'label' => 'Documentation',
+    'required' => 0,
+    'settings' => array(
+      'title_fetch' => 0,
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'url',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'url_external',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-fserver_project_description-field_fserver_image'
   $field_instances['node-fserver_project_description-field_fserver_image'] = array(
     'bundle' => 'fserver_project_description',
@@ -149,7 +237,11 @@ function fserver_ui_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
+  t('Demo');
+  t('Demonstration site or URL.');
+  t('Documentation');
   t('Link this description to the given project entity.');
+  t('Link to documentation page.');
   t('Project Reference');
   t('Screenshots');
   t('Screenshots for the given project.');
