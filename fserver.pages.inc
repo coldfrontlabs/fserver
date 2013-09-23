@@ -9,6 +9,14 @@
  * Form settings for the Project entity
  */
 function fserver_project_form(&$form, &$form_state) {
+  if (isset($form['title'])) {
+    $form['title']['#weight'] = -10;
+  }
+
+  if (isset($form['field_compatibility'])) {
+    $form['field_compatibility']['#weight'] = 0;
+  }
+
   $form['short_name'] = array(
     '#type' => 'machine_name',
     '#title' => t('Project Short Name'),
@@ -20,43 +28,8 @@ function fserver_project_form(&$form, &$form_state) {
       'source' => array('title'),
       'label' => t('Project short name'),
     ),
-    '#weight' => 20,
+    '#weight' => -9,
     '#default_value' => isset($form['entity']['#value']->short_name) ? $form['entity']['#value']->short_name : '',
-  );
-
-  $form['recommended_major'] = array(
-    '#type' => 'numberfield',
-    '#title' => t('Recommended Major'),
-    '#description' => t('Major version which is recommended.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    '#min' => 1,
-    // @todo validate the major version exists
-    '#weight' => 20,
-    '#default_value' => isset($form['entity']['#value']->recommended_major) ? $form['entity']['#value']->recommended_major : '',
-  );
-
-  $form['supported_majors'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Supported Majors'),
-    '#description' => t('Major versions which are supported.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    // @todo limit based on available major versions
-    '#weight' => 20,
-    '#default_value' => isset($form['entity']['#value']->supported_majors) ? $form['entity']['#value']->supported_majors : '',
-    // @todo add element validator
-  );
-
-  $form['default_major'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default Major'),
-    '#description' => t('Default major branch.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    '#weight' => 20,
-    '#default_value' => isset($form['entity']['#value']->default_major) ? $form['entity']['#value']->default_major : '',
-    // @todo add element validator
   );
 
   $form['project_status'] = array(
@@ -72,9 +45,55 @@ function fserver_project_form(&$form, &$form_state) {
       'revoked' => t('Revoked'),
       'unsupported' => t('Unsupported'),
     ),
-    '#weight' => 20,
     '#default_value' => isset($form['entity']['#value']->project_status) ? $form['entity']['#value']->project_status : '',
   );
+
+
+  $form['advanced'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Advanced'),
+    '#description' => t('The following options are normally auto-detected based on your repository data. Please use caution when modifying the following.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  
+
+  $form['advanced']['supported_majors'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Supported Majors'),
+    '#description' => t('Major versions which are supported.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    // @todo limit based on available major versions
+    '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->supported_majors) ? $form['entity']['#value']->supported_majors : '',
+    // @todo add element validator
+  );
+
+  $form['advanced']['recommended_major'] = array(
+    '#type' => 'numberfield',
+    '#title' => t('Recommended Major'),
+    '#description' => t('Major version which is recommended.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#min' => 1,
+    // @todo validate the major version exists
+    '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->recommended_major) ? $form['entity']['#value']->recommended_major : '',
+  );
+
+  $form['advanced']['default_major'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default Major'),
+    '#description' => t('Default major branch.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#weight' => 20,
+    '#default_value' => isset($form['entity']['#value']->default_major) ? $form['entity']['#value']->default_major : '',
+    // @todo add element validator
+  );
+  
+  # @todo add access check on form
 }
 
 
@@ -129,5 +148,7 @@ function fserver_release_form(&$form, &$form_state) {
     '#maxlength' => 255,
     '#default_value' => isset($form['entity']['#value']->version_extra) ? $form['entity']['#value']->version_extra : '',
     // @todo add custom validator
-  );  
+  );
+  
+  # @todo add access check on form
 }
