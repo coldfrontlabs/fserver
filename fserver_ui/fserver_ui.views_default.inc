@@ -29,10 +29,11 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Filter';
-  $handler->display->display_options['pager']['type'] = 'mini';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
@@ -92,12 +93,22 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_project_reference_node']['id'] = 'reverse_field_project_reference_node';
   $handler->display->display_options['relationships']['reverse_field_project_reference_node']['table'] = 'eck_project';
   $handler->display->display_options['relationships']['reverse_field_project_reference_node']['field'] = 'reverse_field_project_reference_node';
+  /* Field: Content: Path */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  $handler->display->display_options['fields']['path']['relationship'] = 'reverse_field_project_reference_node';
+  $handler->display->display_options['fields']['path']['label'] = '';
+  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   /* Field: Project: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'eck_project';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = 'Name';
-  $handler->display->display_options['fields']['title']['element_type'] = 'h2';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = '[path]';
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
   /* Field: Content: Body */
@@ -106,11 +117,20 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['relationship'] = 'reverse_field_project_reference_node';
   $handler->display->display_options['fields']['body']['label'] = 'Description';
+  $handler->display->display_options['fields']['body']['type'] = 'text_summary_or_trimmed';
+  $handler->display->display_options['fields']['body']['settings'] = array(
+    'trim_length' => '150',
+  );
   /* Field: Project: project type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'eck_project';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['label'] = 'Type';
+  /* Field: Project: Compatibility */
+  $handler->display->display_options['fields']['field_compatibility']['id'] = 'field_compatibility';
+  $handler->display->display_options['fields']['field_compatibility']['table'] = 'field_data_field_compatibility';
+  $handler->display->display_options['fields']['field_compatibility']['field'] = 'field_compatibility';
+  $handler->display->display_options['fields']['field_compatibility']['delta_offset'] = '0';
   /* Field: Project: Project Status */
   $handler->display->display_options['fields']['project_status']['id'] = 'project_status';
   $handler->display->display_options['fields']['project_status']['table'] = 'eck_project';
@@ -175,6 +195,12 @@ function fserver_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
+  /* Filter criterion: Content: Nid */
+  $handler->display->display_options['filters']['nid']['id'] = 'nid';
+  $handler->display->display_options['filters']['nid']['table'] = 'node';
+  $handler->display->display_options['filters']['nid']['field'] = 'nid';
+  $handler->display->display_options['filters']['nid']['relationship'] = 'reverse_field_project_reference_node';
+  $handler->display->display_options['filters']['nid']['operator'] = 'not empty';
 
   /* Display: Projects Page */
   $handler = $view->new_display('page', 'Projects Page', 'fserver_ui_projects');
@@ -190,6 +216,11 @@ function fserver_ui_views_default_views() {
   /* Display: Projects Block */
   $handler = $view->new_display('block', 'Projects Block', 'block_1');
   $handler->display->display_options['display_description'] = 'List projects in a block';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
   $export['fserver_ui_projects'] = $view;
 
   $view = new view();

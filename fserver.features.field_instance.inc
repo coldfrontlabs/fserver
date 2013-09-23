@@ -34,7 +34,7 @@ function fserver_field_default_field_instances() {
     'entity_type' => 'project',
     'field_name' => 'field_compatibility',
     'label' => 'Compatibility',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -108,7 +108,7 @@ function fserver_field_default_field_instances() {
     'entity_type' => 'project',
     'field_name' => 'field_compatibility',
     'label' => 'Compatibility',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
