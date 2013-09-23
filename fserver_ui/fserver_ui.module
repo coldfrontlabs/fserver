@@ -5,3 +5,10 @@
  */
 
 include_once 'fserver_ui.features.inc';
+
+function fserver_ui_form_fserver_project_description_node_form_alter(&$form, &$form_state) {
+  if (!empty($form['field_project_reference'][LANGUAGE_NONE]['form'])) {
+    module_load_include('inc', 'fserver', 'fserver.pages');
+    fserver_project_form($form['field_project_reference'][LANGUAGE_NONE]['form'], $form_state);
+  }
+}
