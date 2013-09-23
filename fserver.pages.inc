@@ -45,6 +45,7 @@ function fserver_project_form(&$form, &$form_state) {
     // @todo limit based on available major versions
     '#weight' => 20,
     '#default_value' => isset($form['entity']['#value']->supported_majors) ? $form['entity']['#value']->supported_majors : '',
+    // @todo add element validator
   );
 
   $form['default_major'] = array(
@@ -53,9 +54,9 @@ function fserver_project_form(&$form, &$form_state) {
     '#description' => t('Default major branch.'),
     '#size' => 40,
     '#maxlength' => 255,
-    // @todo set to number field
     '#weight' => 20,
     '#default_value' => isset($form['entity']['#value']->default_major) ? $form['entity']['#value']->default_major : '',
+    // @todo add element validator
   );
 
   $form['project_status'] = array(
@@ -64,10 +65,13 @@ function fserver_project_form(&$form, &$form_state) {
     '#multiple' => FALSE,
     '#description' => t('Status code for the project. Affects how updates are displayed by the Update module.'),
     '#options' => array(
+      # @see https://api.drupal.org/api/drupal/modules%21update%21update.compare.inc/7
       'published' => t('Published'),
-      // @todo add the rest of the status codes
+      'unpublished' => t('Unpublished'),
+      'insecure' => t('Insecure'),
+      'revoked' => t('Revoked'),
+      'unsupported' => t('Unsupported'),
     ),
-    '#default_value' => -1,
     '#weight' => 20,
     '#default_value' => isset($form['entity']['#value']->project_status) ? $form['entity']['#value']->project_status : '',
   );
