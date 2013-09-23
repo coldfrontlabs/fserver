@@ -3,6 +3,7 @@ description = Feature module server
 core = 7.x
 package = Features
 php = 5.2.4
+project status url = https://dropfort.com/fserver
 dependencies[] = ctools
 dependencies[] = eck
 dependencies[] = entityreference

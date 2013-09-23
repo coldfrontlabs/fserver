@@ -18,7 +18,6 @@ function fserver_ctools_plugin_directory($owner, $plugin_type) {
   }
 }
 
-
 /**
  * Implements hook_form_alter().
  */
