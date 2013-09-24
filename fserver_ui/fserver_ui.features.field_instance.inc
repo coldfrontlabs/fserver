@@ -10,9 +10,9 @@
 function fserver_ui_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-fserver_project_description-body'
-  $field_instances['node-fserver_project_description-body'] = array(
-    'bundle' => 'fserver_project_description',
+  // Exported field_instance: 'node-fserver_project_page-body'
+  $field_instances['node-fserver_project_page-body'] = array(
+    'bundle' => 'fserver_project_page',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -54,9 +54,9 @@ function fserver_ui_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fserver_project_description-field_fserver_demo'
-  $field_instances['node-fserver_project_description-field_fserver_demo'] = array(
-    'bundle' => 'fserver_project_description',
+  // Exported field_instance: 'node-fserver_project_page-field_fserver_demo'
+  $field_instances['node-fserver_project_page-field_fserver_demo'] = array(
+    'bundle' => 'fserver_project_page',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'Demonstration site or URL.',
@@ -98,9 +98,9 @@ function fserver_ui_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fserver_project_description-field_fserver_documentation'
-  $field_instances['node-fserver_project_description-field_fserver_documentation'] = array(
-    'bundle' => 'fserver_project_description',
+  // Exported field_instance: 'node-fserver_project_page-field_fserver_documentation'
+  $field_instances['node-fserver_project_page-field_fserver_documentation'] = array(
+    'bundle' => 'fserver_project_page',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'Link to documentation page.',
@@ -142,9 +142,9 @@ function fserver_ui_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fserver_project_description-field_fserver_image'
-  $field_instances['node-fserver_project_description-field_fserver_image'] = array(
-    'bundle' => 'fserver_project_description',
+  // Exported field_instance: 'node-fserver_project_page-field_fserver_image'
+  $field_instances['node-fserver_project_page-field_fserver_image'] = array(
+    'bundle' => 'fserver_project_page',
     'deleted' => 0,
     'description' => 'Screenshots for the given project.',
     'display' => array(
@@ -192,9 +192,9 @@ function fserver_ui_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fserver_project_description-field_project_reference'
-  $field_instances['node-fserver_project_description-field_project_reference'] = array(
-    'bundle' => 'fserver_project_description',
+  // Exported field_instance: 'node-fserver_project_page-field_project_reference'
+  $field_instances['node-fserver_project_page-field_project_reference'] = array(
+    'bundle' => 'fserver_project_page',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => 'Link this description to the given project entity.',
