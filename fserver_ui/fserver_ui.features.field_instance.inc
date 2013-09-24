@@ -227,7 +227,11 @@ function fserver_ui_field_default_field_instances() {
       'module' => 'inline_entity_form',
       'settings' => array(
         'fields' => array(),
-        'type_settings' => array(),
+        'type_settings' => array(
+          'allow_existing' => 1,
+          'delete_references' => 1,
+          'match_operator' => 'CONTAINS',
+        ),
       ),
       'type' => 'inline_entity_form',
       'weight' => 3,

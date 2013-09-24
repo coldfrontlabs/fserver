@@ -355,7 +355,7 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
   $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
   $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
-    'fserver_project_page' => 'fserver_project_page',
+    'fserver_project_description' => 'fserver_project_description',
   );
   $handler->display->display_options['arguments']['nid']['validate_options']['access'] = TRUE;
 

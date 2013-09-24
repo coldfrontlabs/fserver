@@ -34,7 +34,7 @@ function fserver_ui_default_page_manager_handlers() {
           'name' => 'node_type',
           'settings' => array(
             'type' => array(
-              'fserver_project_page' => 'fserver_project_page',
+              'fserver_project_description' => 'fserver_project_description',
             ),
           ),
           'context' => 'argument_entity_id:node_1',
