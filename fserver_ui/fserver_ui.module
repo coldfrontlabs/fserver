@@ -7,7 +7,8 @@
 include_once 'fserver_ui.features.inc';
 
 function fserver_ui_form_fserver_project_page_node_form_alter(&$form, &$form_state) {
-  if (!empty($form['field_project_reference'][LANGUAGE_NONE]['form'])) {
+  // Listen for the "Create entity" inline entity form. We skip the "existing" option by looking for the entity_id field
+  if (!empty($form['field_project_reference'][LANGUAGE_NONE]['form']) and !isset($form['field_project_reference'][LANGUAGE_NONE]['form']['entity_id'])) {
     module_load_include('inc', 'fserver', 'fserver.pages');
     fserver_project_form($form['field_project_reference'][LANGUAGE_NONE]['form'], $form_state);
   }
