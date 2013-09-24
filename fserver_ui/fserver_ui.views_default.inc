@@ -80,7 +80,7 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['footer']['link']['label'] = 'Create Project';
   $handler->display->display_options['footer']['link']['empty'] = TRUE;
   $handler->display->display_options['footer']['link']['text'] = 'Create Project';
-  $handler->display->display_options['footer']['link']['path'] = 'node/add/project';
+  $handler->display->display_options['footer']['link']['path'] = 'node/add/fserver-project-page';
   $handler->display->display_options['footer']['link']['querystring'] = 'destination=fserver_ui/project-list';
   $handler->display->display_options['footer']['link']['class'] = 'button';
   /* No results behavior: Global: Unfiltered text */
