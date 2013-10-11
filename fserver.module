@@ -292,7 +292,10 @@ function fserver__release_create($release) {
   if ($entity === FALSE) {
     return FALSE;
   }
-  return entity_save('project', $entity);
+  if (entity_save('release', $entity)) {
+    return $entity;
+  }
+  return FALSE;
 }
 
 
