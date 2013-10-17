@@ -292,10 +292,12 @@ function fserver__release_create($release) {
   if ($entity === FALSE) {
     return FALSE;
   }
+  // @todo - fix this: entity_save should return one of: SAVED_UPDATED or SAVED_NEW constants, but currently returns false
   if (entity_save('release', $entity)) {
     return $entity;
   }
-  return FALSE;
+  //return FALSE;
+  return $entity;
 }
 
 
