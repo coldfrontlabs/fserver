@@ -24,7 +24,7 @@ Some key components/dependencies in Feature Service include:
 - [Features](http://drupal.org/project/features)
 
 ### Feature Server Services
-Feature Server Services uses the Services API to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data. 
+Feature Server Services uses the [Services API](http://drupal.org/project/services) to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data. 
 
 ### Feature Server UI
 This is a basic UI for creating project pages, releases and similar functionality that you would find on Drupal.org. It is not designed to be a complete solution for exposing all options available within Feature Server. Simply a guide to what is possible to build. It uses Page Manager and Panels to define the project page layouts as well as some node types for storing related data on projects (i.e. extended description, open issues)
