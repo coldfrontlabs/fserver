@@ -11,6 +11,7 @@ dependencies[] = fserver
 dependencies[] = image
 dependencies[] = inline_entity_form
 dependencies[] = page_manager
+dependencies[] = panels
 dependencies[] = pathauto
 dependencies[] = strongarm
 dependencies[] = text
