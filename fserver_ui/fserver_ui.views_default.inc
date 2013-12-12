@@ -244,6 +244,35 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
+  $translatables['fserver_ui_projects'] = array(
+    t('Master'),
+    t('Projects'),
+    t('more'),
+    t('Filter'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Create Project'),
+    t('No projects available.'),
+    t('Content referencing Project from field_project_reference'),
+    t('Name'),
+    t('Description'),
+    t('Type'),
+    t('Compatibility'),
+    t('Status'),
+    t('Text Filter'),
+    t('Projects Page'),
+    t('Projects Block'),
+    t('List projects in a block'),
+  );
   $export['fserver_ui_projects'] = $view;
 
   $view = new view();
@@ -362,6 +391,27 @@ function fserver_ui_views_default_views() {
   /* Display: Releases Bock */
   $handler = $view->new_display('block', 'Releases Bock', 'fserver_ui_block_releases');
   $handler->display->display_options['display_description'] = 'List of releases for a given project';
+  $translatables['fserver_ui_releases'] = array(
+    t('Master'),
+    t('Releases'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('No releases available.'),
+    t('project'),
+    t('Content referencing Project from field_project_reference'),
+    t('Version'),
+    t('Downloads'),
+    t('Date'),
+    t('Links'),
+    t('Notes'),
+    t('All'),
+    t('Releases Bock'),
+    t('List of releases for a given project'),
+  );
   $export['fserver_ui_releases'] = $view;
 
   return $export;

@@ -101,6 +101,48 @@ function fserver_ui_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_fserver_release_ref'
+  $field_bases['field_fserver_release_ref'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_release_ref',
+    'foreign keys' => array(
+      'eck_release' => array(
+        'columns' => array(
+          'target_id' => 'id',
+        ),
+        'table' => 'eck_release',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(),
+      ),
+      'profile2_private' => FALSE,
+      'target_type' => 'release',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_project_reference'
   $field_bases['field_project_reference'] = array(
     'active' => 1,

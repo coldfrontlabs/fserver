@@ -184,6 +184,20 @@ function fserver_ui_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'filefield_sources' => array(
+          'filefield_sources' => array(),
+          'source_attach' => array(
+            'absolute' => 0,
+            'attach_mode' => 'move',
+            'path' => 'file_attach',
+          ),
+          'source_imce' => array(
+            'imce_mode' => 0,
+          ),
+          'source_reference' => array(
+            'autocomplete' => 0,
+          ),
+        ),
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'throbber',
       ),
@@ -238,6 +252,51 @@ function fserver_ui_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-fserver_release_page-field_fserver_release_ref'
+  $field_instances['node-fserver_release_page-field_fserver_release_ref'] = array(
+    'bundle' => 'fserver_release_page',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_fserver_release_ref',
+    'label' => 'Release',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'inline_entity_form',
+      'settings' => array(
+        'fields' => array(),
+        'type_settings' => array(
+          'allow_existing' => 1,
+          'delete_references' => 1,
+          'match_operator' => 'CONTAINS',
+        ),
+      ),
+      'type' => 'inline_entity_form',
+      'weight' => 31,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
@@ -247,6 +306,7 @@ function fserver_ui_field_default_field_instances() {
   t('Link this description to the given project entity.');
   t('Link to documentation page.');
   t('Project Reference');
+  t('Release');
   t('Screenshots');
   t('Screenshots for the given project.');
 
