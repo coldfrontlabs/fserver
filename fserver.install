@@ -9,8 +9,11 @@
  * Implements hook_requirements().
  */
 function fserver_requirements($phase) {
+  $requirements = array();
   // @todo add check on filehash module and ensure that MD5 is enabled
   // filehash_algos_md5 == TRUE
+  
+  return $requirements;
 }
 
 /**
