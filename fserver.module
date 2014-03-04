@@ -428,7 +428,6 @@ class fserverProject extends Entity {
       // Now, check that the requested tag is logically later in the release cycle
       // (return FALSE if it is).
       $latest_extra_type = drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1);
-      dpm($latest_extra_type);
       if (isset($release_type)) {
         if ('full' == $release_type) {
           // Next full release: drop any extra versions, reset patch/minor version to 0 and increment major version
@@ -519,11 +518,14 @@ class fserverRelease extends Entity {
     }
     else {
       if (!empty($this->version_patch) || ($this->version_patch == 0 && $this->version_extra != 'dev')) {
-        $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch . '-' . $this->version_extra;
+        $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch;
         $this->version = $this->tag;
       } else {
         $this->tag = $this->api . '-' . $this->version_major . '.x';
-        $this->version = $this->tag . '-' . $this->version_extra;
+        $this->version = $this->tag;
+      }
+      if (!empty($this->version_extra)) {
+        $this->version .= '-' . $this->version_extra;
       }
 
       $this->name = $this->project_short_name . ' ' . $this->version;
