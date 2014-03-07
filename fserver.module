@@ -397,13 +397,8 @@ class fserverProject extends Entity {
                      ->execute();
 
     if (!empty($results['release'])) {
-      $reltypes_latest = array(
-        'dev' => NULL,
-        'alpha' => NULL,
-        'beta' => NULL,
-        'rc' => NULL,
-      );
-
+      $reltypes = array('dev', 'alpha', 'beta', 'rc', 'full');
+      $tag = '';
       // First, we find the latest non-dev release created for this project.
       $latest_non_dev = array_reduce($results['release'], function($carry, $item) {
         $release = entity_load_single('release', $item->id);
@@ -425,20 +420,24 @@ class fserverProject extends Entity {
         return $carry;
       });
 
-      // Now, check that the requested tag is logically later in the release cycle
-      // (return FALSE if it is).
-      $latest_extra_type = drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1);
+      // Next, check release logic and build & return the tag
       if (isset($release_type)) {
+        $latest_extra_type = !empty($latest_non_dev->version_extra) ? drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1) : '';
         if ('full' == $release_type) {
-          // Next full release: drop any extra versions, reset patch/minor version to 0 and increment major version
-          $tag = $latest_non_dev->api . '-' . (intval($latest_non_dev->version_major) + 1) . '.' . '0';
-        }
-        else if ('patch' == $release_type) {
-          // Next minor/patch release: drop any extra versions and increment minor/patch version
-          $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
+          if (empty($latest_non_dev->version_extra)) {
+            // latest version is a full version, next full will increment minor/patch version
+            $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
+          }
+          else {
+            // latest release is alpha/beta/rc, next full will drop the extra and simply be the api-major.minor version
+            $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . intval($latest_non_dev->version_patch);
+          }
+          
         }
         else {
-          if (array_search($release_type, array_keys($reltypes_latest)) < array_search($latest_extra_type, array_keys($reltypes_latest))) {
+          if (empty($latest_extra_type)   // latest release is a full release, but requested tag is earlier in cycle
+              || array_search($release_type, $reltypes) < array_search($latest_extra_type, $reltypes)) {
+            // requesting a tag earlier in the release cycle than the most recent release, fail
             return FALSE;
           } 
           else if (array_search($release_type, array_keys($reltypes_latest)) > array_search($latest_extra_type, array_keys($reltypes_latest))) {
@@ -456,7 +455,6 @@ class fserverProject extends Entity {
       else {
         
       }
-      return $reltypes_latest;
     }
   }
 }
