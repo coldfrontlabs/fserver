@@ -387,7 +387,7 @@ class fserverProject extends Entity {
     parent::__construct($values, 'project');
   }
 
-  public function nextReleaseTag($release_type = NULL) {
+  public function next_version($release_type = NULL) {
     // retrieve existing releases for this project
     $query = new EntityFieldQuery();
     $results = $query->entityCondition('entity_type', 'release')
@@ -420,9 +420,9 @@ class fserverProject extends Entity {
         return $carry;
       });
 
+      $latest_extra_type = !empty($latest_non_dev->version_extra) ? drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1) : '';
       // Next, check release logic and build & return the tag
-      if (isset($release_type)) {
-        $latest_extra_type = !empty($latest_non_dev->version_extra) ? drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1) : '';
+      if (isset($release_type) && !empty($release_type)) {
         if ('full' == $release_type) {
           if (empty($latest_non_dev->version_extra)) {
             // latest version is a full version, next full will increment minor/patch version
@@ -432,7 +432,6 @@ class fserverProject extends Entity {
             // latest release is alpha/beta/rc, next full will drop the extra and simply be the api-major.minor version
             $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . intval($latest_non_dev->version_patch);
           }
-          
         }
         else {
           if (empty($latest_extra_type)   // latest release is a full release, but requested tag is earlier in cycle
@@ -440,7 +439,7 @@ class fserverProject extends Entity {
             // requesting a tag earlier in the release cycle than the most recent release, fail
             return FALSE;
           } 
-          else if (array_search($release_type, array_keys($reltypes_latest)) > array_search($latest_extra_type, array_keys($reltypes_latest))) {
+          else if (array_search($release_type, $reltypes) > array_search($latest_extra_type, $reltypes)) {
             // moving to a later phase in the release cycle, set extra version back to 1
             $extra_version = 1;
           } 
@@ -450,12 +449,22 @@ class fserverProject extends Entity {
           }
           $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . $latest_non_dev->version_patch . '-' . $release_type . $extra_version;
         }
-        return $tag;
       }
       else {
-        
+        // no release type specified, just increment in current release phase
+        if (!empty($latest_extra_type)) {
+          $extra_version = intval(drupal_substr($latest_non_dev->version_extra, drupal_strlen($latest_non_dev->version_extra)-1)) + 1;
+          $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . $latest_non_dev->version_patch . '-' . $latest_extra_type . $extra_version;
+        }
+        else {
+          // latest version is a full version, next full will increment minor/patch version
+          $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
+        }
       }
+      return $tag;
     }
+    // Did something go wrong?  Why are we here?  Maybe there are no existing releases...
+    return FALSE;
   }
 }
 
