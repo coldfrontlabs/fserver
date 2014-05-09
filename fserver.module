@@ -387,11 +387,12 @@ class fserverProject extends Entity {
     parent::__construct($values, 'project');
   }
 
-  public function next_version($release_type = NULL) {
+  public function next_version($api, $release_type = NULL) {
     // retrieve existing releases for this project
     $query = new EntityFieldQuery();
     $results = $query->entityCondition('entity_type', 'release')
                      ->fieldCondition('field_project_reference', 'target_id', $this->id)
+                     ->propertyCondition('api', $api)
                      //->propertyCondition('version_extra', $release_type, 'STARTS_WITH')
                      ->propertyOrderBy('date', 'DESC')
                      ->execute();
