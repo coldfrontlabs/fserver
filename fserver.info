@@ -34,6 +34,7 @@ features[field_base][] = field_release_notes
 features[field_instance][] = project-distribution-field_compatibility
 features[field_instance][] = project-module-field_compatibility
 features[field_instance][] = project-theme-field_compatibility
+features[field_instance][] = release-release-field_project_reference
 features[field_instance][] = release-release-field_release_files
 features[field_instance][] = release-release-field_release_notes
 features[filter][] = changelog

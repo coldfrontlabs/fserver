@@ -391,7 +391,7 @@ class fserverProject extends Entity {
     // retrieve existing releases for this project
     $query = new EntityFieldQuery();
     $results = $query->entityCondition('entity_type', 'release')
-                     ->entityCondition('project_short_name', $this->short_name)
+                     ->fieldCondition('field_project_reference', 'target_id', $this->id)
                      //->propertyCondition('version_extra', $release_type, 'STARTS_WITH')
                      ->propertyOrderBy('date', 'DESC')
                      ->execute();
@@ -419,10 +419,38 @@ class fserverProject extends Entity {
         }
         return $carry;
       });
-
+      
       $latest_extra_type = !empty($latest_non_dev->version_extra) ? drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1) : '';
       // Next, check release logic and build & return the tag
-      if (isset($release_type) && !empty($release_type)) {
+      if (!$latest_non_dev) {
+        // latest release is a dev release.  Next release will drop the .x (for patch version) and simply be .1
+        $latest_dev = array_reduce($results['release'], function($carry, $item) {
+          $release = entity_load_single('release', $item->id);
+          if ($release->version_extra == 'dev') {
+            if (!isset($carry)) {
+              return $release;
+            }
+            else {
+              $carry_dt = new DateObject($carry->date);
+              $rel_dt = new DateObject($release->date);
+              if ($carry_dt->difference($rel_dt, 'seconds', FALSE) > 0) {
+                return $release;
+              }
+              else {
+                return $carry;
+              }
+            }
+          }
+          return $carry;
+        });
+
+        $tag = $latest_dev->api . '-' . $latest_dev->version_major . '.0';
+        if (isset($release_type) && $release_type != 'full') {
+          $tag .= '-' . $release_type . '1';
+        }
+        return $tag;
+      }
+      else if (isset($release_type) && !empty($release_type)) {
         if ('full' == $release_type) {
           if (empty($latest_non_dev->version_extra)) {
             // latest version is a full version, next full will increment minor/patch version
