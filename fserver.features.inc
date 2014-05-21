@@ -67,6 +67,11 @@ $items = array(
       'type' => 'text',
       'behavior' => 'title',
     ),
+    'uuid' => array(
+      'label' => 'uuid',
+      'type' => 'uuid',
+      'behavior' => 'uuid',
+    ),
     'short_name' => array(
       'label' => 'Name',
       'type' => 'text',
