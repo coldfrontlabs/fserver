@@ -5,6 +5,17 @@ Feature server for Drupal 7 is built using several "Features" from contributed m
 
 We believe Feature Server is an import part of the Drupal ecosystem as it allows configured components to be shared.
 
+Installation
+------------
+
+Requires patch to ECK for UUID support
+
+Ex:
+
+````
+projects[eck][patch][] = https://gist.githubusercontent.com/minorOffense/cb7b803362bc474e3607/raw/7cf0eaad3ecce52b91a5b3055c6d77fdc42302f5/uuid-eck-2.x.patch
+````
+
 Overview
 --------
 
@@ -24,7 +35,7 @@ Some key components/dependencies in Feature Service include:
 - [Features](http://drupal.org/project/features)
 
 ### Feature Server Services
-Feature Server Services uses the [Services API](http://drupal.org/project/services) to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data. 
+Feature Server Services uses the [Services API](http://drupal.org/project/services) to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data.
 
 ### Feature Server UI
 This is a basic UI for creating project pages, releases and similar functionality that you would find on Drupal.org. It is not designed to be a complete solution for exposing all options available within Feature Server. Simply a guide to what is possible to build. It uses Page Manager and Panels to define the project page layouts as well as some node types for storing related data on projects (i.e. extended description, open issues)

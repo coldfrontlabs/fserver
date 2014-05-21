@@ -1,7 +1,8 @@
 api = 2
 core = 7.x
 
-projects[] = eck
+projects[eck][subdir] = "contrib"
+projects[eck][version] = "2.x"
 projects[] = entityreference
 projects[] = features
 projects[] = field_validation
@@ -10,6 +11,6 @@ projects[] = filehash
 projects[] = strongarm
 projects[] = url
 projects[] = views
-projects[] = views_data_export
 
-projects[views_data_export][patch][] = http://drupal.org/files/1964392-case-transform.patch
+; Restore UUID support to ECK 2.x (UUID is in the 3.x branch)
+projects[eck][patch][] = https://gist.githubusercontent.com/minorOffense/cb7b803362bc474e3607/raw/7cf0eaad3ecce52b91a5b3055c6d77fdc42302f5/uuid-eck-2.x.patch
