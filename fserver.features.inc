@@ -148,6 +148,11 @@ $items = array(
       'type' => 'text',
       'behavior' => '',
     ),
+    'uuid' => array(
+      'label' => 'uuid',
+      'type' => 'uuid',
+      'behavior' => 'uuid',
+    ),
   ),
 ),
   );
