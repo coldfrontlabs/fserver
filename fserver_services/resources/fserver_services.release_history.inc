@@ -18,7 +18,7 @@ function _fserver_services_release_history($short_name, $api) {
   }
 
   // Load releases
-  
+
   // Since the .x is removed by Services (which mistakenly assumes it is
   // a file extension) we must put it back
   $api .= '.x';
@@ -26,11 +26,8 @@ function _fserver_services_release_history($short_name, $api) {
   $project = new fserverProjectRelease($project, $api);
 
   if (FALSE !== $project) {
-    // Allow other modules to modify the object before rendering as XML
-    drupal_alter('fserver_services_xml', $project);
-
-    return $project->getProject();    
+    return $project->getProject();
   }
-  
+
   return FALSE;
 }
