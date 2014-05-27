@@ -21,6 +21,10 @@ function _fserver_services_release_history($short_name, $api, $site_key = '', $v
 
   // Since the .x is removed by Services (which mistakenly assumes it is
   // a file extension) we must put it back
+
+  // @todo see if we can use the hook_alter inside services
+  // to avoid having to do this
+  // @see services.alter.api.php
   $api .= '.x';
 
   $project = new fserverProjectRelease($project, $api);
