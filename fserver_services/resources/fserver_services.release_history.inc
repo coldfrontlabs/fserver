@@ -9,7 +9,7 @@
 /**
  * Generates release history for given project
  */
-function _fserver_services_release_history($short_name, $api) {
+function _fserver_services_release_history($short_name, $api, $site_key = '', $version = '', $list = NULL) {
   // Load project
   $project = fserver__project_load($short_name);
 
