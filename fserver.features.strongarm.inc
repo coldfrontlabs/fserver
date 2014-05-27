@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * fserver_ui.strongarm.inc
+ * fserver.strongarm.inc
  */
 
 /**
