@@ -5,23 +5,10 @@ Feature server for Drupal 7 is built using several "Features" from contributed m
 
 We believe Feature Server is an import part of the Drupal ecosystem as it allows configured components to be shared.
 
-Known Issues
-------------
-
-- ECK 2.0-rc3 has a bug with generating number columns. Use the latest dev release instead
-- ECK will be deprecated in favour of a direct Entity API implementation of the fserverProject and fserverRelease entities. API methods will remain the same.
-- ECK requires a patch for UUID support (see the Installation section)
-
 Installation
 ------------
 
-Requires patch to ECK for UUID support
-
-Ex:
-
-````
-projects[eck][patch][] = https://gist.githubusercontent.com/minorOffense/cb7b803362bc474e3607/raw/7cf0eaad3ecce52b91a5b3055c6d77fdc42302f5/uuid-eck-2.x.patch
-````
+Enable the module as you would any other module.
 
 Overview
 --------
