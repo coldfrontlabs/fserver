@@ -12,7 +12,7 @@ function fserver_requirements($phase) {
   $requirements = array();
   // @todo add check on filehash module and ensure that MD5 is enabled
   // filehash_algos_md5 == TRUE
-  
+
   return $requirements;
 }
 
@@ -21,5 +21,10 @@ function fserver_requirements($phase) {
  */
 function fserver_enable() {
   // Enable MD5 hashes on files
-  variable_set('filehash-algos-md5', TRUE);
+  // We don't use strongarm here since people may want to have
+  // the other filehash algorithms on as well. We just need
+  // to make sure that md5 is there.
+  $algos = variable_get('filehash_algos', array());
+  $algos['md5'] = 'md5';
+  variable_set('filehash_algos', $algos);
 }

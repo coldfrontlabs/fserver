@@ -10,6 +10,155 @@
 function fserver_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_fserver_demo'
+  $field_bases['field_fserver_demo'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_demo',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'url',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'url',
+  );
+
+  // Exported field_base: 'field_fserver_documentation'
+  $field_bases['field_fserver_documentation'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_documentation',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'url',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'url',
+  );
+
+  // Exported field_base: 'field_fserver_image'
+  $field_bases['field_fserver_image'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_image',
+    'foreign keys' => array(
+      'fid' => array(
+        'columns' => array(
+          'fid' => 'fid',
+        ),
+        'table' => 'file_managed',
+      ),
+    ),
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
+  // Exported field_base: 'field_fserver_release_ref'
+  $field_bases['field_fserver_release_ref'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_fserver_release_ref',
+    'foreign keys' => array(
+      'eck_release' => array(
+        'columns' => array(
+          'target_id' => 'id',
+        ),
+        'table' => 'eck_release',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(),
+      ),
+      'profile2_private' => FALSE,
+      'target_type' => 'release',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_project_reference'
+  $field_bases['field_project_reference'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_project_reference',
+    'foreign keys' => array(
+      'eck_project' => array(
+        'columns' => array(
+          'target_id' => 'id',
+        ),
+        'table' => 'eck_project',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'distribution' => 'distribution',
+          'module' => 'module',
+          'theme' => 'theme',
+        ),
+      ),
+      'target_type' => 'project',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_compatibility'
   $field_bases['field_compatibility'] = array(
     'active' => 1,

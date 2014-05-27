@@ -6,6 +6,7 @@
 
 include_once 'fserver_ui.features.inc';
 
+//@todo replace with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 function fserver_ui_form_fserver_project_page_node_form_alter(&$form, &$form_state) {
   // Listen for the "Create entity" inline entity form. We skip the "existing" option by looking for the entity_id field
   if (!empty($form['field_project_reference'][LANGUAGE_NONE]['form']) and !isset($form['field_project_reference'][LANGUAGE_NONE]['form']['entity_id'])) {
