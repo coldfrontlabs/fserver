@@ -5,6 +5,13 @@ Feature server for Drupal 7 is built using several "Features" from contributed m
 
 We believe Feature Server is an import part of the Drupal ecosystem as it allows configured components to be shared.
 
+Known Issues
+------------
+
+- ECK 2.0-rc3 has a bug with generating number columns. Use the latest dev release instead
+- ECK will be deprecated in favour of a direct Entity API implementation of the fserverProject and fserverRelease entities. API methods will remain the same.
+- ECK requires a patch for UUID support (see the Installation section)
+
 Installation
 ------------
 
@@ -28,19 +35,23 @@ This also means however you can extend the entities using the Field UI to add ad
 
 Some key components/dependencies in Feature Service include:
 
-- [ECK](http://drupal.org/project/eck Entity Construction Kit)
 - [Ctools](http://drupal.org/project/ctools)
 - [Entity Reference](http://drupal.org/project/entityreference)
 - [Filehash](http://drupal.org/project/filehash)
 - [Features](http://drupal.org/project/features)
 
+Beyond the Project and Release entity types, there are two Node bundles included as well. They are used to create user-facing project and release pages. These nodes reference Fserver Projects and Releases respectively. You'll find them in the Content Types section in your Drupal administrative interface.
+
+You can create new projects / release directly from these nodes thanks to
+
+- [Inline Entity Form](http://drupal.org/project/inline_entity_form)
+
 ### Feature Server Services
 Feature Server Services uses the [Services API](http://drupal.org/project/services) to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data.
 
 ### Feature Server UI
-This is a basic UI for creating project pages, releases and similar functionality that you would find on Drupal.org. It is not designed to be a complete solution for exposing all options available within Feature Server. Simply a guide to what is possible to build. It uses Page Manager and Panels to define the project page layouts as well as some node types for storing related data on projects (i.e. extended description, open issues)
+This is a basic UI for displaying lists of projects, releases and similar functionality that you would find on Drupal.org. It is not designed to be a complete solution for exposing all options available within Feature Server. Simply a guide to what is possible to build. It uses Page Manager and Panels to define the project page layouts and release page layouts. There are also some default views for showing common lists (e.g. recent releases)
 
-Consider is an example of what is possible to build against the underlying Feature Server APIs
+This module is meant as an example to how you could build a UI for Fserver. It can be disabled/replaced by your own implementation (e.g. use Context and DS instead of Panels)
 
-- [Inline Entity Form](http://drupal.org/project/inline_entity_form)
 - [Panels](http://drupal.org/project/panels)
