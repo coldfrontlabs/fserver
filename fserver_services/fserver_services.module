@@ -43,10 +43,6 @@ function fserver_services_services_resources() {
           ),
         ),
       ),
-      //'create' => array(),
-      //'update' => array(),
-      //'delete' => array(),
-      //'index' => array(),
     ),
   );
 
