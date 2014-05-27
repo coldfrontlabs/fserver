@@ -56,7 +56,7 @@ function fserver_project_form(&$form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  
+
 
   $form['advanced']['supported_majors'] = array(
     '#type' => 'textfield',
@@ -92,7 +92,7 @@ function fserver_project_form(&$form, &$form_state) {
     '#default_value' => isset($form['entity']['#value']->default_major) ? $form['entity']['#value']->default_major : '',
     // @todo add element validator
   );
-  
+
   # @todo add access check on form
 }
 
@@ -157,7 +157,7 @@ function fserver_release_form(&$form, &$form_state) {
     '#maxlength' => 4,
     '#default_value' => isset($form['entity']['#value']->version_patch) ? $form['entity']['#value']->version_patch : '',
     // @todo add custom validator
-  );  
+  );
   # @todo add access check on form
 }
 
@@ -166,7 +166,7 @@ function fserver_release_form(&$form, &$form_state) {
  */
 function _fserver_release_validate_project_short_name($element, &$form_state, $form) {
   $query = new EntityFieldQuery();
-  
+
   $query->entityCondition('entity_type', 'project')
     ->propertyCondition('short_name', $form_state['values']['project_short_name'])
     ->count();

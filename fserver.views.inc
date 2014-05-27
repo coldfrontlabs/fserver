@@ -9,7 +9,7 @@
  * Implements hook_views_data_alter().
  */
 function fserver_views_data_alter(&$data) {
-  if (isset($data['eck_release']['project_short_name'])) {
+  if (isset($data['fserver_release']['project_short_name'])) {
     // Add join info
     $data['eck_release']['table']['join'] = array(
         'eck_project' => array(
@@ -18,7 +18,7 @@ function fserver_views_data_alter(&$data) {
         ),
       );
 
-    $data['eck_release']['project_short_name']['relationship'] = array(
+    $data['fserver_release']['project_short_name']['relationship'] = array(
       'title' => t('Release project'),
       'help' => t('Add relationship to the project via shortname'),
       'handler' => 'views_handler_relationship',
@@ -28,7 +28,6 @@ function fserver_views_data_alter(&$data) {
     );
   }
 }
-
 
 // @todo add custom sort plugin to sort releases
 // @todo add custom grouping plugin to group releases

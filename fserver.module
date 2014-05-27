@@ -10,6 +10,46 @@ define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
 define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 
 /**
+ * Implements hook_entity_info().
+ */
+//function fserver_entity_info() {
+  // @todo
+
+  /*  Bundles to be converted to default exports of bundle type
+  $items = array(
+  'project_distribution' => array(
+  'machine_name' => 'project_distribution',
+  'entity_type' => 'project',
+  'name' => 'distribution',
+  'label' => 'Distribution',
+),
+  'project_module' => array(
+  'machine_name' => 'project_module',
+  'entity_type' => 'project',
+  'name' => 'module',
+  'label' => 'Module',
+),
+  'project_theme' => array(
+  'machine_name' => 'project_theme',
+  'entity_type' => 'project',
+  'name' => 'theme',
+  'label' => 'Theme',
+),
+  'release_release' => array(
+  'machine_name' => 'release_release',
+  'entity_type' => 'release',
+  'name' => 'release',
+  'label' => 'Release',
+),
+  );
+  return $items;
+}
+*/
+  //}
+
+
+
+/**
  * Implements hook_ctools_plugin_directory().
  */
 function fserver_ctools_plugin_directory($owner, $plugin_type) {
