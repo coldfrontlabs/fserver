@@ -18,6 +18,7 @@ function fserver_ctools_plugin_directory($owner, $plugin_type) {
   }
 }
 
+// @todo replace with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 /**
  * Implements hook_form_alter().
  */
@@ -102,7 +103,7 @@ function fserver_entity_info_alter(&$entity_info) {
 }
 
 /**
- * Access callback for project entities
+ * Default access callback for project entities
  */
 function fserver_project_access($op, $project = NULL, $account = NULL) {
   return TRUE;
@@ -189,7 +190,6 @@ function _fserver_release_file_format($item) {
   return $file;
 }
 
-
 /**
  * Check if project exists
  *
@@ -262,7 +262,6 @@ function fserver__project_update($project) {
   return entity_save('project', (object) $project);
 }
 
-
 /**
  * Delete an fserver project
  */
@@ -273,7 +272,6 @@ function fserver__project_delete($shortname) {
   }
   return entity_delete('project', $project->id);
 }
-
 
 /**
  * Create an fserver release
@@ -299,7 +297,6 @@ function fserver__release_create($release) {
   //return FALSE;
   return $entity;
 }
-
 
 /**
  * Load an fserver release
@@ -365,7 +362,6 @@ function fserver__release_update($release) {
   return entity_save('release', (object) $release);
 }
 
-
 /**
  * Delete an fserver release
  */
@@ -376,7 +372,6 @@ function fserver__release_delete($name) {
   }
   return entity_delete('release', $release->id);
 }
-
 
 /**
  * Base class for Project entities
