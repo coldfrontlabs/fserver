@@ -61,7 +61,15 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
       'type' => 'project_type',
     ) + $properties['type'];
 
+    $properties['short_name'] = array(
+      'required' => TRUE,
+      'getter callback' => 'entity_property_verbatim_get',
+      'setter callback' => 'entity_property_verbatim_set',
+      'description' => t('Project machine name.'),
+    ) + $properties['short_name'];
+
     $properties['title'] = array(
+      'required' => TRUE,
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
       'description' => t('Human readable name of a project.'),
@@ -72,19 +80,22 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
       'description' => t('Recommended major version'),
+      'validation callback' => 'entity_property_validate_integer_non_negative',
+      'options list' => '_fserver_project_property_recommended_majors_options'
       ) + $properties['recommended_major'];
 
     $properties['supported_majors'] = array(
       'description' => 'Supported major projects.',
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
+      'options list' => '_fserver_project_property_supported_majors_options',
     ) + $properties['supported_majors'];
 
     $properties['project_status'] = array(
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
       'description' => t('Project status code'),
-      ) + $properties['project_status'];
+    ) + $properties['project_status'];
 
     $properties['created'] = array(
       'type' => 'date',
@@ -128,18 +139,21 @@ class FserverReleaseMetadataController extends EntityDefaultMetadataController {
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
       'description' => t('Name of a release.'),
+      'required' => TRUE,
     ) + $properties['name'];
 
     $properties['version'] = array(
       'description' => 'Version',
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
+      'required' => TRUE,
     ) + $properties['version'];
 
     $properties['project_short_name'] = array(
       'description' => 'Project short name',
       'getter callback' => 'entity_property_verbatim_get',
       'setter callback' => 'entity_property_verbatim_set',
+      'required' => TRUE,
     ) + $properties['project_short_name'];
 
     $properties['tag'] = array(

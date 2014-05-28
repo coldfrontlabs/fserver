@@ -14,7 +14,7 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
  */
 function fserver_permission() {
   $permissions = array();
-  $permissions['administer fserver'] =>  array(
+  $permissions['administer fserver'] =  array(
     'title' => t('Administer Feature Server'),
     'description' => t('Perform administration tasks for Feature Server.'),
   );
@@ -713,7 +713,8 @@ class FserverRelease extends Entity {
       if (!empty($this->version_patch) || ($this->version_patch == 0 && $this->version_extra != 'dev')) {
         $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch;
         $this->version = $this->tag;
-      } else {
+      }
+      else {
         $this->tag = $this->api . '-' . $this->version_major . '.x';
         $this->version = $this->tag;
       }
@@ -810,4 +811,31 @@ class FserverProjectRelease {
     drupal_alter('fserver__project_release_data', $project);
     $this->project = $project;
   }
+}
+
+/**
+ * Options list callback for the supported_majors property
+ */
+function _fserver_project_property_supported_majors_options() {
+  // @todo make this intelligent by looking at the attached releases
+  // @todo
+  return array(
+    '5.x' => t('5.x'),
+    '6.x' => t('6.x'),
+    '7.x' => t('7.x'),
+    '8.x' => t('8.x'),
+  );
+}
+
+/**
+ * Options list callback for the recommended_majors property
+ */
+function _fserver_project_property_recommended_majors_options() {
+  // @todo make this intelligent by looking at the attached releases
+  return array(
+    1 => 1,
+    2 => 2,
+    3 => 3,
+    4 => 4,
+  );
 }
