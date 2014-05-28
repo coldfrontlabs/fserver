@@ -113,7 +113,7 @@ function fserver_entity_info() {
  */
 function fserver_project_type_access($op, $entity, $account, $entity_type) {
   // @todo
-  return TRUE:
+  return TRUE;
 }
 
 /**
