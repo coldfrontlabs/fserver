@@ -148,6 +148,34 @@ function fserver_entity_info() {
 }
 
 /**
+ * Implements hook_entity_property_info().
+ */
+function fserver_entity_property_info() {
+  $info = array();
+
+  $info['project']['properties'] = array(
+    'link' => array(
+      'type' => 'uri',
+      'getter callback' => '_fserver_project_property_link_get',
+      'computed' => TRUE,
+    ),
+  );
+
+  return $info;
+}
+
+/**
+ * Getter callback for link property
+ */
+function _fserver_project_property_link_get($data, array $options, $name, $type, $info) {
+  $uri = entity_uri('project', $data);
+  if (!empty($uri['path']) and isset($uri['options'])) {
+    return url($uri['path'], $uri['options']);
+  }
+  return '';
+}
+
+/**
  * Access callback for project types
  */
 function fserver_project_type_access($op, $entity, $account, $entity_type) {
