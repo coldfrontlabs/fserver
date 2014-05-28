@@ -12,7 +12,68 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 /**
  * Implements hook_entity_info().
  */
-//function fserver_entity_info() {
+function fserver_entity_info() {
+  $info = array();
+
+  $info['project_type'] = array(
+    'label' => t('Project Type'),
+    'controller class' => 'EntityAPIControllerExportable',
+    'entity class' => 'Entity',
+    'base table' => 'fserver_project_type',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'description',
+      'name' => 'type',
+      'uuid' => 'uuid'
+    ),
+    'bundle of' => 'project',
+    'exportable' => TRUE,
+    'export' => array(
+      'default hook' => 'default_project_type',
+    ),
+    'uuid' => TRUE,
+    'module' => 'fserver',
+    'access callback' => 'fserver_project_type_access',
+    'entity cache' => module_exists('entitycache'),
+    'metadata controller class' => 'FserverProjectTypeMetadataController',
+    'admin ui' => array(
+      'path' => 'admin/structure/project_types',
+      'file' => 'includes/fserver.admin.inc',
+    ),
+  );
+
+  $info['release_type'] = array(
+    'label' => t('Release Type'),
+    'controller class' => 'EntityAPIControllerExportable',
+    'entity class' => 'Entity',
+    'base table' => 'fserver_release_type',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'description',
+      'name' => 'type',
+      'uuid' => 'uuid'
+    ),
+    'bundle of' => 'release',
+    'exportable' => TRUE,
+    'export' => array(
+      'default hook' => 'default_release_type',
+    ),
+    'uuid' => TRUE,
+    'module' => 'fserver',
+    'access callback' => 'fserver_project_type_access',
+    'entity cache' => module_exists('entitycache'),
+    'metadata controller class' => 'FserverReleaseTypeMetadataController',
+    'admin ui' => array(
+      'path' => 'admin/structure/release_types',
+      'file' => 'includes/fserver.admin.inc',
+    ),
+  );
+
+  $info['project'] = array();
+  $info['release'] = array();
+
   // @todo
 
   /*  Bundles to be converted to default exports of bundle type
@@ -43,11 +104,17 @@ define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 ),
   );
   return $items;
+}*/
+  return $info;
 }
-*/
-  //}
 
-
+/**
+ * Access callback for project types
+ */
+function fserver_project_type_access($op, $entity, $account, $entity_type) {
+  // @todo
+  return TRUE:
+}
 
 /**
  * Implements hook_ctools_plugin_directory().

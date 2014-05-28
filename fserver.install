@@ -19,10 +19,69 @@ function fserver_requirements($phase) {
  * Implements hook_schema().
  */
 function fserver_schema() {
+  module_load_include('install', 'uuid');
+
+  $schema['fserver_project_type'] = array(
+    'description' => 'Storage for fserver project types.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Numeric project type ID.',
+      ),
+      'type' => array(
+        'description' => 'The unified identifier for a project type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'description' => 'Description for this project type.',
+        'type' => 'text',
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ) + entity_exportable_schema_fields(),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uuid' => array('uuid'),
+      'type' => array('type'),
+    ),
+  );
+
+  $schema['fserver_release_type'] = array(
+    'description' => 'Storage for fserver project types.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Numeric project type ID.',
+      ),
+      'type' => array(
+        'description' => 'The unified identifier for a project type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'description' => 'Description for this project type.',
+        'type' => 'text',
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ) + entity_exportable_schema_fields(),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uuid' => array('uuid'),
+      'type' => array('type'),
+    ),
+  );
+
+
   // @todo add project schema
   $schema['fserver_project'] = array();
   // @todo add release schema
   $schema['fserver_release'] = array();
+
+  return $schema;
 }
 
 /**
