@@ -148,6 +148,11 @@ function fserver_schema() {
         'not null' => TRUE,
         'description' => 'Primary Key: Numeric release entity ID.',
       ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Release name'
+      ),
       'version' => array(
         'type' => 'varchar',
         'length' => 255,
@@ -184,11 +189,6 @@ function fserver_schema() {
         'type' => 'varchar',
         'length' => 255,
         'description' => 'API version'
-      ),
-      'name' => array(
-        'type' => 'varchar',
-        'length' => 255,
-        'description' => 'Release version'
       ),
       'type' => array(
         'description' => 'The bundle type identifier for a release.',
