@@ -114,6 +114,7 @@ function fserver_entity_info() {
     'access callback' => 'fserver_project_access',
     'metadata controller class' => 'FserverProjectMetadataController',
   );
+
   $info['release'] = array(
     'label' => t('Release'),
     'entity class' => 'FserverRelease',
