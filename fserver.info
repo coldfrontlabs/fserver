@@ -79,4 +79,5 @@ features[variable][] = node_preview_fserver_release_page
 features[variable][] = node_submitted_fserver_project_page
 features[variable][] = node_submitted_fserver_release_page
 features[variable][] = pathauto_node_fserver_project_page_pattern
+files[] = includes/fserver.info.inc
 project status url = https://updates.dropfort.com/fserver/release-history
