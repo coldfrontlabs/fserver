@@ -117,6 +117,18 @@ function fserver_schema() {
         'length' => 255,
         'description' => 'Project status code'
       ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
