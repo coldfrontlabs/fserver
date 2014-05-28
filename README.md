@@ -33,7 +33,7 @@ Feature Server at the core provides entity types and bundles for managing Drupal
 
 This also means however you can extend the entities using the Field UI to add additional data as needed (i.e. location, taxonomy)
 
-Some key components/dependencies in Feature Service include:
+Some key components/dependencies in Feature Server include:
 
 - [Ctools](http://drupal.org/project/ctools)
 - [Entity Reference](http://drupal.org/project/entityreference)
