@@ -141,6 +141,11 @@ function fserver_schema() {
         'length' => 255,
         'description' => 'Release version'
       ),
+      'project_short_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Project short name',
+      ),
       'tag' => array(
         'type' => 'varchar',
         'length' => 255,

@@ -459,7 +459,6 @@ function fserver__project_delete($shortname) {
  * Create an fserver release
  *
  * $release array(
- *   'project_short_name' => 'project_name',
  *   'api' = '7.x',
  *   'type' => 'release',
  *   'version_major' => '1',
@@ -511,10 +510,16 @@ function fserver__release_load($name) {
  *  Returns an array of entities, FALSE otherwise.
  */
 function fserver__release_load_by_project($shortname, $api) {
+  $project = fserver__project_load_by_name($shortname);
+
+  if (!isset($project->id)) {
+    return FALSE;
+  }
+
   $query = new EntityFieldQuery();
   $releases = $query
     ->EntityCondition("entity_type", "release")
-    ->propertyCondition("project_short_name", $shortname)
+    ->fieldCondition("field_project_reference", "target_id", $project->id)
     ->propertyCondition("api", $api)
     ->propertyOrderBy('date', 'DESC')
     ->execute();
@@ -684,12 +689,13 @@ class FserverProjectController extends EntityAPIController {
     if (!$entities) {
       // Do nothing, in case invalid or no ids have been passed.
       return;
-    } else {
+    }
+    else {
       foreach ($entities as $entity) {
         $query = new EntityFieldQuery();
         $releases = $query
           ->entityCondition('entity_type', 'release')
-          ->propertyCondition('project_short_name', $entity->short_name)
+          ->fieldCondition("field_project_reference", "target_id", $entity->id)
           ->execute();
         if (isset($releases['release'])) {
           entity_delete_multiple('release', array_keys($releases['release']));

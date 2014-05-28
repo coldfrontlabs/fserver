@@ -96,22 +96,10 @@ function fserver_project_form(&$form, &$form_state) {
   # @todo add access check on form
 }
 
-
-
 /**
  * Form settings for the Release entity
  */
 function fserver_release_form(&$form, &$form_state) {
-  $form['project_short_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Project Short Name'),
-    '#description' => t('Machine-name of the project for this release.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    '#default_value' => isset($form['entity']['#value']->project_short_name) ? $form['entity']['#value']->project_short_name : '',
-    '#element_validate' => '_fserver_release_validate_project_short_name',
-    '#required' => TRUE,
-  );
 
   $form['api'] = array(
     '#type' => 'select',
@@ -159,21 +147,4 @@ function fserver_release_form(&$form, &$form_state) {
     // @todo add custom validator
   );
   # @todo add access check on form
-}
-
-/**
- * Validate the name of the project
- */
-function _fserver_release_validate_project_short_name($element, &$form_state, $form) {
-  $query = new EntityFieldQuery();
-
-  $query->entityCondition('entity_type', 'project')
-    ->propertyCondition('short_name', $form_state['values']['project_short_name'])
-    ->count();
-  $result = $query->execute();
-
-  if ($result <= 0) {
-    form_error($element, t('Unknown project short name.'));
-  }
-  // @todo check that the given user has the rights to create a release for the given project
 }
