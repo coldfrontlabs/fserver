@@ -10,6 +10,21 @@ define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
 define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 
 /**
+ * Implements hook_permission().
+ */
+function fserver_permission() {
+  $permissions = array();
+  $permissions['administer fserver'] =>  array(
+    'title' => t('Administer Feature Server'),
+    'description' => t('Perform administration tasks for Feature Server.'),
+  );
+
+  // @todo add per-bundle permissions
+
+  return $permissions;
+}
+
+/**
  * Implements hook_entity_info().
  */
 function fserver_entity_info() {
@@ -71,40 +86,63 @@ function fserver_entity_info() {
     ),
   );
 
-  $info['project'] = array();
-  $info['release'] = array();
-
-  // @todo
-
-  /*  Bundles to be converted to default exports of bundle type
-  $items = array(
-  'project_distribution' => array(
-  'machine_name' => 'project_distribution',
-  'entity_type' => 'project',
-  'name' => 'distribution',
-  'label' => 'Distribution',
-),
-  'project_module' => array(
-  'machine_name' => 'project_module',
-  'entity_type' => 'project',
-  'name' => 'module',
-  'label' => 'Module',
-),
-  'project_theme' => array(
-  'machine_name' => 'project_theme',
-  'entity_type' => 'project',
-  'name' => 'theme',
-  'label' => 'Theme',
-),
-  'release_release' => array(
-  'machine_name' => 'release_release',
-  'entity_type' => 'release',
-  'name' => 'release',
-  'label' => 'Release',
-),
+  $info['project'] = array(
+    'label' => t('Project'),
+    'entity class' => 'FserverProject',
+    'controller class' => 'FserverProjectController',
+    'base table' => 'fserver_project',
+    'fieldable' => TRUE,
+    'uuid' => TRUE,
+    'entity cache' => module_exists('entitycache'),
+    'entity keys' => array(
+      'id' => 'id',
+      'bundle' => 'type',
+      'uuid' => 'uuid',
+      'name' => 'name',
+    ),
+    'bundles' => array(),
+    'bundle keys' => array(
+      'bundle' => 'type',
+    ),
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Default'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'module' => 'fserver',
+    'access callback' => 'fserver_project_access',
+    'metadata controller class' => 'FserverProjectMetadataController',
   );
-  return $items;
-}*/
+  $info['release'] = array(
+    'label' => t('Release'),
+    'entity class' => 'FserverRelease',
+    'controller class' => 'FserverReleaseController',
+    'base table' => 'fserver_release',
+    'fieldable' => TRUE,
+    'uuid' => TRUE,
+    'entity cache' => module_exists('entitycache'),
+    'entity keys' => array(
+      'id' => 'id',
+      'bundle' => 'type',
+      'uuid' => 'uuid',
+      'name' => 'name',
+    ),
+    'bundles' => array(),
+    'bundle keys' => array(
+      'bundle' => 'type',
+    ),
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Default'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'module' => 'fserver',
+    'access callback' => 'fserver_release_access',
+    'metadata controller class' => 'FserverReleaseMetadataController',
+  );
+
   return $info;
 }
 
@@ -112,6 +150,14 @@ function fserver_entity_info() {
  * Access callback for project types
  */
 function fserver_project_type_access($op, $entity, $account, $entity_type) {
+  // @todo
+  return TRUE;
+}
+
+/**
+ * Access callback for release types
+ */
+function fserver_release_type_access($op, $entity, $account, $entity_type) {
   // @todo
   return TRUE;
 }
@@ -197,15 +243,15 @@ function fserver_form_eck__entity__form_edit_release_release_alter(&$form, &$for
 function fserver_entity_info_alter(&$entity_info) {
   // Set the entity class for projects and releases
   if (isset($entity_info['project'])) {
-    $entity_info['project']['entity class'] = 'fserverProject';
+    $entity_info['project']['entity class'] = 'FserverProject';
     $entity_info['project']['access callback'] = 'fserver_project_access';
-    $entity_info['project']['controller class'] = 'fserverProjectController';
+    $entity_info['project']['controller class'] = 'FserverProjectController';
   }
 
   if (isset($entity_info['release'])) {
-    $entity_info['release']['entity class'] = 'fserverRelease';
+    $entity_info['release']['entity class'] = 'FserverRelease';
     $entity_info['release']['access callback'] = 'fserver_release_access';
-    $entity_info['release']['controller class'] = 'fserverReleaseController';
+    $entity_info['release']['controller class'] = 'FserverReleaseController';
   }
 }
 
@@ -483,7 +529,7 @@ function fserver__release_delete($name) {
 /**
  * Base class for Project entities
  */
-class fserverProject extends Entity {
+class FserverProject extends Entity {
   public function __construct($values = array()) {
     // @todo add constructor validation
     parent::__construct($values, 'project');
@@ -602,7 +648,7 @@ class fserverProject extends Entity {
 /**
  * Controller class for Project entities
  */
-class fserverProjectController extends EntityAPIController {
+class FserverProjectController extends EntityAPIController {
   public function delete($ids, DatabaseTransaction $transaction = NULL) {
 
     $entities = $ids ? $this->load($ids) : FALSE;
@@ -628,7 +674,7 @@ class fserverProjectController extends EntityAPIController {
 /**
  * Base class for Release entities
  */
-class fserverRelease extends Entity {
+class FserverRelease extends Entity {
   public function __construct($values = array()) {
     // @todo add release validation
     parent::__construct($values, 'release');
@@ -674,7 +720,7 @@ class fserverRelease extends Entity {
 /**
  * Controller class for Release entities
  */
-class fserverReleaseController extends EntityAPIController {
+class FserverReleaseController extends EntityAPIController {
   public function save($entity, DatabaseTransaction $transaction = NULL) {
     $entity->date = time();
     $entity->generateReleaseName();
@@ -687,14 +733,14 @@ class fserverReleaseController extends EntityAPIController {
  *
  * Used to generate the update XML for a given project.
  */
-class fserverProjectRelease {
+class FserverProjectRelease {
   protected $project;
 
   /**
-   * Build a fserverProjectRelease object
+   * Build a FserverProjectRelease object
    */
   public function __construct($project, $api) {
-    if (is_object($project) and get_class($project) == 'fserverProject') {
+    if (is_object($project) and get_class($project) == 'FserverProject') {
       $this->project = $project;
       $this->prepareReleases($api);
       $this->prepareProject();

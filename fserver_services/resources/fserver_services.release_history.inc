@@ -27,7 +27,7 @@ function _fserver_services_release_history($short_name, $api, $site_key = '', $v
   // @see services.alter.api.php
   $api .= '.x';
 
-  $project = new fserverProjectRelease($project, $api);
+  $project = new FserverProjectRelease($project, $api);
 
   if (FALSE !== $project) {
     return $project->getProject();
