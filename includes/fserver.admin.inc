@@ -23,6 +23,7 @@ function project_form($form, &$form_state) {
     '#description' => t('Machine-name of the project for this release.'),
     '#size' => 40,
     '#maxlength' => 255,
+    '#required' => TRUE,
     '#machine_name' => array(
       'exists' => 'fserver__project_exists',
       'source' => array('title'),
@@ -36,6 +37,7 @@ function project_form($form, &$form_state) {
     '#type' => 'select',
     '#title' => t('Project Status'),
     '#multiple' => FALSE,
+    '#required' => TRUE,
     '#description' => t('Status code for the project. Affects how updates are displayed by the Update module.'),
     '#options' => array(
       # @see https://api.drupal.org/api/drupal/modules%21update%21update.compare.inc/7
@@ -106,8 +108,20 @@ function project_form($form, &$form_state) {
  * Submit callback for project form
  */
 function project_form_submit(&$form, &$form_state) {
-  $project = entity_create_stub_entity('project');
-  dpm($form_state);
+  $project = $form_state['project'];
+  $project->short_name =  $form_state['values']['short_name'];
+  $project->project_status =  $form_state['values']['project_status'];
+  if (!empty($form_state['values']['supported_majors'])) {
+    $project->supported_majors =  $form_state['values']['supported_majors'];
+  }
+  if (!empty($form_state['values']['default_major'])) {
+    $project->default_major =  $form_state['values']['default_major'];
+  }
+
+  project_save($project);
+  $uri = entity_uri($project);
+  drupal_set_message(t('New project entity saved.'));
+  $form_state['redirect'] = url($uri['path'], $uri['options']);
 }
 
 /**
