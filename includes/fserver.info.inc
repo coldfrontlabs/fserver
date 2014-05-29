@@ -113,7 +113,7 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
       'type' => 'uri',
       'setter callback' => 'entity_property_verbatim_set',
       'getter callback' => 'entity_property_verbatim_get',
-    );
+    ) + $properties['link'];
 
     return $info;
   }
