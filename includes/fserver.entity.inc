@@ -108,6 +108,7 @@ function _fserver_project_property_supported_majors_options() {
     '6.x' => t('6.x'),
     '7.x' => t('7.x'),
     '8.x' => t('8.x'),
+    '9.x' => t('9.x'),
   );
 }
 
