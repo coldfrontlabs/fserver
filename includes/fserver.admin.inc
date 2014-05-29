@@ -188,7 +188,7 @@ function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
     '#size' => 40,
     '#disabled' => $project_type->hasStatus(ENTITY_IN_CODE),
     '#machine_name' => array(
-      'exists' => 'message_type_load',
+      'exists' => 'project_type_load',
       'source' => array('description'),
     ),
     '#required' => TRUE,
@@ -265,7 +265,7 @@ function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
     '#size' => 40,
     '#disabled' => $release_type->hasStatus(ENTITY_IN_CODE),
     '#machine_name' => array(
-      'exists' => 'message_type_load',
+      'exists' => 'release_type_load',
       'source' => array('description'),
     ),
     '#required' => TRUE,
