@@ -99,7 +99,7 @@ function project_form($form, &$form_state) {
     '#value' => t('Save'),
   );
 
-  # @todo add access check on form
+  return $form;
 }
 
 /**
@@ -158,6 +158,8 @@ function release_form($form, &$form_state) {
     '#type' => 'submit',
     '#value' => t('Save'),
   );
+
+  return $form;
 }
 
 /**
