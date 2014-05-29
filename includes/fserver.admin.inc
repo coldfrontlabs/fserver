@@ -60,6 +60,7 @@ function project_form($form, &$form_state) {
     '#default_value' => isset($form['entity']['#value']->project_status) ? $form['entity']['#value']->project_status : '',
   );
 
+  field_attach_form('project', $form_state['project'], $form, $form_state);
 
   $form['advanced'] = array(
     '#type' => 'fieldset',
@@ -183,7 +184,8 @@ function release_form($form, &$form_state) {
     '#default_value' => isset($form['entity']['#value']->version_patch) ? $form['entity']['#value']->version_patch : '',
     // @todo add custom validator
   );
-  # @todo add access check on form
+
+  field_attach_form('release', $form_state['release'], $form, $form_state);
 
   $form['save'] = array(
     '#type' => 'submit',
