@@ -148,3 +148,147 @@ function release_form($form, &$form_state, $release, $op = 'edit') {
   );
   # @todo add access check on form
 }
+
+/**
+ * Project type form
+ */
+function project_type_form($form, &$form_state, $provider_type, $op = 'edit') {
+  if ($op == 'clone') {
+    $provider_type->description .= ' (cloned)';
+    // Save the original message type into form state so that the submit
+    // handler can clone its field instances.
+    $form_state['original_provider_type'] = menu_get_object('entity_object', 4);
+  }
+
+  $form['description'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Description'),
+    '#description' => t('Describe the provider.'),
+    '#default_value' => $provider_type->description,
+    '#required' => TRUE,
+    '#weight' => -5,
+  );
+
+  $form['type'] = array(
+    '#type' => 'machine_name',
+    '#title' => t('Name'),
+    '#description' => t('A unique machine-readable name for this provider type. It must only contain lowercase letters, numbers, and underscores.'),
+    '#default_value' => isset($provider_type->name) ? $provider_type->name : '',
+    '#size' => 40,
+    '#disabled' => $provider_type->hasStatus(ENTITY_IN_CODE),
+    '#machine_name' => array(
+      'exists' => 'message_type_load',
+      'source' => array('description'),
+    ),
+    '#required' => TRUE,
+    '#weight' => -5,
+  );
+
+  return $form;
+}
+
+/**
+ * Validation callback for project_type
+ */
+function project_type_form_validate(&$form, &$form_state) {
+  field_attach_form_validate('project_type', $form_state['project_type'], $form['project_type_fields'], $form_state);
+}
+
+/**
+ * Submit callback for project_type
+ */
+function project_type_form_submit(&$form, &$form_state) {
+  $provider_type = entity_ui_form_submit_build_entity($form, $form_state);
+  $provider_type->save();
+
+  // If this was a clone operation, clone the field instances as well.
+  $op = $form_state['build_info']['args'][1];
+  if ($op == 'clone') {
+    $original_instances = field_info_instances('project_type', $form_state['original_project_type']->name);
+    foreach ($original_instances as $instance) {
+      $instance['bundle'] = $provider_type->name;
+      field_create_instance($instance);
+    }
+  }
+
+  $form_state['redirect'] = 'admin/structure/project_types';
+}
+
+/**
+ * Form API submit callback for the delete button.
+ */
+function project_type_form_submit_delete(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/structure/project_types/manage/' . $form_state['project_type']->name . '/delete';
+}
+
+/**
+ * Release type form
+ */
+function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
+  if ($op == 'clone') {
+    $release_type->description .= ' (cloned)';
+    // Save the original message type into form state so that the submit
+    // handler can clone its field instances.
+    $form_state['original_release_type'] = menu_get_object('entity_object', 4);
+  }
+
+  $form['description'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Description'),
+    '#description' => t('Describe the release type.'),
+    '#default_value' => $release_type->description,
+    '#required' => TRUE,
+    '#weight' => -5,
+  );
+
+  $form['type'] = array(
+    '#type' => 'machine_name',
+    '#title' => t('Name'),
+    '#description' => t('A unique machine-readable name for this release type. It must only contain lowercase letters, numbers, and underscores.'),
+    '#default_value' => isset($release_type->name) ? $release_type->name : '',
+    '#size' => 40,
+    '#disabled' => $release_type->hasStatus(ENTITY_IN_CODE),
+    '#machine_name' => array(
+      'exists' => 'message_type_load',
+      'source' => array('description'),
+    ),
+    '#required' => TRUE,
+    '#weight' => -5,
+  );
+
+  return $form;
+}
+
+/**
+ * Validation callback for release_type
+ */
+function release_type_form_validate(&$form, &$form_state) {
+  field_attach_form_validate('release_type', $form_state['release_type'], $form['release_type_fields'], $form_state);
+}
+
+/**
+ * Submit callback for release_type
+ */
+function release_type_form_submit(&$form, &$form_state) {
+  $release_type = entity_ui_form_submit_build_entity($form, $form_state);
+  $release_type->save();
+
+  // If this was a clone operation, clone the field instances as well.
+  $op = $form_state['build_info']['args'][1];
+  if ($op == 'clone') {
+    $original_instances = field_info_instances('release_type', $form_state['original_release_type']->name);
+    foreach ($original_instances as $instance) {
+      $instance['bundle'] = $release_type->name;
+      field_create_instance($instance);
+    }
+  }
+
+  $form_state['redirect'] = 'admin/structure/release_types';
+}
+
+/**
+ * Form API submit callback for the delete button.
+ */
+function release_type_form_submit_delete(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/structure/release_types/manage/' . $form_state['release_type']->name . '/delete';
+}
