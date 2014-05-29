@@ -156,19 +156,6 @@ function fserver_entity_info() {
 }
 
 /**
- * Project form callback
- */
-function project_form($entity, $entity_type) {
-  $form = array();
-  $form_state = array();
-  field_attach_form('project', $project, $form['project_' . $project->type], $form_state);
-
-  return $form;
-}
-
-
-
-/**
  * Access callback for release types
  */
 function release_type_access($op, $entity, $account, $entity_type) {
