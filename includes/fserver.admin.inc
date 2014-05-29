@@ -212,9 +212,9 @@ function project_type_form_submit(&$form, &$form_state) {
   // If this was a clone operation, clone the field instances as well.
   $op = $form_state['build_info']['args'][1];
   if ($op == 'clone') {
-    $original_instances = field_info_instances('project_type', $form_state['original_project_type']->name);
+    $original_instances = field_info_instances('project_type', $form_state['original_project_type']->type);
     foreach ($original_instances as $instance) {
-      $instance['bundle'] = $project_type->name;
+      $instance['bundle'] = $project_type->type;
       field_create_instance($instance);
     }
     unset($project_type->uuid);
@@ -228,7 +228,7 @@ function project_type_form_submit(&$form, &$form_state) {
  * Form API submit callback for the delete button.
  */
 function project_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/structure/project_types/manage/' . $form_state['project_type']->name . '/delete';
+  $form_state['redirect'] = 'admin/structure/project_types/manage/' . $form_state['project_type']->type . '/delete';
 }
 
 /**
@@ -285,9 +285,9 @@ function release_type_form_submit(&$form, &$form_state) {
   // If this was a clone operation, clone the field instances as well.
   $op = $form_state['build_info']['args'][1];
   if ($op == 'clone') {
-    $original_instances = field_info_instances('release_type', $form_state['original_release_type']->name);
+    $original_instances = field_info_instances('release_type', $form_state['original_release_type']->type);
     foreach ($original_instances as $instance) {
-      $instance['bundle'] = $release_type->name;
+      $instance['bundle'] = $release_type->type;
       field_create_instance($instance);
     }
     unset($release_type->uuid);
@@ -300,5 +300,5 @@ function release_type_form_submit(&$form, &$form_state) {
  * Form API submit callback for the delete button.
  */
 function release_type_form_submit_delete(&$form, &$form_state) {
-  $form_state['redirect'] = 'admin/structure/release_types/manage/' . $form_state['release_type']->name . '/delete';
+  $form_state['redirect'] = 'admin/structure/release_types/manage/' . $form_state['release_type']->type . '/delete';
 }
