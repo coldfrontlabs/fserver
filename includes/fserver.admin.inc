@@ -152,9 +152,9 @@ function release_form($form, &$form_state, $release, $op = 'edit') {
 /**
  * Project type form
  */
-function project_type_form($form, &$form_state, $provider_type, $op = 'edit') {
+function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
   if ($op == 'clone') {
-    $provider_type->description .= ' (cloned)';
+    $project_type->description .= ' (cloned)';
     // Save the original message type into form state so that the submit
     // handler can clone its field instances.
     $form_state['original_provider_type'] = menu_get_object('entity_object', 4);
@@ -164,7 +164,7 @@ function project_type_form($form, &$form_state, $provider_type, $op = 'edit') {
     '#type' => 'textfield',
     '#title' => t('Description'),
     '#description' => t('Describe the provider.'),
-    '#default_value' => $provider_type->description,
+    '#default_value' => $project_type->description,
     '#required' => TRUE,
     '#weight' => -5,
   );
@@ -173,9 +173,9 @@ function project_type_form($form, &$form_state, $provider_type, $op = 'edit') {
     '#type' => 'machine_name',
     '#title' => t('Name'),
     '#description' => t('A unique machine-readable name for this provider type. It must only contain lowercase letters, numbers, and underscores.'),
-    '#default_value' => isset($provider_type->type) ? $provider_type->type : '',
+    '#default_value' => isset($project_type->type) ? $project_type->type : '',
     '#size' => 40,
-    '#disabled' => $provider_type->hasStatus(ENTITY_IN_CODE),
+    '#disabled' => $project_type->hasStatus(ENTITY_IN_CODE),
     '#machine_name' => array(
       'exists' => 'message_type_load',
       'source' => array('description'),
@@ -198,15 +198,15 @@ function project_type_form_validate(&$form, &$form_state) {
  * Submit callback for project_type
  */
 function project_type_form_submit(&$form, &$form_state) {
-  $provider_type = entity_ui_form_submit_build_entity($form, $form_state);
-  $provider_type->save();
+  $project_type = entity_ui_form_submit_build_entity($form, $form_state);
+  $project_type->save();
 
   // If this was a clone operation, clone the field instances as well.
   $op = $form_state['build_info']['args'][1];
   if ($op == 'clone') {
     $original_instances = field_info_instances('project_type', $form_state['original_project_type']->name);
     foreach ($original_instances as $instance) {
-      $instance['bundle'] = $provider_type->name;
+      $instance['bundle'] = $project_type->name;
       field_create_instance($instance);
     }
   }
