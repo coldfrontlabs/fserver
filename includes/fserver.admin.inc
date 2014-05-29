@@ -208,7 +208,6 @@ function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
  */
 function project_type_form_submit(&$form, &$form_state) {
   $project_type = entity_ui_form_submit_build_entity($form, $form_state);
-  $project_type->save();
 
   // If this was a clone operation, clone the field instances as well.
   $op = $form_state['build_info']['args'][1];
@@ -218,8 +217,10 @@ function project_type_form_submit(&$form, &$form_state) {
       $instance['bundle'] = $project_type->name;
       field_create_instance($instance);
     }
+    unset($project_type->uuid);
   }
 
+  $project_type->save();
   $form_state['redirect'] = 'admin/structure/project_types';
 }
 
@@ -279,7 +280,7 @@ function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
  */
 function release_type_form_submit(&$form, &$form_state) {
   $release_type = entity_ui_form_submit_build_entity($form, $form_state);
-  $release_type->save();
+
 
   // If this was a clone operation, clone the field instances as well.
   $op = $form_state['build_info']['args'][1];
@@ -289,8 +290,9 @@ function release_type_form_submit(&$form, &$form_state) {
       $instance['bundle'] = $release_type->name;
       field_create_instance($instance);
     }
+    unset($release_type->uuid);
   }
-
+  $release_type->save();
   $form_state['redirect'] = 'admin/structure/release_types';
 }
 
