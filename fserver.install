@@ -138,7 +138,7 @@ function fserver_schema() {
     'primary key' => array('id'),
     'unique keys' => array(
       'uuid' => array('uuid'),
-      'name' => array('name'),
+      'short_name' => array('short_name'),
     ),
     'indexes' => array(
       'type' => array('type'),
