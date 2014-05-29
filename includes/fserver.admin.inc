@@ -150,7 +150,7 @@ function release_form($form, &$form_state) {
     '#type' => 'select',
     '#title' => t('API'),
     '#description' => t('API version (i.e. 7.x)'),
-    '#default_value' => isset($form['entity']['#value']->api) ? $form['entity']['#value']->api : '7.x',
+    '#default_value' => isset($form_state['release']->api) ? $form_state['release']->api : '7.x',
     '#required' => TRUE,
     '#multiple' => FALSE,
     '#options' => array(
@@ -167,7 +167,7 @@ function release_form($form, &$form_state) {
     '#size' => 15,
     '#min' => 1,
     '#maxlength' => 3,
-    '#default_value' => isset($form['entity']['#value']->version_major) ? $form['entity']['#value']->version_major : '',
+    '#default_value' => isset($form_state['release']->version_major) ? $form_state['release']->version_major : '',
     '#required' => TRUE,
     // @todo add auto-detection based on project repo data
   );
@@ -178,7 +178,7 @@ function release_form($form, &$form_state) {
     '#description' => t('Ex: dev, alpha1'),
     '#size' => 15,
     '#maxlength' => 20,
-    '#default_value' => isset($form['entity']['#value']->version_extra) ? $form['entity']['#value']->version_extra : '',
+    '#default_value' => isset($form_state['release']->version_extra) ? $form_state['release']->version_extra : '',
     // @todo add custom validator
     // @todo add auto-detection based on project repo data
   );
@@ -188,8 +188,17 @@ function release_form($form, &$form_state) {
     '#title' => t('Version Patch'),
     '#size' => 6,
     '#maxlength' => 4,
-    '#default_value' => isset($form['entity']['#value']->version_patch) ? $form['entity']['#value']->version_patch : '',
+    '#default_value' => isset($form_state['release']->version_patch) ? $form_state['release']->version_patch : '',
     // @todo add custom validator
+  );
+
+  $form['tag'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Tag'),
+    '#description' => t('Release tag.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#default_value' => isset($form_state['release']->tag) ? $form_state['release']->tag : '',
   );
 
   field_attach_form('release', $form_state['release'], $form, $form_state);
@@ -201,6 +210,31 @@ function release_form($form, &$form_state) {
   );
 
   return $form;
+}
+
+/**
+ * Submit callback for release form
+ */
+function release_form_submit(&$form, &$form_state) {
+  $project = $form_state['release'];
+  $project->title =  $form_state['values']['name'];
+  $project->short_name =  $form_state['values']['version'];
+  $project->project_status =  $form_state['values']['project_status'];
+  if (!empty($form_state['values']['supported_majors'])) {
+    $project->supported_majors =  $form_state['values']['supported_majors'];
+  }
+  if (!empty($form_state['values']['default_major'])) {
+    $project->default_major =  $form_state['values']['default_major'];
+  }
+
+  if (empty($form_state['op']) == 'add') {
+    drupal_set_message(t('New project entity created.'));
+  }
+  else {
+    drupal_set_message(t('Project entity saved.'));
+  }
+
+  $form_state['redirect'] = '<front>';
 }
 
 /**
