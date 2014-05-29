@@ -17,6 +17,16 @@ function project_form($form, &$form_state) {
     $form['field_compatibility']['#weight'] = 0;
   }
 
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#description' => t('The title of your project.'),
+    '#size' => 40,
+    '#maxlength' => 255,
+    '#required' => TRUE,
+    '#weight' => -10,
+  );
+
   $form['short_name'] = array(
     '#type' => 'machine_name',
     '#title' => t('Project Short Name'),
@@ -109,6 +119,7 @@ function project_form($form, &$form_state) {
  */
 function project_form_submit(&$form, &$form_state) {
   $project = $form_state['project'];
+  $project->title =  $form_state['values']['title'];
   $project->short_name =  $form_state['values']['short_name'];
   $project->project_status =  $form_state['values']['project_status'];
   if (!empty($form_state['values']['supported_majors'])) {
