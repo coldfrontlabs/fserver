@@ -21,7 +21,6 @@ function fserver_permission() {
     'description' => t('Perform administration tasks for Feature Server.'),
   );
 
-
   $types = project_types_load();
 
   foreach ($types as $type) {
