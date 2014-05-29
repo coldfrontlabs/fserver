@@ -25,6 +25,7 @@ function project_form($form, &$form_state) {
     '#maxlength' => 255,
     '#required' => TRUE,
     '#weight' => -10,
+    '#default_value' => isset($form_state['project']->title) ? $form_state['project']->title : '',
   );
 
   $form['short_name'] = array(
@@ -40,7 +41,7 @@ function project_form($form, &$form_state) {
       'label' => t('Project short name'),
     ),
     '#weight' => -9,
-    '#default_value' => isset($form['entity']['#value']->short_name) ? $form['entity']['#value']->short_name : '',
+    '#default_value' => isset($form_state['project']->short_name) ? $form_state['project']->short_name : '',
   );
 
   $form['project_status'] = array(
@@ -57,7 +58,7 @@ function project_form($form, &$form_state) {
       'revoked' => t('Revoked'),
       'unsupported' => t('Unsupported'),
     ),
-    '#default_value' => isset($form['entity']['#value']->project_status) ? $form['entity']['#value']->project_status : '',
+    '#default_value' => isset($form_state['project']->project_status) ? $form_state['project']->project_status : '',
   );
 
   field_attach_form('project', $form_state['project'], $form, $form_state);
@@ -79,8 +80,7 @@ function project_form($form, &$form_state) {
     '#maxlength' => 255,
     // @todo limit based on available major versions
     '#weight' => 20,
-    '#default_value' => isset($form['entity']['#value']->supported_majors) ? $form['entity']['#value']->supported_majors : '',
-    // @todo add element validator
+    '#default_value' => isset($form_state['project']->supported_majors) ? $form_state['project']->supported_majors : '',
   );
 
   $form['advanced']['recommended_major'] = array(
@@ -92,7 +92,7 @@ function project_form($form, &$form_state) {
     '#min' => 1,
     // @todo validate the major version exists
     '#weight' => 20,
-    '#default_value' => isset($form['entity']['#value']->recommended_major) ? $form['entity']['#value']->recommended_major : '',
+    '#default_value' => isset($form_state['project']->recommended_major) ? $form_state['project']->recommended_major : '',
   );
 
   $form['advanced']['default_major'] = array(
@@ -102,7 +102,7 @@ function project_form($form, &$form_state) {
     '#size' => 40,
     '#maxlength' => 255,
     '#weight' => 20,
-    '#default_value' => isset($form['entity']['#value']->default_major) ? $form['entity']['#value']->default_major : '',
+    '#default_value' => isset($form_state['project']->default_major) ? $form_state['project']->default_major : '',
     // @todo add element validator
   );
 

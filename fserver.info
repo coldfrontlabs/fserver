@@ -6,6 +6,7 @@ project = fserver
 dependencies[] = ctools
 dependencies[] = entity
 dependencies[] = uuid
+dependencies[] = elements
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = field_validation
