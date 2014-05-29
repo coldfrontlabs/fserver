@@ -21,7 +21,55 @@ function fserver_permission() {
     'description' => t('Perform administration tasks for Feature Server.'),
   );
 
-  // @todo add per-bundle permissions
+
+  $types = project_types_load();
+
+  foreach ($types as $type) {
+    $permissions['create fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Create fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Create projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit own fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Edit own fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Edit own projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit any fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Edit any fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Edit any projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete own fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Delete own fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Delete own projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete any fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Delete any fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Delete any projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+  }
+  $types = release_types_load();
+
+  foreach ($types as $type) {
+    $permissions['create fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Create fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Create releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit own fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Edit own fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Edit own releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit any fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Edit any fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Edit any releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete own fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Delete own fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Delete own releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete any fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Delete any fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Delete any releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+  }
 
   return $permissions;
 }
