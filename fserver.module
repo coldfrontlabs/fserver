@@ -21,7 +21,7 @@ function fserver_permission() {
     'description' => t('Perform administration tasks for Feature Server.'),
   );
 
-  $types = project_types_load();
+  $types = project_type_load();
 
   foreach ($types as $type) {
     $permissions['create fserver ' . $type->type . ' projects'] = array(
@@ -45,7 +45,7 @@ function fserver_permission() {
       'description' => t('Delete any projects of type @type within Feature Server', array('@type' => $type->type)),
     );
   }
-  $types = release_types_load();
+  $types = release_type_load();
 
   foreach ($types as $type) {
     $permissions['create fserver ' . $type->type . ' releases'] = array(
