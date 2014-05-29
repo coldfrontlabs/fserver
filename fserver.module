@@ -160,6 +160,8 @@ function fserver_entity_info() {
     'fieldable' => TRUE,
     'uuid' => TRUE,
     'entity cache' => module_exists('entitycache'),
+    'uri callback' => 'entity_class_uri',
+    'label callback' => 'entity_class_label',
     'entity keys' => array(
       'id' => 'id',
       'bundle' => 'type',
@@ -194,6 +196,8 @@ function fserver_entity_info() {
     'base table' => 'fserver_release',
     'fieldable' => TRUE,
     'uuid' => TRUE,
+    'uri callback' => 'entity_class_uri',
+    'label callback' => 'entity_class_label',
     'entity cache' => module_exists('entitycache'),
     'entity keys' => array(
       'id' => 'id',
