@@ -49,6 +49,13 @@ function project_delete_multiple(array $ids) {
 }
 
 /**
+ * View project entity
+ */
+function project_view($entity_type, $entities, $view_mode = 'full', $langcode = NULL, $page = NULL) {
+  return entity_view($entity_type, $entities, $view_mode, $langcode, $page);
+}
+
+/**
  * Default access callback for project entities
  */
 function project_access($op, $entity, $account = NULL, $entity_type) {
@@ -101,6 +108,13 @@ function release_delete($id) {
  */
 function release_delete_multiple(array $ids) {
   entity_delete_multiple('release', $ids);
+}
+
+/**
+ * View release entity
+ */
+function release_view($entity_type, $entities, $view_mode = 'full', $langcode = NULL, $page = NULL) {
+  return entity_view($entity_type, $entities, $view_mode, $langcode, $page);
 }
 
 /**
