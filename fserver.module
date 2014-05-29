@@ -155,12 +155,12 @@ function fserver_entity_info() {
   );
 
   if (db_table_exists('fserver_project_type')) {
-    $provider_bundles = db_select('fserver_project_type', 'pt')
+    $project_bundles = db_select('fserver_project_type', 'pt')
       ->fields('pt')
       ->execute()
       ->fetchAllAssoc('type');
 
-    foreach ($provider_bundles as $type_name => $type) {
+    foreach ($project_bundles as $type_name => $type) {
       $info['project']['bundles'][$type_name] = array(
         'label' => $type->description,
         'admin' => array(
@@ -174,12 +174,12 @@ function fserver_entity_info() {
   }
 
   if (db_table_exists('fserver_release_type')) {
-    $provider_bundles = db_select('fserver_release_type', 'rt')
+    $release_bundles = db_select('fserver_release_type', 'rt')
       ->fields('rt')
       ->execute()
       ->fetchAllAssoc('type');
 
-    foreach ($provider_bundles as $type_name => $type) {
+    foreach ($release_bundles as $type_name => $type) {
       $info['release']['bundles'][$type_name] = array(
         'label' => $type->description,
         'admin' => array(
