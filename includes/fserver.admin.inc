@@ -8,7 +8,7 @@
 /**
  * Form settings for the Project entity
  */
-function project_form($form, &$form_state, $project, $op = 'edit') {
+function project_form($form, &$form_state) {
   if (isset($form['title'])) {
     $form['title']['#weight'] = -10;
   }
@@ -105,7 +105,7 @@ function project_form($form, &$form_state, $project, $op = 'edit') {
 /**
  * Form settings for the Release entity
  */
-function release_form($form, &$form_state, $release, $op = 'edit') {
+function release_form($form, &$form_state) {
 
   $form['api'] = array(
     '#type' => 'select',
