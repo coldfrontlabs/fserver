@@ -110,6 +110,7 @@ function project_form($form, &$form_state) {
   $form['save'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
+    '#weight' => 50,
   );
 
   return $form;
@@ -190,6 +191,7 @@ function release_form($form, &$form_state) {
   $form['save'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
+    '#weight' => 50,
   );
 
   return $form;
