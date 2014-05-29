@@ -168,7 +168,7 @@ function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
     $project_type->description .= ' (cloned)';
     // Save the original message type into form state so that the submit
     // handler can clone its field instances.
-    $form_state['original_provider_type'] = menu_get_object('entity_object', 4);
+    $form_state['original_project_type'] = menu_get_object('entity_object', 4);
   }
 
   $form['description'] = array(
