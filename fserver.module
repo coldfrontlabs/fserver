@@ -24,9 +24,13 @@ function fserver_permission() {
   $types = project_type_load();
 
   foreach ($types as $type) {
-    $permissions['view fserver ' . $type->type . ' projects'] = array(
-      'title' => t('View fserver @type project type entities', array('@type' => $type->type)),
-      'description' => t('View projects of type @type within Feature Server', array('@type' => $type->type)),
+    $permissions['view own fserver ' . $type->type . ' projects'] = array(
+      'title' => t('View own fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('View own projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['view any fserver ' . $type->type . ' projects'] = array(
+      'title' => t('View any fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('View any projects of type @type within Feature Server', array('@type' => $type->type)),
     );
     $permissions['create fserver ' . $type->type . ' projects'] = array(
       'title' => t('Create fserver @type project type entities', array('@type' => $type->type)),
@@ -53,9 +57,13 @@ function fserver_permission() {
   $types = release_type_load();
 
   foreach ($types as $type) {
-    $permissions['view fserver ' . $type->type . ' releases'] = array(
+    $permissions['view own fserver ' . $type->type . ' releases'] = array(
+      'title' => t('View own fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('View own releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['view any fserver ' . $type->type . ' releases'] = array(
       'title' => t('View fserver @type release type entities', array('@type' => $type->type)),
-      'description' => t('View releases of type @type within Feature Server', array('@type' => $type->type)),
+      'description' => t('View any releases of type @type within Feature Server', array('@type' => $type->type)),
     );
     $permissions['create fserver ' . $type->type . ' releases'] = array(
       'title' => t('Create fserver @type release type entities', array('@type' => $type->type)),
