@@ -196,19 +196,11 @@ function fserver_entity_info() {
 }
 
 /**
- * Access callback for release types
+ * Implements hook_menu_alter().
  */
-function release_type_access($op, $entity, $account, $entity_type) {
-  // @todo
-  return TRUE;
-}
-
-/**
- * Access callback for project types
- */
-function project_type_access($op, $entity, $account, $entity_type) {
-  // @todo
-  return TRUE;
+function fserver_menu_alter(&$items) {
+  $items['admin/content/projects']['type'] = MENU_LOCAL_TASK;
+  $items['admin/content/releases']['type'] = MENU_LOCAL_TASK;
 }
 
 // @todo replace with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
