@@ -203,71 +203,7 @@ function fserver_menu_alter(&$items) {
   $items['admin/content/releases']['type'] = MENU_LOCAL_TASK;
 }
 
-// @todo replace with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_project_module_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_project_module_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_project_theme_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_project_theme_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_project_distribution_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_project_distribution_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_release_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_release_release_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_release_form($form, $form_state);
-}
+// @todo add with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 
 /**
  * Implements hook_field_formatter_info().
@@ -528,31 +464,4 @@ function fserver__release_delete($name) {
     return FALSE;
   }
   return entity_delete('release', $release->id);
-}
-
-/**
- * Options list callback for the supported_majors property
- */
-function _fserver_project_property_supported_majors_options() {
-  // @todo make this intelligent by looking at the attached releases
-  // @todo
-  return array(
-    '5.x' => t('5.x'),
-    '6.x' => t('6.x'),
-    '7.x' => t('7.x'),
-    '8.x' => t('8.x'),
-  );
-}
-
-/**
- * Options list callback for the recommended_majors property
- */
-function _fserver_project_property_recommended_majors_options() {
-  // @todo make this intelligent by looking at the attached releases
-  return array(
-    1 => 1,
-    2 => 2,
-    3 => 3,
-    4 => 4,
-  );
 }

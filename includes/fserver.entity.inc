@@ -98,6 +98,33 @@ function release_access($op, $release = NULL, $account = NULL) {
 }
 
 /**
+ * Options list callback for the supported_majors property
+ */
+function _fserver_project_property_supported_majors_options() {
+  // @todo make this intelligent by looking at the attached releases
+  // @todo
+  return array(
+    '5.x' => t('5.x'),
+    '6.x' => t('6.x'),
+    '7.x' => t('7.x'),
+    '8.x' => t('8.x'),
+  );
+}
+
+/**
+ * Options list callback for the recommended_majors property
+ */
+function _fserver_project_property_recommended_majors_options() {
+  // @todo make this intelligent by looking at the attached releases
+  return array(
+    1 => 1,
+    2 => 2,
+    3 => 3,
+    4 => 4,
+  );
+}
+
+/**
  * Base class for Project entities
  */
 class FserverProject extends Entity {
