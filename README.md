@@ -42,3 +42,15 @@ This is a basic UI for displaying lists of projects, releases and similar functi
 This module is meant as an example to how you could build a UI for Fserver. It can be disabled/replaced by your own implementation (e.g. use Context and DS instead of Panels)
 
 - [Panels](http://drupal.org/project/panels)
+
+Additional Notes
+----------------
+
+This module defines 4 entity types
+
+- project
+- release
+- project_type
+- release_type
+
+Thus is also implements functions in the form ````project_load```` and ````release_load````. Note that this may conflict with other modules named "project" or "release" etc.
