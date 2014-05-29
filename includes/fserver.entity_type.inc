@@ -26,7 +26,7 @@ function project_type_load($type = NULL) {
 /**
  * Access callback for project types
  */
-function project_type_access($op, $entity, $account, $entity_type) {
+function project_type_access($op, $entity, $account = NULL, $entity_type) {
   // @todo
   return TRUE;
 }
@@ -52,7 +52,7 @@ function release_type_load($type = NULL) {
 /**
  * Access callback for release types
  */
-function release_type_access($op, $entity, $account, $entity_type) {
+function release_type_access($op, $entity, $account = NULL, $entity_type) {
   // @todo
   return TRUE;
 }

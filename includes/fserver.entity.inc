@@ -47,7 +47,7 @@ function project_delete_multiple(array $ids) {
 /**
  * Default access callback for project entities
  */
-function project_access($op, $project = NULL, $account = NULL) {
+function project_access($op, $entity, $account = NULL, $entity_type) {
   return TRUE;
 }
 
@@ -93,7 +93,7 @@ function release_delete_multiple(array $ids) {
 /**
  * Access callback for release entities
  */
-function release_access($op, $release = NULL, $account = NULL) {
+function release_access($op, $entity, $account = NULL, $entity_type) {
   return TRUE;
 }
 
