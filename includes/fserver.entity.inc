@@ -59,7 +59,35 @@ function project_access($op, $project = NULL, $account = NULL) {
  * Load a single release entity by id
  */
 function release_load($id) {
-  return entity_load_single('project', $id);
+  return entity_load_single('release', $id);
+}
+
+/**
+ * Load a multple release entity by id
+ */
+function release_load_multiple(array $ids) {
+  return entity_load('release', $ids);
+}
+
+/**
+ * Save a single release entity
+ */
+function release_save($project) {
+  return entity_save('release', $project);
+}
+
+/**
+ * Delete a single release entity
+ */
+function release_delete($id) {
+  entity_delete('release', $id);
+}
+
+/**
+ * Delete multiple release entities
+ */
+function release_delete_multiple(array $ids) {
+  entity_delete_multiple('release', $ids);
 }
 
 /**
