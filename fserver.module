@@ -162,6 +162,7 @@ function fserver_entity_info() {
     'entity cache' => module_exists('entitycache'),
     'entity keys' => array(
       'id' => 'id',
+      'label' => 'title',
       'bundle' => 'type',
       'uuid' => 'uuid',
       'name' => 'name',
@@ -197,6 +198,7 @@ function fserver_entity_info() {
     'entity cache' => module_exists('entitycache'),
     'entity keys' => array(
       'id' => 'id',
+      'label' => 'name',
       'bundle' => 'type',
       'uuid' => 'uuid',
       'name' => 'name',
