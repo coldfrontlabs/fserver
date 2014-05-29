@@ -175,7 +175,7 @@ function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
     '#type' => 'textfield',
     '#title' => t('Description'),
     '#description' => t('Describe the provider.'),
-    '#default_value' => $project_type->description,
+    '#default_value' => isset($project_type->description) ? $project_type->description : '',
     '#required' => TRUE,
     '#weight' => -5,
   );
@@ -246,7 +246,7 @@ function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
     '#type' => 'textfield',
     '#title' => t('Description'),
     '#description' => t('Describe the release type.'),
-    '#default_value' => $release_type->description,
+    '#default_value' => isset($release_type->description) ? $release_type->description : '',
     '#required' => TRUE,
     '#weight' => -5,
   );
