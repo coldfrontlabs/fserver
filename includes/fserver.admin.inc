@@ -204,13 +204,6 @@ function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
 }
 
 /**
- * Validation callback for project_type
- */
-function project_type_form_validate(&$form, &$form_state) {
-  field_attach_form_validate('project_type', $form_state['project_type'], $form['project_type_fields'], $form_state);
-}
-
-/**
  * Submit callback for project_type
  */
 function project_type_form_submit(&$form, &$form_state) {
@@ -279,13 +272,6 @@ function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
 
 
   return $form;
-}
-
-/**
- * Validation callback for release_type
- */
-function release_type_form_validate(&$form, &$form_state) {
-  field_attach_form_validate('release_type', $form_state['release_type'], $form['release_type_fields'], $form_state);
 }
 
 /**
