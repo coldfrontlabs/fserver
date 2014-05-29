@@ -118,6 +118,7 @@ function fserver_entity_info() {
     'admin ui' => array(
       'path' => 'admin/content/projects',
       'file' => 'includes/fserver.admin.inc',
+      'controller class' => 'EntityBundleableUIController',
     ),
   );
 
@@ -151,6 +152,7 @@ function fserver_entity_info() {
     'admin ui' => array(
       'path' => 'admin/content/releases',
       'file' => 'includes/fserver.admin.inc',
+      'controller class' => 'EntityBundleableUIController',
     ),
   );
 
