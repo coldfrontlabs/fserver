@@ -154,6 +154,44 @@ function fserver_entity_info() {
     ),
   );
 
+  if (db_table_exists('fserver_project_type')) {
+    $provider_bundles = db_select('fserver_project_type', 'pt')
+      ->fields('pt')
+      ->execute()
+      ->fetchAllAssoc('type');
+
+    foreach ($provider_bundles as $type_name => $type) {
+      $info['project']['bundles'][$type_name] = array(
+        'label' => $type->description,
+        'admin' => array(
+          'path' => 'admin/structure/project_types/manage/%project_type',
+          'real path' => 'admin/structure/project_types/manage/' . $type->type,
+          'bundle argument' => 4,
+          'access arguments' => array('administer fserver'),
+        ),
+      );
+    }
+  }
+
+  if (db_table_exists('fserver_release_type')) {
+    $provider_bundles = db_select('fserver_release_type', 'rt')
+      ->fields('rt')
+      ->execute()
+      ->fetchAllAssoc('type');
+
+    foreach ($provider_bundles as $type_name => $type) {
+      $info['release']['bundles'][$type_name] = array(
+        'label' => $type->description,
+        'admin' => array(
+          'path' => 'admin/structure/release_types/manage/%release_type',
+          'real path' => 'admin/structure/release_types/manage/' . $type->type,
+          'bundle argument' => 4,
+          'access arguments' => array('administer fserver'),
+        ),
+      );
+    }
+  }
+
   return $info;
 }
 
