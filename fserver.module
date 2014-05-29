@@ -244,17 +244,6 @@ function fserver_entity_info() {
   return $info;
 }
 
-/**
- * Implements hook_menu_alter().
- */
-function fserver_menu_alter(&$items) {
-  // Projects
-  $items['admin/content/projects']['type'] = MENU_LOCAL_TASK;
-
-  // Releases
-  $items['admin/content/releases']['type'] = MENU_LOCAL_TASK;
-}
-
 // @todo add with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 
 /**
