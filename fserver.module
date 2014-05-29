@@ -244,6 +244,24 @@ function fserver_entity_info() {
   return $info;
 }
 
+/**
+ * Implements hook_menu().
+ */
+function fserver_menu() {
+  $items['admin/content/projects'] = array(
+    'title' => 'Projects',
+    'access arguments' => array('administer fserver'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/content/releases'] = array(
+    'title' => 'Releases',
+    'access arguments' => array('administer fserver'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
 // @todo add with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 
 /**
