@@ -69,7 +69,6 @@ function release_access($op, $release = NULL, $account = NULL) {
   return TRUE;
 }
 
-
 /**
  * Project type entities
  */

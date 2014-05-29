@@ -214,24 +214,6 @@ function fserver_form_eck__entity__form_edit_release_release_alter(&$form, &$for
 }
 
 /**
- * Implements hook_entity_info_alter().
- */
-function fserver_entity_info_alter(&$entity_info) {
-  // Set the entity class for projects and releases
-  if (isset($entity_info['project'])) {
-    $entity_info['project']['entity class'] = 'FserverProject';
-    $entity_info['project']['access callback'] = 'fserver_project_access';
-    $entity_info['project']['controller class'] = 'FserverProjectController';
-  }
-
-  if (isset($entity_info['release'])) {
-    $entity_info['release']['entity class'] = 'FserverRelease';
-    $entity_info['release']['access callback'] = 'fserver_release_access';
-    $entity_info['release']['controller class'] = 'FserverReleaseController';
-  }
-}
-
-/**
  * Implements hook_field_formatter_info().
  */
 function fserver_field_formatter_info() {
@@ -245,7 +227,6 @@ function fserver_field_formatter_info() {
       'field types' => array('file'),
     ),
   );
-
 }
 
 /**
