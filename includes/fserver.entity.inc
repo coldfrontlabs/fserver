@@ -27,6 +27,10 @@ function project_load_multiple(array $ids) {
  * Save a single project entity
  */
 function project_save($project) {
+  if (empty($project->created)) {
+    $project->created = time();
+  }
+  $project->changed = time();
   return entity_save('project', $project);
 }
 
@@ -78,7 +82,10 @@ function release_load_multiple(array $ids) {
 /**
  * Save a single release entity
  */
-function release_save($project) {
+function release_save($release) {
+  if (empty($release->date)) {
+    $release->date = time();
+  }
   return entity_save('release', $project);
 }
 

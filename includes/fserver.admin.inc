@@ -122,13 +122,16 @@ function project_form_submit(&$form, &$form_state) {
   $project->title =  $form_state['values']['title'];
   $project->short_name =  $form_state['values']['short_name'];
   $project->project_status =  $form_state['values']['project_status'];
+
   if (!empty($form_state['values']['supported_majors'])) {
     $project->supported_majors =  $form_state['values']['supported_majors'];
   }
   if (!empty($form_state['values']['default_major'])) {
     $project->default_major =  $form_state['values']['default_major'];
   }
-
+  if (empty($project->created)) {
+    $project->changed = time();
+  }
   project_save($project);
   $uri = entity_uri('project', $project);
   drupal_set_message(t('New project entity saved.'));
