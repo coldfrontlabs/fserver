@@ -93,6 +93,12 @@ function project_form($form, &$form_state, $project, $op = 'edit') {
     // @todo add element validator
   );
 
+
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
   # @todo add access check on form
 }
 
@@ -147,6 +153,11 @@ function release_form($form, &$form_state, $release, $op = 'edit') {
     // @todo add custom validator
   );
   # @todo add access check on form
+
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
 }
 
 /**
@@ -182,6 +193,11 @@ function project_type_form($form, &$form_state, $project_type, $op = 'edit') {
     ),
     '#required' => TRUE,
     '#weight' => -5,
+  );
+
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
   );
 
   return $form;
@@ -255,6 +271,12 @@ function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
     '#required' => TRUE,
     '#weight' => -5,
   );
+
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
 
   return $form;
 }
