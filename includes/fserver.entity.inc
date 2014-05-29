@@ -48,7 +48,13 @@ function project_delete_multiple(array $ids) {
  * Default access callback for project entities
  */
 function project_access($op, $entity, $account = NULL, $entity_type) {
-  return TRUE;
+  if (user_access('administer fserver', $account)) {
+    return TRUE;
+  }
+
+  // @todo the middle stuff
+
+  return FALSE;
 }
 
 /**
@@ -94,7 +100,13 @@ function release_delete_multiple(array $ids) {
  * Access callback for release entities
  */
 function release_access($op, $entity, $account = NULL, $entity_type) {
-  return TRUE;
+  if (user_access('administer fserver', $account)) {
+    return TRUE;
+  }
+
+  // @todo the middle stuff
+
+  return FALSE;
 }
 
 /**

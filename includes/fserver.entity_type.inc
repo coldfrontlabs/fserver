@@ -27,8 +27,13 @@ function project_type_load($type = NULL) {
  * Access callback for project types
  */
 function project_type_access($op, $entity, $account = NULL, $entity_type) {
-  // @todo
-  return TRUE;
+  if (user_access('administer fserver', $account)) {
+    return TRUE;
+  }
+
+  // @todo the middle stuff
+
+  return FALSE;
 }
 
 /**
@@ -53,6 +58,11 @@ function release_type_load($type = NULL) {
  * Access callback for release types
  */
 function release_type_access($op, $entity, $account = NULL, $entity_type) {
-  // @todo
-  return TRUE;
+  if (user_access('administer fserver', $account)) {
+    return TRUE;
+  }
+
+  // @todo the middle stuff
+
+  return FALSE;
 }
