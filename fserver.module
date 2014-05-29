@@ -199,7 +199,14 @@ function fserver_entity_info() {
  * Implements hook_menu_alter().
  */
 function fserver_menu_alter(&$items) {
+  // Projects
   $items['admin/content/projects']['type'] = MENU_LOCAL_TASK;
+  $items['admin/content/projects']['access arguments'] = array('administer fserver');
+  $items['admin/content/projects']['title'] = 'Feature Server Projects';
+
+  // Releases
+  $items['admin/content/releases']['title'] = 'Feature Server Releases';
+  $items['admin/content/releases']['access arguments'] = array('administer fserver');
   $items['admin/content/releases']['type'] = MENU_LOCAL_TASK;
 }
 
