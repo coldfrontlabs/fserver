@@ -130,7 +130,7 @@ function project_form_submit(&$form, &$form_state) {
   }
 
   project_save($project);
-  $uri = entity_uri($project);
+  $uri = entity_uri('project', $project);
   drupal_set_message(t('New project entity saved.'));
   $form_state['redirect'] = url($uri['path'], $uri['options']);
 }
