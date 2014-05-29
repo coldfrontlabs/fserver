@@ -103,6 +103,14 @@ function project_form($form, &$form_state) {
 }
 
 /**
+ * Submit callback for project form
+ */
+function project_form_submit(&$form, &$form_state) {
+  $project = entity_create_stub_entity('project');
+  dpm($form_state);
+}
+
+/**
  * Form settings for the Release entity
  */
 function release_form($form, &$form_state) {
