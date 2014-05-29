@@ -131,7 +131,13 @@ function project_form_submit(&$form, &$form_state) {
     $project->default_major =  $form_state['values']['default_major'];
   }
 
-  drupal_set_message(t('New project entity saved.'));
+  if (empty($form_state['op']) == 'add') {
+    drupal_set_message(t('New project entity created.'));
+  }
+  else {
+    drupal_set_message(t('Project entity saved.'));
+  }
+
   $form_state['redirect'] = '<front>';
 }
 
