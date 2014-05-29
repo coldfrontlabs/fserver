@@ -247,6 +247,15 @@ function fserver_entity_info() {
 // @todo add with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 
 /**
+ * Implements hook_menu_alter().
+ */
+function fserver_menu_alter(&$items) {
+  // Example - disable the page at node/add
+  $items['admin/content/projects']['type'] = MENU_LOCAL_TASK;
+  $items['admin/content/releases']['type'] = MENU_LOCAL_TASK;
+}
+
+/**
  * Implements hook_field_formatter_info().
  */
 function fserver_field_formatter_info() {
