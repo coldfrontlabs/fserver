@@ -435,7 +435,7 @@ class FserverProjectEntityInlineEntityFormController extends FserverEntityInline
    */
   public function entityForm($form, &$form_state) {
     $form = parent::entityForm($form, $form_state);
-    $form['project'] = $form['#entity'];
+    $form_state['project'] = $form['#entity'];
     module_load_include('inc', 'fserver', 'includes/fserver.admin');
     project_form($form, $form_state);
     return $form;
@@ -450,7 +450,7 @@ class FserverReleaseEntityInlineEntityFormController extends FserverEntityInline
    */
   public function entityForm($form, &$form_state) {
     $form = parent::entityForm($form, $form_state);
-    $form['release'] = $form['#entity'];
+    $form_state['release'] = $form['#entity'];
     module_load_include('inc', 'fserver', 'includes/fserver.admin');
     project_form($form, $form_state);
     return $form;
