@@ -422,3 +422,36 @@ class FserverProjectRelease {
     $this->project = $project;
   }
 }
+
+class FserverInlineEntityFormController extends EntityInlineEntityFormController {
+}
+
+class FserverProjectInlineEntityFormController extends FserverInlineEntityFormController {
+  /**
+   * Override method entityForm().
+   *
+   * Load the workflow and return the workflow form to be used for the inline entity form.
+   */
+  public function entityForm($form, &$form_state) {
+    $form = parent::entityForm($form, $form_state);
+    //$form['entity']['#value'] = $form['#entity'];
+    module_load_include('inc', 'fserver', 'includes/fserver.admin');
+    project_form($form, $form_state);
+    return $form;
+  }
+}
+
+class FserverReleaseInlineEntityFormController extends FserverInlineEntityFormController {
+  /**
+   * Override method entityForm().
+   *
+   * Load the workflow and return the workflow form to be used for the inline entity form.
+   */
+  public function entityForm($form, &$form_state) {
+    $form = parent::entityForm($form, $form_state);
+    //$form['entity']['#value'] = $form['#entity'];
+    module_load_include('inc', 'fserver', 'includes/fserver.admin');
+    project_form($form, $form_state);
+    return $form;
+  }
+}
