@@ -219,10 +219,10 @@ function release_form_submit(&$form, &$form_state) {
   }
 
   if (!empty($form_state['values']['version_patch'])) {
-    $project->version_patch =  $form_state['values']['version_patch'];
+    $release->version_patch =  $form_state['values']['version_patch'];
   }
   if (!empty($form_state['values']['tag'])) {
-    $project->tag =  $form_state['values']['tag'];
+    $release->tag =  $form_state['values']['tag'];
   }
 
   $form_state['redirect'] = '<front>';
