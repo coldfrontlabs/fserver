@@ -180,7 +180,9 @@ function fserver_entity_info() {
     'module' => 'fserver',
     'access callback' => 'project_access',
     'metadata controller class' => 'FserverProjectMetadataController',
-    'inline entity form' => 'EntityInlineEntityFormController',
+    'inline entity form' => array(
+      'controller' => 'EntityInlineEntityFormController'
+    ),
     'admin ui' => array(
       'path' => 'admin/content/projects',
       'file' => 'includes/fserver.admin.inc',
@@ -217,7 +219,9 @@ function fserver_entity_info() {
     'module' => 'fserver',
     'access callback' => 'release_access',
     'metadata controller class' => 'FserverReleaseMetadataController',
-    'inline entity form' => 'EntityInlineEntityFormController',
+    'inline entity form' => array(
+      'controller' => 'EntityInlineEntityFormController'
+    ),
     'admin ui' => array(
       'path' => 'admin/content/releases',
       'file' => 'includes/fserver.admin.inc',
