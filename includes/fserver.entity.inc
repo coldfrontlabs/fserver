@@ -423,10 +423,11 @@ class FserverProjectRelease {
   }
 }
 
-class FserverInlineEntityFormController extends EntityInlineEntityFormController {
+class FserverEntityInlineEntityFormController extends EntityInlineEntityFormController {
+
 }
 
-class FserverProjectInlineEntityFormController extends FserverInlineEntityFormController {
+class FserverProjectEntityInlineEntityFormController extends FserverEntityInlineEntityFormController {
   /**
    * Override method entityForm().
    *
@@ -441,7 +442,7 @@ class FserverProjectInlineEntityFormController extends FserverInlineEntityFormCo
   }
 }
 
-class FserverReleaseInlineEntityFormController extends FserverInlineEntityFormController {
+class FserverReleaseEntityInlineEntityFormController extends FserverEntityInlineEntityFormController {
   /**
    * Override method entityForm().
    *

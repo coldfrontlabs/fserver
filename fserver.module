@@ -181,7 +181,7 @@ function fserver_entity_info() {
     'access callback' => 'project_access',
     'metadata controller class' => 'FserverProjectMetadataController',
     'inline entity form' => array(
-      'controller' => 'EntityInlineEntityFormController'
+      'controller' => 'FserverProjectEntityInlineEntityFormController'
     ),
     'admin ui' => array(
       'path' => 'admin/content/projects',
@@ -220,7 +220,7 @@ function fserver_entity_info() {
     'access callback' => 'release_access',
     'metadata controller class' => 'FserverReleaseMetadataController',
     'inline entity form' => array(
-      'controller' => 'EntityInlineEntityFormController',
+      'controller' => 'FserverReleaseEntityInlineEntityFormController',
     ),
     'admin ui' => array(
       'path' => 'admin/content/releases',
