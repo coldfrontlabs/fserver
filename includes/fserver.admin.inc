@@ -106,8 +106,8 @@ function project_form($form, &$form_state) {
     // @todo add element validator
   );
 
-
-  $form['save'] = array(
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
     '#weight' => 50,
@@ -121,8 +121,8 @@ function project_form($form, &$form_state) {
  */
 function project_form_submit(&$form, &$form_state) {
   $project = $form_state['project'];
-  entity_form_submit_build_entity('project', $project, $form, $form_state);
-/*  $project->title =  $form_state['values']['title'];
+  $project = entity_form_submit_build_entity('project', $project, $form, $form_state);
+/*$project->title =  $form_state['values']['title'];
   $project->short_name =  $form_state['values']['short_name'];
   $project->project_status =  $form_state['values']['project_status'];
 
@@ -132,7 +132,8 @@ function project_form_submit(&$form, &$form_state) {
   if (!empty($form_state['values']['default_major'])) {
     $project->default_major =  $form_state['values']['default_major'];
   }
-  $project->save();*/
+  */
+  $project->save();
   drupal_set_message(t('Project %title saved', array('%title' => $project->label())));
 }
 

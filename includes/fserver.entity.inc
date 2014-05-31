@@ -438,7 +438,7 @@ class FserverProjectEntityInlineEntityFormController extends FserverEntityInline
     $form_state['project'] = $form['#entity'];
     module_load_include('inc', 'fserver', 'includes/fserver.admin');
     $form = project_form($form, $form_state);
-    unset($form['save']);
+    unset($form['actions']);
     return $form;
   }
 }
