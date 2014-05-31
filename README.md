@@ -33,6 +33,8 @@ You can create new projects / release directly from these nodes thanks to
 
 - [Inline Entity Form](http://drupal.org/project/inline_entity_form)
 
+If you want to access a project or release directly, you can manually reach 'admin/content/projects/:id' in the URL. There is no UI for browsing project and release entities directly by default. Use the project and release nodes or create your own UI (using Views for example).
+
 ### Feature Server Services
 Feature Server Services uses the [Services API](http://drupal.org/project/services) to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data.
 
