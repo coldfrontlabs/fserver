@@ -159,7 +159,7 @@ function fserver_entity_info() {
     'base table' => 'fserver_project',
     'fieldable' => TRUE,
     'uuid' => TRUE,
-    'uri callback' => 'project_uri'
+    'uri callback' => 'project_uri',
     'entity cache' => module_exists('entitycache'),
     'entity keys' => array(
       'id' => 'id',
