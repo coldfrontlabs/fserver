@@ -131,8 +131,8 @@ function project_form_submit(&$form, &$form_state) {
   if (!empty($form_state['values']['default_major'])) {
     $project->default_major =  $form_state['values']['default_major'];
   }
-
-  $form_state['redirect'] = '<front>';
+  $project->save();
+  drupal_set_message(t('Project %title saved', array('%title' => $project->label())));
 }
 
 /**
