@@ -11,9 +11,216 @@
 function fserver_requirements($phase) {
   $requirements = array();
   // @todo add check on filehash module and ensure that MD5 is enabled
-  // filehash_algos_md5 == TRUE
 
   return $requirements;
+}
+
+/**
+ * Implements hook_schema().
+ */
+function fserver_schema() {
+  module_load_include('install', 'uuid');
+
+  $schema['fserver_project_type'] = array(
+    'description' => 'Storage for fserver project types.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Numeric project type ID.',
+      ),
+      'type' => array(
+        'description' => 'The unified identifier for a project type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'description' => 'Description for this project type.',
+        'type' => 'text',
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ) + entity_exportable_schema_fields(),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uuid' => array('uuid'),
+      'type' => array('type'),
+    ),
+  );
+
+  $schema['fserver_release_type'] = array(
+    'description' => 'Storage for fserver project types.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Numeric project type ID.',
+      ),
+      'type' => array(
+        'description' => 'The unified identifier for a project type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'description' => array(
+        'description' => 'Description for this project type.',
+        'type' => 'text',
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ) + entity_exportable_schema_fields(),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uuid' => array('uuid'),
+      'type' => array('type'),
+    ),
+  );
+
+  $schema['fserver_project'] = array(
+    'description' => 'Storage for fserver project entities.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Numeric project entity ID.',
+      ),
+      'short_name' => array(
+        'description' => 'The unique machine name for a project type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The bundle type identifier for a project.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'uuid' => uuid_schema_field_definition(),
+      'title' => array(
+        'description' => 'Human readable project title.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'recommended_major' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'unsigned' => TRUE,
+      ),
+      'supported_majors' => array(
+        'description' => 'Supported major projects.',
+        'type' => 'text',
+        'serialized' => TRUE,
+      ),
+      'default_major' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'unsigned' => TRUE,
+      ),
+      'project_status' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Project status code'
+      ),
+      'link' => array(
+        'description' => 'Link to the project.',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uuid' => array('uuid'),
+      'short_name' => array('short_name'),
+    ),
+    'indexes' => array(
+      'type' => array('type'),
+    ),
+  );
+
+  $schema['fserver_release'] = array(
+    'description' => 'Storage for fserver release entities.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Numeric release entity ID.',
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Release name'
+      ),
+      'version' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Release version'
+      ),
+      'project_short_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Project short name',
+      ),
+      'tag' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Release tag'
+      ),
+      'version_major' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'version_patch' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'version_extra' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'Release tag'
+      ),
+      'date' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+      ),
+      'api' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'API version'
+      ),
+      'type' => array(
+        'description' => 'The bundle type identifier for a release.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'uuid' => uuid_schema_field_definition(),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'uuid' => array('uuid'),
+      'name' => array('name'),
+    ),
+    'indexes' => array(
+      'type' => array('type'),
+      'date' => array('date'),
+      'api' => array('api'),
+    ),
+  );
+
+  return $schema;
 }
 
 /**

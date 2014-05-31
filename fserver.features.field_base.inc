@@ -80,11 +80,11 @@ function fserver_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_fserver_release_ref',
     'foreign keys' => array(
-      'eck_release' => array(
+      'release' => array(
         'columns' => array(
           'target_id' => 'id',
         ),
-        'table' => 'eck_release',
+        'table' => 'release',
       ),
     ),
     'indexes' => array(
@@ -122,11 +122,11 @@ function fserver_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_project_reference',
     'foreign keys' => array(
-      'eck_project' => array(
+      'project' => array(
         'columns' => array(
           'target_id' => 'id',
         ),
-        'table' => 'eck_project',
+        'table' => 'project',
       ),
     ),
     'indexes' => array(

@@ -2,7 +2,6 @@ name = Feature Server UI
 description = Default UI for Feature Server
 core = 7.x
 package = Features
-dependencies[] = elements
 dependencies[] = entity_token
 dependencies[] = entityreference
 dependencies[] = features

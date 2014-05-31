@@ -5,115 +5,283 @@
  */
 
 include_once 'fserver.features.inc';
+include_once 'includes/fserver.entity.inc';
+include_once 'includes/fserver.entity_type.inc';
 
 define("FSERVER_VIEW_NAME_PROJECTS_ALL", 'fserver_projects');
 define("FSERVER_VIEW_NAME_PROJECTS_SINGLE", 'fserver_project');
 
 /**
- * Implements hook_ctools_plugin_directory().
+ * Implements hook_permission().
  */
-function fserver_ctools_plugin_directory($owner, $plugin_type) {
-  if ($owner == 'eck' && $plugin_type == 'property_behavior') {
-    return 'plugins/' . $plugin_type;
-  }
-}
+function fserver_permission() {
+  $permissions = array();
+  $permissions['administer fserver'] =  array(
+    'title' => t('Administer Feature Server'),
+    'description' => t('Perform administration tasks for Feature Server.'),
+  );
 
-// @todo replace with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_project_module_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
+  $types = project_type_load();
 
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_project_module_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_project_theme_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_project_theme_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_project_distribution_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_project_distribution_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_project_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_add_release_release_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_release_form($form, $form_state);
-}
-
-/**
- * Implements hook_form_alter().
- */
-function fserver_form_eck__entity__form_edit_release_release_alter(&$form, &$form_state) {
-  module_load_include('inc', 'fserver', 'fserver.pages');
-  fserver_release_form($form, $form_state);
-}
-
-/**
- * Implements hook_entity_info_alter().
- */
-function fserver_entity_info_alter(&$entity_info) {
-  // Set the entity class for projects and releases
-  if (isset($entity_info['project'])) {
-    $entity_info['project']['entity class'] = 'fserverProject';
-    $entity_info['project']['access callback'] = 'fserver_project_access';
-    $entity_info['project']['controller class'] = 'fserverProjectController';
+  foreach ($types as $type) {
+    $permissions['view own fserver ' . $type->type . ' projects'] = array(
+      'title' => t('View own fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('View own projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['view any fserver ' . $type->type . ' projects'] = array(
+      'title' => t('View any fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('View any projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['create fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Create fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Create projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit own fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Edit own fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Edit own projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit any fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Edit any fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Edit any projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete own fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Delete own fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Delete own projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete any fserver ' . $type->type . ' projects'] = array(
+      'title' => t('Delete any fserver @type project type entities', array('@type' => $type->type)),
+      'description' => t('Delete any projects of type @type within Feature Server', array('@type' => $type->type)),
+    );
   }
 
-  if (isset($entity_info['release'])) {
-    $entity_info['release']['entity class'] = 'fserverRelease';
-    $entity_info['release']['access callback'] = 'fserver_release_access';
-    $entity_info['release']['controller class'] = 'fserverReleaseController';
+  $types = release_type_load();
+
+  foreach ($types as $type) {
+    $permissions['view own fserver ' . $type->type . ' releases'] = array(
+      'title' => t('View own fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('View own releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['view any fserver ' . $type->type . ' releases'] = array(
+      'title' => t('View fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('View any releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['create fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Create fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Create releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit own fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Edit own fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Edit own releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['edit any fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Edit any fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Edit any releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete own fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Delete own fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Delete own releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
+    $permissions['delete any fserver ' . $type->type . ' releases'] = array(
+      'title' => t('Delete any fserver @type release type entities', array('@type' => $type->type)),
+      'description' => t('Delete any releases of type @type within Feature Server', array('@type' => $type->type)),
+    );
   }
+
+  return $permissions;
 }
 
 /**
- * Default access callback for project entities
+ * Implements hook_entity_info().
  */
-function fserver_project_access($op, $project = NULL, $account = NULL) {
-  return TRUE;
+function fserver_entity_info() {
+  $info = array();
+
+  $info['project_type'] = array(
+    'label' => t('Project Type'),
+    'controller class' => 'EntityAPIControllerExportable',
+    'entity class' => 'Entity',
+    'base table' => 'fserver_project_type',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'description',
+      'name' => 'type',
+      'uuid' => 'uuid'
+    ),
+    'bundle of' => 'project',
+    'exportable' => TRUE,
+    'export' => array(
+      'default hook' => 'default_project_type',
+    ),
+    'uuid' => TRUE,
+    'module' => 'fserver',
+    'access callback' => 'project_type_access',
+    'entity cache' => module_exists('entitycache'),
+    'metadata controller class' => 'FserverProjectTypeMetadataController',
+    'admin ui' => array(
+      'path' => 'admin/structure/project_types',
+      'file' => 'includes/fserver.admin.inc',
+    ),
+  );
+
+  $info['release_type'] = array(
+    'label' => t('Release Type'),
+    'controller class' => 'EntityAPIControllerExportable',
+    'entity class' => 'Entity',
+    'base table' => 'fserver_release_type',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'description',
+      'name' => 'type',
+      'uuid' => 'uuid'
+    ),
+    'bundle of' => 'release',
+    'exportable' => TRUE,
+    'export' => array(
+      'default hook' => 'default_release_type',
+    ),
+    'uuid' => TRUE,
+    'module' => 'fserver',
+    'access callback' => 'release_type_access',
+    'entity cache' => module_exists('entitycache'),
+    'metadata controller class' => 'FserverReleaseTypeMetadataController',
+    'admin ui' => array(
+      'path' => 'admin/structure/release_types',
+      'file' => 'includes/fserver.admin.inc',
+    ),
+  );
+
+  $info['project'] = array(
+    'label' => t('Project'),
+    'entity class' => 'FserverProject',
+    'controller class' => 'FserverProjectController',
+    'base table' => 'fserver_project',
+    'fieldable' => TRUE,
+    'uuid' => TRUE,
+    'uri callback' => 'project_uri',
+    'entity cache' => module_exists('entitycache'),
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'title',
+      'bundle' => 'type',
+      'uuid' => 'uuid',
+      'name' => 'name',
+    ),
+    'bundles' => array(),
+    'bundle keys' => array(
+      'bundle' => 'type',
+    ),
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Default'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'module' => 'fserver',
+    'access callback' => 'project_access',
+    'metadata controller class' => 'FserverProjectMetadataController',
+    'inline entity form' => array(
+      'controller' => 'FserverProjectEntityInlineEntityFormController'
+    ),
+    'admin ui' => array(
+      'path' => 'admin/content/projects',
+      'file' => 'includes/fserver.admin.inc',
+      'controller class' => 'EntityBundleableUIController',
+      'menu wildcard' => '%project',
+    ),
+  );
+
+  $info['release'] = array(
+    'label' => t('Release'),
+    'entity class' => 'FserverRelease',
+    'controller class' => 'FserverReleaseController',
+    'base table' => 'fserver_release',
+    'fieldable' => TRUE,
+    'uuid' => TRUE,
+    'uri callback' => 'release_uri',
+    'entity cache' => module_exists('entitycache'),
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'name',
+      'bundle' => 'type',
+      'uuid' => 'uuid',
+      'name' => 'name',
+    ),
+    'bundles' => array(),
+    'bundle keys' => array(
+      'bundle' => 'type',
+    ),
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Default'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'module' => 'fserver',
+    'access callback' => 'release_access',
+    'metadata controller class' => 'FserverReleaseMetadataController',
+    'inline entity form' => array(
+      'controller' => 'FserverReleaseEntityInlineEntityFormController',
+    ),
+    'admin ui' => array(
+      'path' => 'admin/content/releases',
+      'file' => 'includes/fserver.admin.inc',
+      'controller class' => 'EntityBundleableUIController',
+      'menu wildcard' => '%release',
+    ),
+  );
+
+  if (db_table_exists('fserver_project_type')) {
+    $project_bundles = db_select('fserver_project_type', 'pt')
+      ->fields('pt')
+      ->execute()
+      ->fetchAllAssoc('type');
+
+    foreach ($project_bundles as $type_name => $type) {
+      $info['project']['bundles'][$type_name] = array(
+        'label' => $type->description,
+        'admin' => array(
+          'path' => 'admin/structure/project_types/manage/%project_type',
+          'real path' => 'admin/structure/project_types/manage/' . $type->type,
+          'bundle argument' => 4,
+          'access arguments' => array('administer fserver'),
+        ),
+      );
+    }
+  }
+
+  if (db_table_exists('fserver_release_type')) {
+    $release_bundles = db_select('fserver_release_type', 'rt')
+      ->fields('rt')
+      ->execute()
+      ->fetchAllAssoc('type');
+
+    foreach ($release_bundles as $type_name => $type) {
+      $info['release']['bundles'][$type_name] = array(
+        'label' => $type->description,
+        'admin' => array(
+          'path' => 'admin/structure/release_types/manage/%release_type',
+          'real path' => 'admin/structure/release_types/manage/' . $type->type,
+          'bundle argument' => 4,
+          'access arguments' => array('administer fserver'),
+        ),
+      );
+    }
+  }
+
+  return $info;
 }
 
+// @todo add with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
+
 /**
- * Access callback for release entities
+ * Implements hook_menu_alter().
  */
-function fserver_release_access($op, $release = NULL, $account = NULL) {
-  return TRUE;
+function fserver_menu_alter(&$items) {
+  // Example - disable the page at node/add
+  $items['admin/content/projects']['type'] = MENU_LOCAL_TASK;
+  $items['admin/content/releases']['type'] = MENU_LOCAL_TASK;
 }
 
 /**
@@ -130,7 +298,6 @@ function fserver_field_formatter_info() {
       'field types' => array('file'),
     ),
   );
-
 }
 
 /**
@@ -277,7 +444,6 @@ function fserver__project_delete($shortname) {
  * Create an fserver release
  *
  * $release array(
- *   'project_short_name' => 'project_name',
  *   'api' = '7.x',
  *   'type' => 'release',
  *   'version_major' => '1',
@@ -329,10 +495,16 @@ function fserver__release_load($name) {
  *  Returns an array of entities, FALSE otherwise.
  */
 function fserver__release_load_by_project($shortname, $api) {
+  $project = fserver__project_load_by_name($shortname);
+
+  if (!isset($project->id)) {
+    return FALSE;
+  }
+
   $query = new EntityFieldQuery();
   $releases = $query
     ->EntityCondition("entity_type", "release")
-    ->propertyCondition("project_short_name", $shortname)
+    ->fieldCondition("field_project_reference", "target_id", $project->id)
     ->propertyCondition("api", $api)
     ->propertyOrderBy('date', 'DESC')
     ->execute();
@@ -371,281 +543,4 @@ function fserver__release_delete($name) {
     return FALSE;
   }
   return entity_delete('release', $release->id);
-}
-
-/**
- * Base class for Project entities
- */
-class fserverProject extends Entity {
-  public function __construct($values = array()) {
-    // @todo add constructor validation
-    parent::__construct($values, 'project');
-  }
-
-  public function next_version($api, $release_type = NULL) {
-    // retrieve existing releases for this project
-    $query = new EntityFieldQuery();
-    $results = $query->entityCondition('entity_type', 'release')
-                     ->fieldCondition('field_project_reference', 'target_id', $this->id)
-                     ->propertyCondition('api', $api)
-                     //->propertyCondition('version_extra', $release_type, 'STARTS_WITH')
-                     ->propertyOrderBy('date', 'DESC')
-                     ->execute();
-
-    if (!empty($results['release'])) {
-      $reltypes = array('dev', 'alpha', 'beta', 'rc', 'full');
-      $tag = '';
-      // First, we find the latest non-dev release created for this project.
-      $latest_non_dev = array_reduce($results['release'], function($carry, $item) {
-        $release = entity_load_single('release', $item->id);
-        if ($release->version_extra != 'dev') {
-          if (!isset($carry)) {
-            return $release;
-          }
-          else {
-            $carry_dt = new DateObject($carry->date);
-            $rel_dt = new DateObject($release->date);
-            if ($carry_dt->difference($rel_dt, 'seconds', FALSE) > 0) {
-              return $release;
-            }
-            else {
-              return $carry;
-            }
-          }
-        }
-        return $carry;
-      });
-
-      $latest_extra_type = !empty($latest_non_dev->version_extra) ? drupal_substr($latest_non_dev->version_extra, 0, drupal_strlen($latest_non_dev->version_extra)-1) : '';
-      // Next, check release logic and build & return the tag
-      if (!$latest_non_dev) {
-        // latest release is a dev release.  Next release will drop the .x (for patch version) and simply be .1
-        $latest_dev = array_reduce($results['release'], function($carry, $item) {
-          $release = entity_load_single('release', $item->id);
-          if ($release->version_extra == 'dev') {
-            if (!isset($carry)) {
-              return $release;
-            }
-            else {
-              $carry_dt = new DateObject($carry->date);
-              $rel_dt = new DateObject($release->date);
-              if ($carry_dt->difference($rel_dt, 'seconds', FALSE) > 0) {
-                return $release;
-              }
-              else {
-                return $carry;
-              }
-            }
-          }
-          return $carry;
-        });
-
-        $tag = $latest_dev->api . '-' . $latest_dev->version_major . '.0';
-        if (isset($release_type) && $release_type != 'full') {
-          $tag .= '-' . $release_type . '1';
-        }
-        return $tag;
-      }
-      else if (isset($release_type) && !empty($release_type)) {
-        if ('full' == $release_type) {
-          if (empty($latest_non_dev->version_extra)) {
-            // latest version is a full version, next full will increment minor/patch version
-            $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
-          }
-          else {
-            // latest release is alpha/beta/rc, next full will drop the extra and simply be the api-major.minor version
-            $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . intval($latest_non_dev->version_patch);
-          }
-        }
-        else {
-          if (empty($latest_extra_type)   // latest release is a full release, but requested tag is earlier in cycle
-              || array_search($release_type, $reltypes) < array_search($latest_extra_type, $reltypes)) {
-            // requesting a tag earlier in the release cycle than the most recent release, fail
-            return FALSE;
-          }
-          else if (array_search($release_type, $reltypes) > array_search($latest_extra_type, $reltypes)) {
-            // moving to a later phase in the release cycle, set extra version back to 1
-            $extra_version = 1;
-          }
-          else {
-            // moving one version later in the same release phase, increment extra version
-            $extra_version = intval(drupal_substr($latest_non_dev->version_extra, drupal_strlen($latest_non_dev->version_extra)-1)) + 1;
-          }
-          $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . $latest_non_dev->version_patch . '-' . $release_type . $extra_version;
-        }
-      }
-      else {
-        // no release type specified, just increment in current release phase
-        if (!empty($latest_extra_type)) {
-          $extra_version = intval(drupal_substr($latest_non_dev->version_extra, drupal_strlen($latest_non_dev->version_extra)-1)) + 1;
-          $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . $latest_non_dev->version_patch . '-' . $latest_extra_type . $extra_version;
-        }
-        else {
-          // latest version is a full version, next full will increment minor/patch version
-          $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
-        }
-      }
-      return $tag;
-    }
-    // Did something go wrong?  Why are we here?  Maybe there are no existing releases...
-    return FALSE;
-  }
-}
-
-/**
- * Controller class for Project entities
- */
-class fserverProjectController extends EntityAPIController {
-  public function delete($ids, DatabaseTransaction $transaction = NULL) {
-
-    $entities = $ids ? $this->load($ids) : FALSE;
-    if (!$entities) {
-      // Do nothing, in case invalid or no ids have been passed.
-      return;
-    } else {
-      foreach ($entities as $entity) {
-        $query = new EntityFieldQuery();
-        $releases = $query
-          ->entityCondition('entity_type', 'release')
-          ->propertyCondition('project_short_name', $entity->short_name)
-          ->execute();
-        if (isset($releases['release'])) {
-          entity_delete_multiple('release', array_keys($releases['release']));
-        }
-      }
-    }
-    parent::delete($ids, $transaction);
-  }
-}
-
-/**
- * Base class for Release entities
- */
-class fserverRelease extends Entity {
-  public function __construct($values = array()) {
-    // @todo add release validation
-    parent::__construct($values, 'release');
-
-    $this->generateReleaseName($values);
-  }
-
-  /**
-   * Generate release name
-   *
-   * Pattern: <project_name> <api_version>-<release_version>
-   * Ex: views 7.x-1.x-dev
-   *
-   * @param array $args [optional]
-   *  List of arguments passed into the constructor. Used to determine
-   *  how the release object is being created.
-   */
-  public function generateReleaseName($args = array()) {
-
-    if (isset($args['is_new']) and $args['is_new'] == TRUE) {
-      // For now we do basic detection on new objects. But we
-      // should instead detect if the values for the name field
-      // are set.
-      // @todo
-    }
-    else {
-      if (!empty($this->version_patch) || ($this->version_patch == 0 && $this->version_extra != 'dev')) {
-        $this->tag = $this->api . '-' . $this->version_major . '.' . $this->version_patch;
-        $this->version = $this->tag;
-      } else {
-        $this->tag = $this->api . '-' . $this->version_major . '.x';
-        $this->version = $this->tag;
-      }
-      if (!empty($this->version_extra)) {
-        $this->version .= '-' . $this->version_extra;
-      }
-
-      $this->name = $this->project_short_name . ' ' . $this->version;
-    }
-  }
-}
-
-/**
- * Controller class for Release entities
- */
-class fserverReleaseController extends EntityAPIController {
-  public function save($entity, DatabaseTransaction $transaction = NULL) {
-    $entity->date = time();
-    $entity->generateReleaseName();
-    parent::save($entity, $transaction);
-  }
-}
-
-/**
- * Project and releases in one object.
- *
- * Used to generate the update XML for a given project.
- */
-class fserverProjectRelease {
-  protected $project;
-
-  /**
-   * Build a fserverProjectRelease object
-   */
-  public function __construct($project, $api) {
-    if (is_object($project) and get_class($project) == 'fserverProject') {
-      $this->project = $project;
-      $this->prepareReleases($api);
-      $this->prepareProject();
-      $this->alterReleaseData();
-    }
-    else {
-      $this->project = FALSE;
-    }
-  }
-
-  public function getProject() {
-    return $this->project;
-  }
-
-  private function prepareReleases($api) {
-    $releases = fserver__release_load_by_project($this->project->short_name, $api);
-    if (is_array($releases)) {
-      foreach ($releases as &$release) {
-        unset($release->id);
-        unset($release->type);
-        unset($release->project_short_name);
-        unset($uid);
-
-        // Build files array
-        $files = array();
-        foreach ($release->field_release_files[LANGUAGE_NONE] as $key => $file) {
-          $files[$key] = _fserver_release_file_format($file);
-        }
-        $release->files = $files;
-
-        // Clean out file fields
-        unset($release->field_release_files);
-        unset($release->field_release_notes);
-
-        // Copy the first files entry into the main release XML as the default
-        // download
-        $release->download_link = $release->files[0]['url'];
-        $release->mdhash = $release->files[0]['md5'];
-        $release->filesize = $release->files[0]['size'];
-      }
-    }
-    $this->project->releases = $releases;
-  }
-
-  /**
-   * Prepare the project object
-   */
-  private function prepareProject() {
-    unset($this->project->id);
-    unset($this->project->field_compatibility);
-  }
-
-  /**
-   * Allow other modules to alter the release data
-   */
-  private function alterReleaseData() {
-    $project = $this->project;
-    drupal_alter('fserver__project_release_data', $project);
-    $this->project = $project;
-  }
 }

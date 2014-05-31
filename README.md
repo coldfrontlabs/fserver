@@ -5,23 +5,10 @@ Feature server for Drupal 7 is built using several "Features" from contributed m
 
 We believe Feature Server is an import part of the Drupal ecosystem as it allows configured components to be shared.
 
-Known Issues
-------------
-
-- ECK 2.0-rc3 has a bug with generating number columns. Use the latest dev release instead
-- ECK will be deprecated in favour of a direct Entity API implementation of the fserverProject and fserverRelease entities. API methods will remain the same.
-- ECK requires a patch for UUID support (see the Installation section)
-
 Installation
 ------------
 
-Requires patch to ECK for UUID support
-
-Ex:
-
-````
-projects[eck][patch][] = https://gist.githubusercontent.com/minorOffense/cb7b803362bc474e3607/raw/7cf0eaad3ecce52b91a5b3055c6d77fdc42302f5/uuid-eck-2.x.patch
-````
+Enable the module as you would any other module.
 
 Overview
 --------
@@ -46,6 +33,8 @@ You can create new projects / release directly from these nodes thanks to
 
 - [Inline Entity Form](http://drupal.org/project/inline_entity_form)
 
+If you want to access a project or release directly, you can manually reach 'admin/content/projects/:id' in the URL. There is no UI for browsing project and release entities directly by default. Use the project and release nodes or create your own UI (using Views for example).
+
 ### Feature Server Services
 Feature Server Services uses the [Services API](http://drupal.org/project/services) to expose project and release data. An extension is included to create a Drupal Update module compatible project feed so you can expose your Features to Drupal sites. But this also allows you to use any Services compatible access control, data methods or servers for exposing this data.
 
@@ -55,3 +44,15 @@ This is a basic UI for displaying lists of projects, releases and similar functi
 This module is meant as an example to how you could build a UI for Fserver. It can be disabled/replaced by your own implementation (e.g. use Context and DS instead of Panels)
 
 - [Panels](http://drupal.org/project/panels)
+
+Additional Notes
+----------------
+
+This module defines 4 entity types
+
+- project
+- release
+- project_type
+- release_type
+
+Thus is also implements functions in the form ````project_load```` and ````release_load````. Note that this may conflict with other modules named "project" or "release" etc.
