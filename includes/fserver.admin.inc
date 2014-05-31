@@ -121,18 +121,7 @@ function project_form($form, &$form_state) {
  */
 function project_form_submit(&$form, &$form_state) {
   $project = $form_state['project'];
-  $project = entity_form_submit_build_entity('project', $project, $form, $form_state);
-/*$project->title =  $form_state['values']['title'];
-  $project->short_name =  $form_state['values']['short_name'];
-  $project->project_status =  $form_state['values']['project_status'];
-
-  if (!empty($form_state['values']['supported_majors'])) {
-    $project->supported_majors =  $form_state['values']['supported_majors'];
-  }
-  if (!empty($form_state['values']['default_major'])) {
-    $project->default_major =  $form_state['values']['default_major'];
-  }
-  */
+  entity_form_submit_build_entity('project', $project, $form, $form_state);
   project_save($project);
   drupal_set_message(t('Project %title saved', array('%title' => $project->label())));
 }
@@ -213,20 +202,8 @@ function release_form($form, &$form_state) {
  */
 function release_form_submit(&$form, &$form_state) {
   $release = $form_state['release'];
-  $release->api =  $form_state['values']['api'];
-  $release->version_major =  $form_state['values']['version_major'];
-
-  if (!empty($form_state['values']['version_extra'])) {
-    $release->version_extra = $form_state['values']['version_extra'];
-  }
-
-  if (!empty($form_state['values']['version_patch'])) {
-    $release->version_patch =  $form_state['values']['version_patch'];
-  }
-  if (!empty($form_state['values']['tag'])) {
-    $release->tag =  $form_state['values']['tag'];
-  }
-  $release-save();
+  entity_form_submit_build_entity('release', $release, $form, $form_state);
+  release_save($release);
   drupal_set_message(t('Release %title saved.', array('%title' => $release->label())));
 }
 
