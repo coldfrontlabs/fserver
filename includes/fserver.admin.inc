@@ -121,7 +121,8 @@ function project_form($form, &$form_state) {
  */
 function project_form_submit(&$form, &$form_state) {
   $project = $form_state['project'];
-  $project->title =  $form_state['values']['title'];
+  entity_form_submit_build_entity('project', $project, $form, $form_state);
+/*  $project->title =  $form_state['values']['title'];
   $project->short_name =  $form_state['values']['short_name'];
   $project->project_status =  $form_state['values']['project_status'];
 
@@ -131,7 +132,7 @@ function project_form_submit(&$form, &$form_state) {
   if (!empty($form_state['values']['default_major'])) {
     $project->default_major =  $form_state['values']['default_major'];
   }
-  $project->save();
+  $project->save();*/
   drupal_set_message(t('Project %title saved', array('%title' => $project->label())));
 }
 
@@ -289,6 +290,7 @@ function project_type_form_submit(&$form, &$form_state) {
   }
 
   $project_type->save();
+  field_attach_submit('project_type', $project_type, $form, $form_state);
   drupal_set_message(t('Project type %title saved.', array('%title' => $project_type->label())));
   $form_state['redirect'] = 'admin/structure/project_types';
 }
@@ -340,7 +342,6 @@ function release_type_form($form, &$form_state, $release_type, $op = 'edit') {
     '#value' => t('Save'),
   );
 
-
   return $form;
 }
 
@@ -362,6 +363,7 @@ function release_type_form_submit(&$form, &$form_state) {
     unset($release_type->uuid);
   }
   $release_type->save();
+  field_attach_submit('release_type', $release_type, $form, $form_state);
   drupal_set_message(t('Release type %title saved.', array('%title' => $release_type->label())));
   $form_state['redirect'] = 'admin/structure/release_types';
 }
