@@ -224,8 +224,8 @@ function release_form_submit(&$form, &$form_state) {
   if (!empty($form_state['values']['tag'])) {
     $release->tag =  $form_state['values']['tag'];
   }
-
-  $form_state['redirect'] = '<front>';
+  $release-save();
+  drupal_set_message(t('Release %title saved.', array('%title' => $release->label())));
 }
 
 /**
@@ -289,6 +289,7 @@ function project_type_form_submit(&$form, &$form_state) {
   }
 
   $project_type->save();
+  drupal_set_message(t('Project type %title saved.', array('%title' => $project_type->label())));
   $form_state['redirect'] = 'admin/structure/project_types';
 }
 
@@ -361,6 +362,7 @@ function release_type_form_submit(&$form, &$form_state) {
     unset($release_type->uuid);
   }
   $release_type->save();
+  drupal_set_message(t('Release type %title saved.', array('%title' => $release_type->label())));
   $form_state['redirect'] = 'admin/structure/release_types';
 }
 
