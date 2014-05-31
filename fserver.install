@@ -112,6 +112,11 @@ function fserver_schema() {
         'type' => 'text',
         'serialized' => TRUE,
       ),
+      'default_major' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'unsigned' => TRUE,
+      ),
       'project_status' => array(
         'type' => 'varchar',
         'length' => 255,
