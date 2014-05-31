@@ -62,6 +62,15 @@ function project_access($op, $entity, $account = NULL, $entity_type) {
 }
 
 /**
+ * URI Callback
+ */
+function project_uri($entity) {
+  return array(
+    'path' => 'admin/content/projects/' . $entity->id,
+  );
+}
+
+/**
  * Release entities
  */
 
@@ -114,6 +123,15 @@ function release_access($op, $entity, $account = NULL, $entity_type) {
   // @todo the middle stuff
 
   return FALSE;
+}
+
+/**
+ * URI Callback
+ */
+function release_uri($entity) {
+  return array(
+    'path' => 'admin/content/releases/' . $entity->id,
+  );
 }
 
 /**
