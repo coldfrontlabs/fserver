@@ -56,7 +56,19 @@ function project_access($op, $entity, $account = NULL, $entity_type) {
     return TRUE;
   }
 
-  // @todo the middle stuff
+  switch ($op) {
+    case 'create':
+      return user_access('create fserver ' . $entity->type . ' projects');
+
+    case 'edit':
+      return user_access('edit any fserver ' . $entity->type . ' projects');
+
+    case 'view':
+      return user_access('view any fserver ' . $entity->type . ' projects');
+
+    case 'delete':
+      return user_access('delete any fserver ' . $entity->type . ' projects');
+  }
 
   return FALSE;
 }
@@ -120,7 +132,19 @@ function release_access($op, $entity, $account = NULL, $entity_type) {
     return TRUE;
   }
 
-  // @todo the middle stuff
+  switch ($op) {
+    case 'create':
+      return user_access('create fserver ' . $entity->type . ' releases');
+
+    case 'edit':
+      return user_access('edit any fserver ' . $entity->type . ' releases');
+
+    case 'view':
+      return user_access('view any fserver ' . $entity->type . ' releases');
+
+    case 'delete':
+      return user_access('delete any fserver ' . $entity->type . ' releases');
+  }
 
   return FALSE;
 }
