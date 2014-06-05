@@ -58,16 +58,16 @@ function project_access($op, $entity, $account = NULL, $entity_type) {
 
   switch ($op) {
     case 'create':
-      return user_access('create fserver ' . $entity_type . ' projects');
+      return user_access('create fserver ' . $entity_type . ' projects', $account);
 
     case 'edit':
-      return user_access('edit any fserver ' . $entity_type . ' projects');
+      return user_access('edit any fserver ' . $entity_type . ' projects', $account);
 
     case 'view':
-      return user_access('view any fserver ' . $entity_type . ' projects');
+      return user_access('view any fserver ' . $entity_type . ' projects', $account);
 
     case 'delete':
-      return user_access('delete any fserver ' . $entity_type . ' projects');
+      return user_access('delete any fserver ' . $entity_type . ' projects', $account);
   }
 
   return FALSE;

@@ -31,8 +31,6 @@ function project_type_access($op, $entity, $account = NULL, $entity_type) {
     return TRUE;
   }
 
-  // @todo the middle stuff
-
   return FALSE;
 }
 
@@ -61,8 +59,6 @@ function release_type_access($op, $entity, $account = NULL, $entity_type) {
   if (user_access('administer fserver', $account)) {
     return TRUE;
   }
-
-  // @todo the middle stuff
 
   return FALSE;
 }
