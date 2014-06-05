@@ -56,21 +56,19 @@ function project_access($op, $entity, $account = NULL, $entity_type) {
     return TRUE;
   }
 
-  switch ($op) {
-    case 'create':
-      return user_access('create fserver ' . $entity_type . ' projects', $account);
-
-    case 'edit':
-      return user_access('edit any fserver ' . $entity_type . ' projects', $account);
-
-    case 'view':
-      return user_access('view any fserver ' . $entity_type . ' projects', $account);
-
-    case 'delete':
-      return user_access('delete any fserver ' . $entity_type . ' projects', $account);
+  global $user;
+  if (!isset($account->uid)) {
+    $account = $user;
   }
 
-  return FALSE;
+  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+  // Check for their own stuff
+  if (isset($entity->uid) and $entity->uid == $account->uid) {
+    if (user_access($op . ' own fserver ' . $bundle . ' projects', $account)) {
+      return TRUE;
+    }
+  }
+  return user_access($op . ' any fserver ' . $bundle . ' projects', $account);
 }
 
 /**
@@ -132,21 +130,19 @@ function release_access($op, $entity, $account = NULL, $entity_type) {
     return TRUE;
   }
 
-  switch ($op) {
-    case 'create':
-      return user_access('create fserver ' . $entity_type . ' releases');
-
-    case 'edit':
-      return user_access('edit any fserver ' . $entity_type . ' releases');
-
-    case 'view':
-      return user_access('view any fserver ' . $entity_type . ' releases');
-
-    case 'delete':
-      return user_access('delete any fserver ' . $entity_type . ' releases');
+  global $user;
+  if (!isset($account->uid)) {
+    $account = $user;
   }
 
-  return FALSE;
+  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+  // Check for their own stuff
+  if (isset($entity->uid) and $entity->uid == $account->uid) {
+    if (user_access($op . ' own fserver ' . $bundle . ' releases', $account)) {
+      return TRUE;
+    }
+  }
+  return user_access($op . ' any fserver ' . $bundle . ' releases', $account);
 }
 
 /**
