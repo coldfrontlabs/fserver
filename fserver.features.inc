@@ -52,24 +52,24 @@ function fserver_default_project_type() {
   $items = array();
 
   $items['module'] = entity_import('project_type', '{
-    "name" : "module",
+    "type" : "module",
     "description" : "Drupal module project type.",
     "uuid": "826d8e65-196d-4e4c-9ddc-847e0b41cf05"
   }');
 
   $items['theme'] = entity_import('project_type', '{
-    "name" : "theme",
+    "type" : "theme",
     "description" : "Drupal theme project type.",
     "uuid": "30a5b10d-1cdf-4637-8201-696e289bb9b5"
   }');
   $items['distribution'] = entity_import('project_type', '{
-    "name" : "distribution",
+    "type" : "distribution",
     "description" : "Drupal distribution project.",
     "uuid": "091075b9-7999-40ba-a56f-10fac06a5d63"
   }');
 
   $items['installprofile'] = entity_import('project_type', '{
-    "name" : "installprofile",
+    "type" : "installprofile",
     "description" : "Drupal installation profile project type.",
     "uuid": "9be5ea44-1d0e-4162-bfbd-e1fa114a33d5"
   }');
@@ -84,7 +84,7 @@ function fserver_default_release_type() {
   $items = array();
 
   $items['release'] = entity_import('release_type', '{
-    "name" : "release",
+    "type" : "release",
     "description" : "Standard project release type.",
     "uuid": "24bb28de-8cc0-4fa4-8f8c-04c7b3cbf715"
   }');
