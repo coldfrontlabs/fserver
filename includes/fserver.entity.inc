@@ -63,12 +63,18 @@ function project_access($op, $entity, $account = NULL, $entity_type) {
 
   list(, , $bundle) = entity_extract_ids($entity_type, $entity);
   // Check for their own stuff
-  if (isset($entity->uid) and $entity->uid == $account->uid) {
-    if (user_access($op . ' own fserver ' . $bundle . ' projects', $account)) {
-      return TRUE;
+  if ($op != 'create') {
+    if (isset($entity->uid) and $entity->uid == $account->uid) {
+      if (user_access($op . ' own fserver ' . $bundle . ' projects', $account)) {
+        return TRUE;
+      }
     }
+
+    return user_access($op . ' any fserver ' . $bundle . ' projects', $account);
   }
-  return user_access($op . ' any fserver ' . $bundle . ' projects', $account);
+  else {
+    return user_access($op . ' fserver ' . $bundle . ' projects', $account);
+  }
 }
 
 /**
@@ -137,12 +143,18 @@ function release_access($op, $entity, $account = NULL, $entity_type) {
 
   list(, , $bundle) = entity_extract_ids($entity_type, $entity);
   // Check for their own stuff
-  if (isset($entity->uid) and $entity->uid == $account->uid) {
-    if (user_access($op . ' own fserver ' . $bundle . ' releases', $account)) {
-      return TRUE;
+  if ($op != 'create') {
+    if (isset($entity->uid) and $entity->uid == $account->uid) {
+      if (user_access($op . ' own fserver ' . $bundle . ' releases', $account)) {
+        return TRUE;
+      }
     }
+
+    return user_access($op . ' any fserver ' . $bundle . ' releases', $account);
   }
-  return user_access($op . ' any fserver ' . $bundle . ' releases', $account);
+  else {
+    return user_access($op . ' fserver ' . $bundle . ' releases', $account);
+  }
 }
 
 /**
