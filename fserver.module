@@ -456,6 +456,11 @@ function fserver__release_create($release) {
   if ($entity === FALSE) {
     return FALSE;
   }
+  $entity->generateReleaseName($release);
+  $existing_release = fserver__release_load($entity->name);
+  if ($existing_release) {
+    fserver__release_delete($entity->name);
+  }
   // @todo - fix this: entity_save should return one of: SAVED_UPDATED or SAVED_NEW constants, but currently returns false
   if (entity_save('release', $entity)) {
     return $entity;
@@ -495,7 +500,7 @@ function fserver__release_load($name) {
  *  Returns an array of entities, FALSE otherwise.
  */
 function fserver__release_load_by_project($shortname, $api) {
-  $project = fserver__project_load_by_name($shortname);
+  $project = fserver__project_load($shortname);
 
   if (!isset($project->id)) {
     return FALSE;
