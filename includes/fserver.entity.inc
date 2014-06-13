@@ -425,7 +425,7 @@ class FserverProjectRelease {
     return $this->project;
   }
 
-  private function prepareReleases($api) {
+  protected function prepareReleases($api) {
     $releases = fserver__release_load_by_project($this->project->short_name, $api);
     if (is_array($releases)) {
       foreach ($releases as &$release) {
