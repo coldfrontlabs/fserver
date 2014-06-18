@@ -515,7 +515,7 @@ function fserver_field_default_field_instances() {
         'settings' => array(
           'link' => FALSE,
         ),
-        'type' => 'entityreference_label',
+        'type' => 'entityreference_entity_view',
         'weight' => 0,
       ),
       'teaser' => array(
