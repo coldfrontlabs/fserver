@@ -491,6 +491,25 @@ class FserverProjectEntityInlineEntityFormController extends FserverEntityInline
     unset($form['actions']);
     return $form;
   }
+
+  /**
+   * Override method entityFormSubmit(&$entity_form, &$form_state) 
+   */
+  function entityFormSubmit(&$entity_form, &$form_state) {
+    parent::entityFormSubmit($entity_form, $form_state);
+    $project = $entity_form['#entity'];
+    // Properties part of a field group won't be set unless we place those
+    // properties directly at the root of the project entity.
+    if (isset($project->advanced) and !empty($project->advanced)) {
+      foreach ($project->advanced as $property => $value) {
+        $project->$property = $value;
+      }
+    }
+    if (empty($project->created)) {
+      $project->created = time();
+    }
+    $project->changed = time();
+  }
 }
 
 class FserverReleaseEntityInlineEntityFormController extends FserverEntityInlineEntityFormController {
