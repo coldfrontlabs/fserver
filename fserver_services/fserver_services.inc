@@ -14,7 +14,7 @@ class FeatureServerProjectXMLFormatter implements ServicesFormatterInterface {
       $doc = new DOMDocument('1.0', 'utf-8');
       $root = $doc->createElement('project');
       $doc->appendChild($root);
-
+      $root->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:dc', 'http://purl.org/dc/elements/1.1/');
       $this->xml_recursive($doc, $root, $data);
 
       return $doc->saveXML();
