@@ -413,7 +413,7 @@ class FserverProjectRelease {
     if (is_object($project) and get_class($project) == 'FserverProject') {
       $this->project = $project;
       $this->prepareReleases($api);
-      $this->prepareProject();
+      $this->prepareProject($api);
       $this->alterReleaseData();
     }
     else {
@@ -427,6 +427,7 @@ class FserverProjectRelease {
 
   protected function prepareReleases($api) {
     $releases = fserver__release_load_by_project($this->project->short_name, $api);
+
     if (is_array($releases)) {
       foreach ($releases as &$release) {
         unset($release->id);
@@ -458,9 +459,12 @@ class FserverProjectRelease {
   /**
    * Prepare the project object
    */
-  private function prepareProject() {
+  private function prepareProject($api) {
+    // Change some of the project data to match the XML requirements
     unset($this->project->id);
     unset($this->project->field_compatibility);
+    $this->project->api_version = $api;
+    $this->project->type = 'project_' . $this->project->type;
   }
 
   /**
@@ -493,7 +497,7 @@ class FserverProjectEntityInlineEntityFormController extends FserverEntityInline
   }
 
   /**
-   * Override method entityFormSubmit(&$entity_form, &$form_state) 
+   * Override method entityFormSubmit(&$entity_form, &$form_state)
    */
   function entityFormSubmit(&$entity_form, &$form_state) {
     parent::entityFormSubmit($entity_form, $form_state);
