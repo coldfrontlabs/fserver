@@ -433,7 +433,7 @@ class FserverProjectRelease {
         unset($release->id);
         unset($release->type);
         unset($release->project_short_name);
-        unset($uid);
+        unset($release->uid);
 
         // Build files array
         $files = array();
@@ -451,6 +451,7 @@ class FserverProjectRelease {
         $release->download_link = $release->files[0]['url'];
         $release->mdhash = $release->files[0]['md5'];
         $release->filesize = $release->files[0]['size'];
+        $release->status = "published";
       }
     }
     $this->project->releases = $releases;
