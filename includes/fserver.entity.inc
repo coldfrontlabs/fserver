@@ -241,6 +241,7 @@ class FserverProject extends Entity {
       // Next, check release logic and build & return the tag
       if (!$latest_non_dev) {
         // latest release is a dev release.  Next release will drop the .x (for patch version) and simply be .1
+dpm('latest release is a dev release');
         $latest_dev = array_reduce($results['release'], function($carry, $item) {
           $release = entity_load_single('release', $item->id);
           if ($release->version_extra == 'dev') {
@@ -268,12 +269,15 @@ class FserverProject extends Entity {
         return $tag;
       }
       else if (isset($release_type) && !empty($release_type)) {
+dpm($latest_non_dev);
         if ('full' == $release_type) {
           if (empty($latest_non_dev->version_extra)) {
+dpm('latest version is a full version');
             // latest version is a full version, next full will increment minor/patch version
             $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
           }
           else {
+dpm('latest version is a alpha/beta/rc');
             // latest release is alpha/beta/rc, next full will drop the extra and simply be the api-major.minor version
             $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . intval($latest_non_dev->version_patch);
           }
@@ -392,7 +396,9 @@ class FserverRelease extends Entity {
  */
 class FserverReleaseController extends EntityAPIController {
   public function save($entity, DatabaseTransaction $transaction = NULL) {
-    $entity->date = time();
+    if (empty($entity->date)) {
+      $entity->date = time();
+    }
     $entity->generateReleaseName();
     parent::save($entity, $transaction);
   }
