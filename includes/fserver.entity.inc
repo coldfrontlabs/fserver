@@ -274,7 +274,6 @@ class FserverProject extends Entity {
             $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . (intval($latest_non_dev->version_patch) + 1);
           }
           else {
-dpm('latest version is a alpha/beta/rc');
             // latest release is alpha/beta/rc, next full will drop the extra and simply be the api-major.minor version
             $tag = $latest_non_dev->api . '-' . $latest_non_dev->version_major . '.' . intval($latest_non_dev->version_patch);
           }
