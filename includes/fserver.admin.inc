@@ -39,7 +39,7 @@ function project_form($form, &$form_state) {
       'exists' => 'fserver__project_exists',
       'source' => array('title'),
       'label' => t('Project short name'),
-      'replace_pattern' => '[^a-z0-9_-]+',
+      'replace_pattern' => '[^a-z0-9_]+',
     ),
     '#weight' => -9,
     '#default_value' => isset($form_state['project']->short_name) ? $form_state['project']->short_name : '',
