@@ -20,6 +20,10 @@ function fserver_permission() {
     'title' => t('Administer Feature Server'),
     'description' => t('Perform administration tasks for Feature Server.'),
   );
+  $permissions['create fserver projects'] =  array(
+    'title' => t('Create projects of any type'),
+    'description' => t('Create any type of Feature Server project entities.'),
+  );
 
   $types = project_type_load();
 

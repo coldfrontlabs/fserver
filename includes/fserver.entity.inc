@@ -61,19 +61,24 @@ function project_access($op, $entity, $account = NULL, $entity_type) {
     $account = $user;
   }
 
-  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
-  // Check for their own stuff
-  if ($op != 'create') {
-    if (isset($entity->uid) and $entity->uid == $account->uid) {
-      if (user_access($op . ' own fserver ' . $bundle . ' projects', $account)) {
-        return TRUE;
-      }
-    }
-
-    return user_access($op . ' any fserver ' . $bundle . ' projects', $account);
+  if (!isset($entity) and $op == 'create') {
+    return user_access($op . ' fserver projects', $account);
   }
   else {
-    return user_access($op . ' fserver ' . $bundle . ' projects', $account);
+    list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+    // Check for their own stuff
+    if ($op != 'create') {
+      if (isset($entity->uid) and $entity->uid == $account->uid) {
+        if (user_access($op . ' own fserver ' . $bundle . ' projects', $account)) {
+          return TRUE;
+        }
+      }
+
+      return user_access($op . ' any fserver ' . $bundle . ' projects', $account);
+    }
+    else {
+      return user_access($op . ' fserver ' . $bundle . ' projects', $account);
+    }
   }
 }
 
