@@ -75,6 +75,13 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
       'description' => t('Human readable name of a project.'),
     ) + $properties['title'];
 
+    $properties['default_major'] = array(
+      'type' => 'integer',
+      'getter callback' => 'entity_property_verbatim_get',
+      'setter callback' => 'entity_property_verbatim_set',
+      'validation callback' => 'entity_property_validate_integer_non_negative',
+      ) + $properties['default_major'];
+
     $properties['recommended_major'] = array(
       'type' => 'integer',
       'getter callback' => 'entity_property_verbatim_get',
