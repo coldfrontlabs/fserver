@@ -88,10 +88,47 @@ class FserverTestCase extends DrupalWebTestCase {
       $this->assertTrue($value == $load3->{$key}, $key . ' matches loaded value for ' . $load3->title, $group);
     }
 
-    /*
-    fserver__project_update
-    fserver__project_delete
-    */
+    // Test updating values
+    $new_title_1 = 'Test Project 1 New Title';
+    $new_title_2 = 'Test Project 2 New Title';
+    $new_title_3 = 'Test Project 3 New Title';
+
+    $load1->title = $new_title_1;
+    $load2->title = $new_title_2;
+    $load3->title = $new_title_3;
+
+    $update1 = fserver__project_update($load1);
+    $this->assertNotEqual(FALSE, $update1, 'Update ' . $load1->title . ' successfull', $group);
+    $update1 = fserver__project_load($load1->short_name);
+    $this->assertEqual($new_title_1, $update1->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+
+    $update2 = fserver__project_update($load2);
+    $this->assertNotEqual(FALSE, $update2, 'Update ' . $load2->title . ' successfull', $group);
+    $update2 = fserver__project_load($load2->short_name);
+    $this->assertEqual($new_title_2, $update2->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+
+    $update3 = fserver__project_update($load3);
+    $this->assertNotEqual(FALSE, $update3, 'Update ' . $load3->title . ' successfull', $group);
+    $update3 = fserver__project_load($load3->short_name);
+    $this->assertEqual($new_title_3, $update3->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+
+
+    // Test project deletion
+    $del1 = fserver__project_delete($test_project_1['short_name']);
+    $exists1 = fserver__project_exists($test_project_1['short_name']);
+    $this->assertTrue(FALSE !== $del1, 'Delete ' . $test_project_1['title'] . ' return successfull', $group);
+    $this->assertFalse($exists1, 'Project ' . $test_project_1['title'] . ' no longer exists.', $group);
+
+    $del2 = fserver__project_delete($test_project_2['short_name']);
+    $exists2 = fserver__project_exists($test_project_2['short_name']);
+    $this->assertTrue(FALSE !== $del2, 'Delete ' . $test_project_2['title'] . ' return successfull', $group);
+    $this->assertFalse($exists2, 'Project ' . $test_project_2['title'] . ' no longer exists.', $group);
+
+    $del3 = fserver__project_delete($test_project_3['short_name']);
+    $exists3 = fserver__project_exists($test_project_3['short_name']);
+    $this->assertTrue(FALSE !== $del3, 'Delete ' . $test_project_3['title'] . ' return successfull', $group);
+    $this->assertFalse($exists3, 'Project ' . $test_project_3['title'] . ' no longer exists.', $group);
+    //*/
   }
 
   /**
