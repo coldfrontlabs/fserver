@@ -83,4 +83,5 @@ features[variable][] = pathauto_node_fserver_project_page_pattern
 files[] = includes/fserver.info.inc
 files[] = includes/fserver.entity.inc
 files[] = includes/fserver.entity_type.inc
+files[] = tests/fserver.test
 project status url = https://updates.dropfort.com/fserver/release-history

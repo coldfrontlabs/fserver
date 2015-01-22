@@ -1,0 +1,177 @@
+<?php
+/**
+ * @file
+ * Base test cases for Feature Server
+ */
+
+class FserverTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => t('Feature Server Base Tests'),
+      'description' => t('Test the base level API and data objects in Feature Server.'),
+      'group' => t('Feature Server'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('fserver');
+  }
+
+  /**
+   * Test valid project CRUD
+   */
+  function testFserverProjectCRUD() {
+    $group = "Project CRUD";
+    $test_project_1 = array(
+      'title' => 'Test Project 1',
+      'type' => 'module', // Either module, distribution, or theme
+      'short_name' => 'test_project_1',
+      'recommended_major' => 1,  // Optional
+      'supported_majors' => '1',  // Optional
+      'link' => 'project link',  // Optional
+      'project_status' => 'published',  // Optional
+    );
+    $test_project_2 = array(
+      'title' => 'Test Project 2',
+      'type' => 'theme', // Either module, distribution, or theme
+      'short_name' => 'test_project_2',
+      'recommended_major' => 1,  // Optional
+      'supported_majors' => '1',  // Optional
+      'link' => 'project link',  // Optional
+      'project_status' => 'published',  // Optional
+    );
+    $test_project_3 = array(
+      'title' => 'Test Project 3',
+      'type' => 'distribution', // Either module, distribution, or theme
+      'short_name' => 'test_project_3',
+      'recommended_major' => 1,  // Optional
+      'supported_majors' => '1',  // Optional
+      'link' => 'project link',  // Optional
+      'project_status' => 'published',  // Optional
+    );
+
+    // Test basic project creation
+    $result = fserver__project_create($test_project_1);
+    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_1['title'] . ' module', $group);
+
+    $result = fserver__project_create($test_project_2);
+    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_2['title'] . ' theme', $group);
+
+    $result = fserver__project_create($test_project_3);
+    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_3['title'] . ' distribution', $group);
+
+    // Test project existence
+    $result = fserver__project_exists($test_project_1['short_name']);
+    $this->assertTrue($result, $test_project_1['title'] . ' exists', $group);
+
+    $result = fserver__project_exists($test_project_2['short_name']);
+    $this->assertTrue($result, $test_project_2['title'] . 'exists', $group);
+
+    $result = fserver__project_exists($test_project_3['short_name']);
+    $this->assertTrue($result, $test_project_3['title'] . 'exists', $group);
+
+    // Test project loading
+    $load1 = fserver__project_load($test_project_1);
+    $load2 = fserver__project_load($test_project_2);
+    $load3 = fserver__project_load($test_project_3);
+
+    // Compare values
+    foreach ($test_project_1 as $key => $value) {
+      $this->assertTrue($value == $load1->{$key}, $key . ' matches loaded value for ' . $load1->title, $group);
+    }
+
+    foreach ($test_project_2 as $key => $value) {
+      $this->assertTrue($value == $load2->{$key}, $key . ' matches loaded value for ' . $load2->title, $group);
+    }
+
+    foreach ($test_project_3 as $key => $value) {
+      $this->assertTrue($value == $load3->{$key}, $key . ' matches loaded value for ' . $load3->title, $group);
+    }
+
+    // Test updating values
+    $new_title_1 = 'Test Project 1 New Title';
+    $new_title_2 = 'Test Project 2 New Title';
+    $new_title_3 = 'Test Project 3 New Title';
+
+    $load1->title = $new_title_1;
+    $load2->title = $new_title_2;
+    $load3->title = $new_title_3;
+
+    $update1 = fserver__project_update($load1);
+    $this->assertNotEqual(FALSE, $update1, 'Update ' . $load1->title . ' successfull', $group);
+    $update1 = fserver__project_load($load1->short_name);
+    $this->assertEqual($new_title_1, $update1->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+
+    $update2 = fserver__project_update($load2);
+    $this->assertNotEqual(FALSE, $update2, 'Update ' . $load2->title . ' successfull', $group);
+    $update2 = fserver__project_load($load2->short_name);
+    $this->assertEqual($new_title_2, $update2->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+
+    $update3 = fserver__project_update($load3);
+    $this->assertNotEqual(FALSE, $update3, 'Update ' . $load3->title . ' successfull', $group);
+    $update3 = fserver__project_load($load3->short_name);
+    $this->assertEqual($new_title_3, $update3->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+
+
+    // Test project deletion
+    $del1 = fserver__project_delete($test_project_1['short_name']);
+    $exists1 = fserver__project_exists($test_project_1['short_name']);
+    $this->assertTrue(FALSE !== $del1, 'Delete ' . $test_project_1['title'] . ' return successfull', $group);
+    $this->assertFalse($exists1, 'Project ' . $test_project_1['title'] . ' no longer exists.', $group);
+
+    $del2 = fserver__project_delete($test_project_2['short_name']);
+    $exists2 = fserver__project_exists($test_project_2['short_name']);
+    $this->assertTrue(FALSE !== $del2, 'Delete ' . $test_project_2['title'] . ' return successfull', $group);
+    $this->assertFalse($exists2, 'Project ' . $test_project_2['title'] . ' no longer exists.', $group);
+
+    $del3 = fserver__project_delete($test_project_3['short_name']);
+    $exists3 = fserver__project_exists($test_project_3['short_name']);
+    $this->assertTrue(FALSE !== $del3, 'Delete ' . $test_project_3['title'] . ' return successfull', $group);
+    $this->assertFalse($exists3, 'Project ' . $test_project_3['title'] . ' no longer exists.', $group);
+    //*/
+  }
+
+  /**
+   * Test the APIs capacity to handle invalid project CRUD
+   */
+  function testFserverProjectCRUDInvalidValues() {
+    $group = "Project Invalid CRUD";
+    $result = fserver__project_exists('fake_project');
+    $this->assertFalse($result, 'fake_project does not exist', $group);
+  }
+
+  /**
+   * Test Release data CRUD
+   */
+  function testFserverReleaseCRUD() {
+    /*
+    fserver__release_create
+    fserver__release_load
+    fserver__release_load_by_project
+    fserver__release_update
+    fserver__release_delete
+    */
+  }
+}
+
+class FserverProjectReleaseTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => t('Feature Server Project Release Tests'),
+      'description' => t('Test the FserverProjectRelease objects (a.k.a. release history objects).'),
+      'group' => t('Feature Server'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('fserver');
+  }
+
+  function testProjectReleaseData() {
+
+  }
+
+  function testProjectReleaseOrder() {
+
+  }
+}
