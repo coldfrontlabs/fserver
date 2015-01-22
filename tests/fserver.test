@@ -31,18 +31,18 @@ class FserverTestCase extends DrupalWebTestCase {
       'project_status' => 'published',  // Optional
     );
     $test_project_2 = array(
-      'title' => 'Test Project 1',
+      'title' => 'Test Project 2',
       'type' => 'module', // Either module, distribution, or theme
-      'short_name' => 'test_project_1',
+      'short_name' => 'test_project_2',
       'recommended_major' => 1,  // Optional
       'supported_majors' => '1',  // Optional
       'link' => 'project link',  // Optional
       'project_status' => 'published',  // Optional
     );
     $test_project_3 = array(
-      'title' => 'Test Project 1',
+      'title' => 'Test Project 3',
       'type' => 'module', // Either module, distribution, or theme
-      'short_name' => 'test_project_1',
+      'short_name' => 'test_project_3',
       'recommended_major' => 1,  // Optional
       'supported_majors' => '1',  // Optional
       'link' => 'project link',  // Optional
