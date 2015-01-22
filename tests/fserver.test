@@ -32,7 +32,7 @@ class FserverTestCase extends DrupalWebTestCase {
     );
     $test_project_2 = array(
       'title' => 'Test Project 2',
-      'type' => 'module', // Either module, distribution, or theme
+      'type' => 'theme', // Either module, distribution, or theme
       'short_name' => 'test_project_2',
       'recommended_major' => 1,  // Optional
       'supported_majors' => '1',  // Optional
@@ -41,7 +41,7 @@ class FserverTestCase extends DrupalWebTestCase {
     );
     $test_project_3 = array(
       'title' => 'Test Project 3',
-      'type' => 'module', // Either module, distribution, or theme
+      'type' => 'distribution', // Either module, distribution, or theme
       'short_name' => 'test_project_3',
       'recommended_major' => 1,  // Optional
       'supported_majors' => '1',  // Optional
@@ -69,16 +69,25 @@ class FserverTestCase extends DrupalWebTestCase {
     $result = fserver__project_exists($test_project_3['short_name']);
     $this->assertTrue($result, $test_project_3['title'] . 'exists');
 
-    $result = fserver__project_exists('fake_project');
-    $this->assertFalse($result, 'fake_project does not exist');
-
     // Test project loading
     $load1 = fserver__project_load($test_project_1);
     $load2 = fserver__project_load($test_project_2);
     $load3 = fserver__project_load($test_project_3);
 
+    // Compare values
+    foreach ($test_project_1 as $key => $value) {
+      $this->assertTrue($value == $load1->{$key}, $key . ' matches loaded value for ' . $load1->title);
+    }
+
+    foreach ($test_project_2 as $key => $value) {
+      $this->assertTrue($value == $load2->{$key}, $key . ' matches loaded value for ' . $load2->title);
+    }
+
+    foreach ($test_project_3 as $key => $value) {
+      $this->assertTrue($value == $load3->{$key}, $key . ' matches loaded value for ' . $load3->title);
+    }
+
     /*
-    fserver__project_load
     fserver__project_update
     fserver__project_delete
     */
@@ -88,9 +97,13 @@ class FserverTestCase extends DrupalWebTestCase {
    * Test the APIs capacity to handle invalid project CRUD
    */
   function testFserverProjectCRUDInvalidValues() {
-
+    $result = fserver__project_exists('fake_project');
+    $this->assertFalse($result, 'fake_project does not exist');
   }
 
+  /**
+   * Test Release data CRUD
+   */
   function testFserverReleaseCRUD() {
     /*
     fserver__release_create
