@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Test Feature Server release history feeds
+ */
+
+class FserverServicesTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => t('Feature Server Services tests'),
+      'description' => t('Test the release data feeds (i.e. update XML).'),
+      'group' => t('Feature Server'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('fserver_services');
+  }
+
+  function testFeatureServerServicesXML() {
+    // @todo
+  }
+}

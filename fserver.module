@@ -391,7 +391,7 @@ function fserver__project_exists($shortname) {
  *   'title' => 'Long Project Tile',
  *   'type' => 'module', // Either module, distribution, or theme
  *   'short_name' => 'project_name',
- *   'recommended_major => 1,  // Optional
+ *   'recommended_major' => 1,  // Optional
  *   'supported_majors' => '1',  // Optional
  *   'link' => 'project link',  // Optional
  *   'project_status' => 'published',  // Optional
