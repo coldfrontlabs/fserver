@@ -21,6 +21,7 @@ class FserverTestCase extends DrupalWebTestCase {
    * Test valid project CRUD
    */
   function testFserverProjectCRUD() {
+    $group = "Project CRUD";
     $test_project_1 = array(
       'title' => 'Test Project 1',
       'type' => 'module', // Either module, distribution, or theme
@@ -51,23 +52,23 @@ class FserverTestCase extends DrupalWebTestCase {
 
     // Test basic project creation
     $result = fserver__project_create($test_project_1);
-    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_1['title'] . ' module');
+    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_1['title'] . ' module', $group);
 
     $result = fserver__project_create($test_project_2);
-    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_2['title'] . ' theme');
+    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_2['title'] . ' theme', $group);
 
     $result = fserver__project_create($test_project_3);
-    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_3['title'] . ' distribution');
+    $this->assertNotEqual(FALSE, $result, 'Create ' . $test_project_3['title'] . ' distribution', $group);
 
     // Test project existence
     $result = fserver__project_exists($test_project_1['short_name']);
-    $this->assertTrue($result, $test_project_1['title'] . ' exists');
+    $this->assertTrue($result, $test_project_1['title'] . ' exists', $group);
 
     $result = fserver__project_exists($test_project_2['short_name']);
-    $this->assertTrue($result, $test_project_2['title'] . 'exists');
+    $this->assertTrue($result, $test_project_2['title'] . 'exists', $group);
 
     $result = fserver__project_exists($test_project_3['short_name']);
-    $this->assertTrue($result, $test_project_3['title'] . 'exists');
+    $this->assertTrue($result, $test_project_3['title'] . 'exists', $group);
 
     // Test project loading
     $load1 = fserver__project_load($test_project_1);
@@ -76,15 +77,15 @@ class FserverTestCase extends DrupalWebTestCase {
 
     // Compare values
     foreach ($test_project_1 as $key => $value) {
-      $this->assertTrue($value == $load1->{$key}, $key . ' matches loaded value for ' . $load1->title);
+      $this->assertTrue($value == $load1->{$key}, $key . ' matches loaded value for ' . $load1->title, $group);
     }
 
     foreach ($test_project_2 as $key => $value) {
-      $this->assertTrue($value == $load2->{$key}, $key . ' matches loaded value for ' . $load2->title);
+      $this->assertTrue($value == $load2->{$key}, $key . ' matches loaded value for ' . $load2->title, $group);
     }
 
     foreach ($test_project_3 as $key => $value) {
-      $this->assertTrue($value == $load3->{$key}, $key . ' matches loaded value for ' . $load3->title);
+      $this->assertTrue($value == $load3->{$key}, $key . ' matches loaded value for ' . $load3->title, $group);
     }
 
     /*
@@ -97,8 +98,9 @@ class FserverTestCase extends DrupalWebTestCase {
    * Test the APIs capacity to handle invalid project CRUD
    */
   function testFserverProjectCRUDInvalidValues() {
+    $group = "Project Invalid CRUD";
     $result = fserver__project_exists('fake_project');
-    $this->assertFalse($result, 'fake_project does not exist');
+    $this->assertFalse($result, 'fake_project does not exist', $group);
   }
 
   /**
