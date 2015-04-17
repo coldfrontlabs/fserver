@@ -647,8 +647,11 @@ class FserverProjectRelease {
     unset($this->project->field_compatibility);
     $this->project->api_version = $api;
     $this->project->type = 'project_' . $this->project->type;
+
     // Load the API specific default, recommended and supported majors
-    // @todo
+    $this->project->default_major = $this->project->getDefaultMajor($api);
+    $this->project->recommended_major = $this->project->getRecommendedMajor($api);
+    $this->project->supported_majors = $this->project->getSupportedMajors($api));
   }
 
   /**
