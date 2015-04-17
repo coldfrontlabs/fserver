@@ -47,6 +47,43 @@ function fserver_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'project-installprofile-field_compatibility'
+  $field_instances['project-installprofile-field_compatibility'] = array(
+    'bundle' => 'installprofile',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'project',
+    'field_name' => 'field_compatibility',
+    'label' => 'Compatibility',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 0,
+    ),
+  );
+
   // Exported field_instance: 'project-module-field_compatibility'
   $field_instances['project-module-field_compatibility'] = array(
     'bundle' => 'module',
