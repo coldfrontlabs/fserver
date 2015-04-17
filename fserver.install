@@ -103,9 +103,10 @@ function fserver_schema() {
         'not null' => TRUE,
       ),
       'recommended_major' => array(
-        'type' => 'int',
+        'description' => 'Recommended major version',
         'not null' => FALSE,
-        'unsigned' => TRUE,
+        'type' => 'text',
+        'serialized' => TRUE,
       ),
       'supported_majors' => array(
         'description' => 'Supported major projects.',
@@ -113,9 +114,10 @@ function fserver_schema() {
         'serialized' => TRUE,
       ),
       'default_major' => array(
-        'type' => 'int',
+        'description' => 'Default major version',
+        'type' => 'text',
         'not null' => FALSE,
-        'unsigned' => TRUE,
+        'serialized' => TRUE,
       ),
       'project_status' => array(
         'type' => 'varchar',
@@ -248,4 +250,39 @@ function fserver_update_7000() {
   db_add_index('fserver_release', 'version_extra', array('version_extra'));
   db_add_index('fserver_release', 'version_major', array('version_major'));
   db_add_index('fserver_release', 'project_short_name', array('project_short_name'));
+}
+
+/**
+ * Impelements hook_update_N().
+ *
+ * Add major version specific values for supported release, default major and recommended release
+ */
+function fserver_update_7001() {
+  // @todo create a temporary table to store old values
+  // use uuid as key
+
+  // @todo load old data into this table
+
+  // @todo change these fields
+  /*
+      'recommended_major' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'unsigned' => TRUE,
+      ),
+      'supported_majors' => array(
+        'description' => 'Supported major projects.',
+        'type' => 'text',
+        'serialized' => TRUE,
+      ),
+      'default_major' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'unsigned' => TRUE,
+      ),
+  */
+  // To their updated equivalent
+  // @todo convert old data into new data and save into db
+  // @todo add uniques, indexes and such as required to new fields
+  // @todo drop the temporary table
 }
