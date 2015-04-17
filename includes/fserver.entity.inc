@@ -508,10 +508,10 @@ class FserverProjectController extends EntityAPIController {
     if (!empty($entity->default_major) and is_array($entity->default_major)) {
       $entity->default_major = serialize($entity->default_major);
     }
-    if (!empty($entity->supported_majors)) {
+    if (!empty($entity->supported_majors) and is_array($entity->supported_majors)) {
       $entity->supported_majors = serialize($entity->supported_majors);
     }
-    if (!empty($entity->recommended_major)) {
+    if (!empty($entity->recommended_major) and is_array($entity->recommended_major)) {
       $entity->recommended_major = serialize($entity->recommended_major);
     }
 
@@ -651,7 +651,7 @@ class FserverProjectRelease {
     // Load the API specific default, recommended and supported majors
     $this->project->default_major = $this->project->getDefaultMajor($api);
     $this->project->recommended_major = $this->project->getRecommendedMajor($api);
-    $this->project->supported_majors = $this->project->getSupportedMajors($api));
+    $this->project->supported_majors = $this->project->getSupportedMajors($api);
   }
 
   /**
