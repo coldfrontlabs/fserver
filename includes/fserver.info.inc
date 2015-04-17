@@ -59,7 +59,7 @@ function fserver_project_default_major_property_info() {
       'description' => t('Drupal API version (e.g. 7.x).'),
     ),
     'default_major' => array(
-      'type' => 'int',
+      'type' => 'integer',
       'label' => t('Default major'),
       'description' => t('Default major for this API version of Drupal.'),
     ),
@@ -80,7 +80,7 @@ function fserver_project_recommended_major_property_info() {
       'description' => t('Drupal API version (e.g. 7.x).'),
     ),
     'recommended_major' => array(
-      'type' => 'int',
+      'type' => 'integer',
       'label' => t('Recommended major'),
       'description' => t('Recommended major for this API version of Drupal.'),
     ),
