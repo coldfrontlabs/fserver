@@ -61,7 +61,49 @@ function fserver_project_default_major_property_info() {
     'default_major' => array(
       'type' => 'int',
       'label' => t('Default major'),
-      'description' => t('Default major version for this API version of Drupal.'),
+      'description' => t('Default major for this API version of Drupal.'),
+    ),
+  );
+}
+
+/**
+ * Property info for the default_major struct
+ *
+ * @return array
+ * @see hook_entity_property_info().
+ */
+function fserver_project_recommended_major_property_info() {
+  return array(
+    'api' => array(
+      'type' => 'text',
+      'label' => t('API Version'),
+      'description' => t('Drupal API version (e.g. 7.x).'),
+    ),
+    'recommended_major' => array(
+      'type' => 'int',
+      'label' => t('Recommended major'),
+      'description' => t('Recommended major for this API version of Drupal.'),
+    ),
+  );
+}
+
+/**
+ * Property info for the supported_majors struct
+ *
+ * @return array
+ * @see hook_entity_property_info().
+ */
+function fserver_project_supported_majors_property_info() {
+  return array(
+    'api' => array(
+      'type' => 'text',
+      'label' => t('API Version'),
+      'description' => t('Drupal API version (e.g. 7.x).'),
+    ),
+    'supported_majors' => array(
+      'type' => 'list<integer>',
+      'label' => t('Supported majors'),
+      'description' => t('Supported majors for this API version of Drupal.'),
     ),
   );
 }
@@ -74,6 +116,9 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
   public function entityPropertyInfo() {
     $info = parent::entityPropertyInfo();
     $default_major_properties = fserver_project_default_major_property_info();
+    $recommended_major_properties = fserver_project_recommended_major_property_info();
+    $supported_majors_properties = fserver_project_supported_majors_property_info();
+
     $properties = &$info[$this->type]['properties'];
 
     $properties['type'] = array(
@@ -105,10 +150,9 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
 
     $properties['default_major'] = array(
       'type' => 'list',
-      'getter callback' => 'fserver_project_property_default_major_get',
-      'setter callback' => 'fserver_project_property_default_major_set',
+      'getter callback' => 'fserver_project_property_serialized_get',
+      'setter callback' => 'fserver_project_property_serialized_set',
       'validation callback' => 'fserver_project_property_default_major_validate',
-      'raw getter callback' => 'fserver_project_property_default_major_raw_get',
       'queryable' => FALSE,
       'required' => FALSE,
       'label' => t('Default major'),
@@ -116,16 +160,24 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
     ) + $properties['default_major'];
 
     $properties['recommended_major'] = array(
-      'type' => 'text',
-      'getter callback' => 'entity_property_verbatim_get',
-      'setter callback' => 'entity_property_verbatim_set',
+      'type' => 'list<struct>',
+      'getter callback' => 'fserver_project_property_serialized_get',
+      'setter callback' => 'fserver_project_property_serialized_set',
+      'validation callback' => 'fserver_project_property_recommended_major_validate',
+      'queryable' => FALSE,
+      'required' => FALSE,
       'description' => t('Recommended major version'),
+      'property info' => $recommended_major_properties,
     ) + $properties['recommended_major'];
 
     $properties['supported_majors'] = array(
-      'description' => 'Supported major projects.',
-      'getter callback' => 'entity_property_verbatim_get',
-      'setter callback' => 'entity_property_verbatim_set',
+      'type' => 'list<struct>',
+      'getter callback' => 'fserver_project_property_serialized_get',
+      'setter callback' => 'fserver_project_property_serialized_set',
+      'validation callback' => 'fserver_project_property_supported_majors_validate',
+      'queryable' => FALSE,
+      'required' => FALSE,
+      'property info' => $supported_majors_properties,
     ) + $properties['supported_majors'];
 
     $properties['project_status'] = array(

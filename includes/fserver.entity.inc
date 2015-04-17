@@ -181,7 +181,7 @@ function release_uri($entity) {
 /**
  * Entity property getter callback for default_major
  */
-function fserver_project_property_default_major_get($project, array $options, $name) {
+function fserver_project_property_serialized_get($project, array $options, $name) {
   $return = NULL;
   $name = isset($info['schema field']) ? $info['schema field'] : $name;
   if ((is_array($project) || (is_object($project) && $project instanceof ArrayAccess)) && isset($project[$name])) {
@@ -209,7 +209,7 @@ function fserver_project_property_default_major_get($project, array $options, $n
 /**
  * Entity property getter callback for default_major
  */
-function fserver_project_property_default_major_set(&$data, $name, $value, $langcode, $type, $info) {
+function fserver_project_property_serialized_set(&$data, $name, $value, $langcode, $type, $info) {
   // Serialize the value, the rest stays the same.
   $value = serialize($value);
   $name = isset($info['schema field']) ? $info['schema field'] : $name;
@@ -241,10 +241,47 @@ function fserver_project_property_default_major_validate($value) {
 }
 
 /**
- * Entity property getter callback for default_major
+ * Entity property validation callback for recommended_major
+ *
+ * @see fserver_project_recommended_major_property_info().
  */
-function fserver_project_property_default_major_raw_get($data, array $options, $name, $type, $info) {
-  // @todo
+function fserver_project_property_recommended_major_validate($value) {
+  if (is_array($value)) {
+    foreach ($value as $key => $v) {
+      if (array_key_exists($v['api']) and array_key_exists($v['recommended_major'])) {
+        if (is_int($v['recommended_major']) and $v['recommended_major'] > 0 and is_string($v['api'])) {
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Entity property validation callback for supported_majors
+ *
+ * @see fserver_project_supported_majors_property_info().
+ */
+function fserver_project_property_supported_majors_validate($value) {
+  if (is_array($value)) {
+    foreach ($value as $key => $v) {
+      if (array_key_exists($v['api']) and array_key_exists($v['supported_majors'])) {
+        if (is_array($v['supported_majors']) and is_string($v['api'])) {
+          // Ensure all supported major values are integers
+          foreach ($v['supported_majors'] as $major) {
+            if (!is_int($major) or $major < 1) {
+              return FALSE;
+            }
+          }
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
 }
 
 /**
