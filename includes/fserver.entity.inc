@@ -172,31 +172,70 @@ function release_uri($entity) {
 }
 
 /**
- * Options list callback for the supported_majors property
+ * Entity Property Callbacks
  */
-function _fserver_project_property_supported_majors_options() {
-  // @todo make this intelligent by looking at the attached releases
-  // @todo
-  return array(
-    '5.x' => t('5.x'),
-    '6.x' => t('6.x'),
-    '7.x' => t('7.x'),
-    '8.x' => t('8.x'),
-    '9.x' => t('9.x'),
-  );
+
+/**
+ * Entity property getter callback for default_major
+ */
+function fserver_project_property_default_major_get($data, array $options, $name, $type, $info) {
+
+  $name = isset($info['schema field']) ? $info['schema field'] : $name;
+  if ((is_array($data) || (is_object($data) && $data instanceof ArrayAccess)) && isset($data[$name])) {
+    return unserialize($data[$name]);
+  }
+  elseif (is_object($data) && isset($data->$name)) {
+    // Incorporate i18n_string translations. We may rely on the entity class
+    // here as its usage is required by the i18n integration.
+    if (isset($options['language']) && !empty($info['i18n string'])) {
+      return $data->getTranslation($name, $options['language']->language);
+    }
+    else {
+      return unserialize($data->$name);
+    }
+  }
+  return NULL;
 }
 
 /**
- * Options list callback for the recommended_majors property
+ * Entity property getter callback for default_major
  */
-function _fserver_project_property_recommended_majors_options() {
-  // @todo make this intelligent by looking at the attached releases
-  return array(
-    1 => 1,
-    2 => 2,
-    3 => 3,
-    4 => 4,
-  );
+function fserver_project_property_default_major_set(&$data, $name, $value, $langcode, $type, $info) {
+  // Serialize the value, the rest stays the same.
+  $value = serialize($value);
+  $name = isset($info['schema field']) ? $info['schema field'] : $name;
+  if (is_array($data) || (is_object($data) && $data instanceof ArrayAccess)) {
+    $data[$name] = $value;
+  }
+  elseif (is_object($data)) {
+    $data->$name = $value;
+  }
+}
+
+/**
+ * Entity property validation callback for default_major
+ *
+ * @see fserver_project_default_major_property_info().
+ */
+function fserver_project_property_default_major_validate($value) {
+  if (is_array($value)) {
+    foreach ($value as $key => $v) {
+      if (array_key_exists($v['api']) and array_key_exists($v['default_major'])) {
+        if (is_int($v['default_major']) and $v['default_major'] > 0 and is_string($v['api'])) {
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Entity property getter callback for default_major
+ */
+function fserver_project_property_default_major_raw_get($data, array $options, $name, $type, $info) {
+  // @todo
 }
 
 /**
@@ -342,6 +381,27 @@ class FserverProjectController extends EntityAPIController {
       }
     }
     parent::delete($ids, $transaction);
+  }
+
+  public function load($ids = array(), $conditions = array()) {
+    // Expand serialized data
+    $entities = parent::load($ids, $conditions);
+    return $entities;
+    foreach ($entities as $key => $entity) {
+      if (!empty($entity->default_major) and !is_array($entity->default_major)) {
+        $entities[$key]->default_major = unserialize($entity->default_major);
+      }
+    }
+
+    return $entities;
+  }
+
+  public function save($entity, DatabaseTransaction $transaction = NULL) {
+    // Serialize array data
+    if (is_array($entity->default_major)) {
+      $entity->default_major = serialize($entity->default_major);
+    }
+    return parent::save($entity, $transaction);
   }
 }
 
