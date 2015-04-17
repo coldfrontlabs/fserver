@@ -226,7 +226,7 @@ function fserver__property_serialized_set(&$data, $name, $value, $langcode, $typ
  *
  * @see fserver_project_default_major_property_info().
  */
-function fserver_project_property_default_major_validate($value) {
+function fserver__project_property_default_major_validate($value) {
   if (is_array($value)) {
     foreach ($value as $key => $v) {
       if (array_key_exists($v['api']) and array_key_exists($v['default_major'])) {
@@ -245,7 +245,7 @@ function fserver_project_property_default_major_validate($value) {
  *
  * @see fserver_project_recommended_major_property_info().
  */
-function fserver_project_property_recommended_major_validate($value) {
+function fserver__project_property_recommended_major_validate($value) {
   if (is_array($value)) {
     foreach ($value as $key => $v) {
       if (array_key_exists($v['api']) and array_key_exists($v['recommended_major'])) {
@@ -264,7 +264,7 @@ function fserver_project_property_recommended_major_validate($value) {
  *
  * @see fserver_project_supported_majors_property_info().
  */
-function fserver_project_property_supported_majors_validate($value) {
+function fserver__project_property_supported_majors_validate($value) {
   if (is_array($value)) {
     foreach ($value as $key => $v) {
       if (array_key_exists($v['api']) and array_key_exists($v['supported_majors'])) {
