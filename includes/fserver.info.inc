@@ -150,8 +150,8 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
 
     $properties['default_major'] = array(
       'type' => 'list',
-      'getter callback' => 'fserver_project_property_serialized_get',
-      'setter callback' => 'fserver_project_property_serialized_set',
+      'getter callback' => 'fserver__property_serialized_get',
+      'setter callback' => 'fserver__property_serialized_set',
       'validation callback' => 'fserver_project_property_default_major_validate',
       'queryable' => FALSE,
       'required' => FALSE,
@@ -161,8 +161,8 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
 
     $properties['recommended_major'] = array(
       'type' => 'list<struct>',
-      'getter callback' => 'fserver_project_property_serialized_get',
-      'setter callback' => 'fserver_project_property_serialized_set',
+      'getter callback' => 'fserver__property_serialized_get',
+      'setter callback' => 'fserver__property_serialized_set',
       'validation callback' => 'fserver_project_property_recommended_major_validate',
       'queryable' => FALSE,
       'required' => FALSE,
@@ -172,8 +172,8 @@ class FserverProjectMetadataController extends EntityDefaultMetadataController {
 
     $properties['supported_majors'] = array(
       'type' => 'list<struct>',
-      'getter callback' => 'fserver_project_property_serialized_get',
-      'setter callback' => 'fserver_project_property_serialized_set',
+      'getter callback' => 'fserver__property_serialized_get',
+      'setter callback' => 'fserver__property_serialized_set',
       'validation callback' => 'fserver_project_property_supported_majors_validate',
       'queryable' => FALSE,
       'required' => FALSE,

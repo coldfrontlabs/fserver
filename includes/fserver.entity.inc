@@ -181,7 +181,7 @@ function release_uri($entity) {
 /**
  * Entity property getter callback for default_major
  */
-function fserver_project_property_serialized_get($project, array $options, $name) {
+function fserver__property_serialized_get($project, array $options, $name) {
   $return = NULL;
   $name = isset($info['schema field']) ? $info['schema field'] : $name;
   if ((is_array($project) || (is_object($project) && $project instanceof ArrayAccess)) && isset($project[$name])) {
@@ -209,7 +209,7 @@ function fserver_project_property_serialized_get($project, array $options, $name
 /**
  * Entity property getter callback for default_major
  */
-function fserver_project_property_serialized_set(&$data, $name, $value, $langcode, $type, $info) {
+function fserver__property_serialized_set(&$data, $name, $value, $langcode, $type, $info) {
   // Serialize the value, the rest stays the same.
   $value = serialize($value);
   $name = isset($info['schema field']) ? $info['schema field'] : $name;
