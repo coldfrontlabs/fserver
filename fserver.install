@@ -258,31 +258,54 @@ function fserver_update_7000() {
  * Add major version specific values for supported release, default major and recommended release
  */
 function fserver_update_7001() {
-  // @todo create a temporary table to store old values
-  // use uuid as key
+  $temp_table_name = 'temp_fserver_project';
+  // create a temporary table to store old values
+  $schema = drupal_get_schema('fserver_project', TRUE);
+  $fields = array_keys($schema['fields']);
+  db_drop_table($temp_table_name);
+  $table = db_create_table($temp_table_name, $schema);
 
-  // @todo load old data into this table
+  // load old data into this table
+  $select = db_select('fserver_project', 'proj')
+    ->fields('proj')
+    ->execute();
+  $id = db_insert($temp_table_name)
+    ->fields($fields);
+  while ($record = $select->fetchAssoc()) {
+    // Update modified field values.
+    $def_maj = (!empty($record['default_major'])) ? $record['default_major'] : 1;
+    $rec_maj = (!empty($record['recommended_major'])) ? $record['recommended_major'] : 1;
+    $sup_maj = (!empty($record['supported_majors'])) ? $record['supported_majors'] : 1;
+    $new_def_maj = array();
+    $new_rec_maj = array();
+    $new_sup_maj = array();
+    $project = entity_load_single('project', $record['id']);
+    $wrapper = entity_metadata_wrapper('project', $project);
+    $apis = $wrapper->field_compatibility->value();
+    foreach($apis as $api) {
+      $new_def_maj[] = array('api' => $api, 'default_major' => $def_maj);
+      $new_rec_maj[] = array('api' => $api, 'recommended_major' => $rec_maj);
+      $new_sup_maj[] = array('api' => $api, 'supported_majors' => array($sup_maj));
+    }
+    $record['default_major'] = serialize($new_def_maj);
+    $record['recommended_major'] = serialize($new_rec_maj);
+    $record['supported_majors'] = serialize($new_sup_maj);
+    $id->values($record);
+  }
+  $id->execute();
 
-  // @todo change these fields
-  /*
-      'recommended_major' => array(
-        'type' => 'int',
-        'not null' => FALSE,
-        'unsigned' => TRUE,
-      ),
-      'supported_majors' => array(
-        'description' => 'Supported major projects.',
-        'type' => 'text',
-        'serialized' => TRUE,
-      ),
-      'default_major' => array(
-        'type' => 'int',
-        'not null' => FALSE,
-        'unsigned' => TRUE,
-      ),
-  */
-  // To their updated equivalent
-  // @todo convert old data into new data and save into db
-  // @todo add uniques, indexes and such as required to new fields
-  // @todo drop the temporary table
+  db_drop_table('fserver_project');
+  $table = db_create_table('fserver_project', $schema);
+  $select = db_select($temp_table_name, 'proj')
+    ->fields('proj')
+    ->execute();
+  $id = db_insert('fserver_project')
+    ->fields($fields);
+  while ($record = $select->fetchAssoc()) {
+    $id->values($record);
+  }
+  $id->execute();
+
+  // drop the temporary table
+  db_drop_table($temp_table_name);
 }
