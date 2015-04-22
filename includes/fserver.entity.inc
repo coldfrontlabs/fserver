@@ -229,7 +229,7 @@ function fserver__property_serialized_set(&$data, $name, $value, $langcode, $typ
 function fserver__project_property_default_major_validate($value) {
   if (is_array($value)) {
     foreach ($value as $key => $v) {
-      if (array_key_exists($v['api']) and array_key_exists($v['default_major'])) {
+      if (array_key_exists('api', $v) and array_key_exists('default_major', $v)) {
         if (is_int($v['default_major']) and $v['default_major'] > 0 and is_string($v['api'])) {
           return TRUE;
         }
@@ -248,7 +248,7 @@ function fserver__project_property_default_major_validate($value) {
 function fserver__project_property_recommended_major_validate($value) {
   if (is_array($value)) {
     foreach ($value as $key => $v) {
-      if (array_key_exists($v['api']) and array_key_exists($v['recommended_major'])) {
+      if (array_key_exists('api', $v) and array_key_exists('recommended_major', $v)) {
         if (is_int($v['recommended_major']) and $v['recommended_major'] > 0 and is_string($v['api'])) {
           return TRUE;
         }
@@ -267,7 +267,7 @@ function fserver__project_property_recommended_major_validate($value) {
 function fserver__project_property_supported_majors_validate($value) {
   if (is_array($value)) {
     foreach ($value as $key => $v) {
-      if (array_key_exists($v['api']) and array_key_exists($v['supported_majors'])) {
+      if (array_key_exists('api', $v) and array_key_exists('supported_majors', $v)) {
         if (is_array($v['supported_majors']) and is_string($v['api'])) {
           // Ensure all supported major values are integers
           foreach ($v['supported_majors'] as $major) {
