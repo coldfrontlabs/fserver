@@ -72,40 +72,54 @@ function project_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
+  if (isset($form_state['project'])) {
+    $wrapper = entity_metadata_wrapper('project', $form_state['project']);
+    $apis = $wrapper->field_compatibility->value();
+    foreach ($apis as $api) {
+      $form['advanced'][$api] = array(
+        '#type' => 'fieldset',
+        '#title' => $api,
+        '#description' => t('API settings'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+      $sup_maj = $form_state['project']->getSupportedMajors($api);
+      $form['advanced'][$api][$api . '_' . 'supported_majors'] = array(
+        '#type' => 'textfield',
+        '#title' => $api . ' ' . t('Supported Majors'),
+        '#description' => t('Major versions which are supported.'),
+        '#size' => 40,
+        '#maxlength' => 255,
+        // @todo limit based on available major versions
+        '#weight' => 20,
+        '#default_value' => isset($sup_maj) ? implode(',', $sup_maj) : '',
+      );
 
-  $form['advanced']['supported_majors'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Supported Majors'),
-    '#description' => t('Major versions which are supported.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    // @todo limit based on available major versions
-    '#weight' => 20,
-    '#default_value' => isset($form_state['project']->supported_majors) ? $form_state['project']->supported_majors : '',
-  );
-
-  $form['advanced']['recommended_major'] = array(
-    '#type' => 'numberfield',
-    '#title' => t('Recommended Major'),
-    '#description' => t('Major version which is recommended.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    '#min' => 1,
-    // @todo validate the major version exists
-    '#weight' => 20,
-    '#default_value' => isset($form_state['project']->recommended_major) ? $form_state['project']->recommended_major : '',
-  );
-
-  $form['advanced']['default_major'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Default Major'),
-    '#description' => t('Default major branch.'),
-    '#size' => 40,
-    '#maxlength' => 255,
-    '#weight' => 20,
-    '#default_value' => isset($form_state['project']->default_major) ? $form_state['project']->default_major : '',
-    // @todo add element validator
-  );
+      $rec_maj = $form_state['project']->getRecommendedMajor($api);
+      $form['advanced'][$api][$api . '_' . 'recommended_major'] = array(
+        '#type' => 'numberfield',
+        '#title' => $api . ' ' . t('Recommended Major'),
+        '#description' => t('Major version which is recommended.'),
+        '#size' => 40,
+        '#maxlength' => 255,
+        '#min' => 1,
+        // @todo validate the major version exists
+        '#weight' => 20,
+        '#default_value' => isset($rec_maj) ? $rec_maj : '',
+      );
+      $def_maj = $form_state['project']->getDefaultMajor($api);
+      $form['advanced'][$api][$api . '_' . 'default_major'] = array(
+        '#type' => 'textfield',
+        '#title' => $api . ' ' . t('Default Major'),
+        '#description' => t('Default major branch.'),
+        '#size' => 40,
+        '#maxlength' => 255,
+        '#weight' => 20,
+        '#default_value' => isset($def_maj) ? $def_maj : '',
+        // @todo add element validator
+      );
+    }
+  }
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -123,6 +137,23 @@ function project_form($form, &$form_state) {
 function project_form_submit(&$form, &$form_state) {
   $project = $form_state['project'];
   entity_form_submit_build_entity('project', $project, $form, $form_state);
+
+  // Process the per-API properties (supported majors, default major, recommended major).
+  $wrapper = entity_metadata_wrapper('project', $project);
+  $apis = $wrapper->field_compatibility->value();
+  $sup_maj = array();
+  $rec_maj = array();
+  $def_maj = array();
+  foreach ($apis as $api) {
+    $majors = explode(',', $form_state['values'][$api . '_' . 'supported_majors']);
+    array_walk($majors, function(&$item, $key) {
+      $item = (int)$item;
+    });
+    $sup_maj[] = array('api' => $api, 'supported_majors' => $majors);
+    $rec_maj[] = array('api' => $api, 'recommended_major' => $form_state['values'][$api . '_' . 'recommended_major']);
+    $def_maj[] = array('api' => $api, 'default_major' => $form_state['values'][$api . '_' . 'default_major']);
+  }
+  $wrapper->supported_majors = $sup_maj;
   project_save($project);
   drupal_set_message(t('Project %title saved', array('%title' => $project->label())));
 }
