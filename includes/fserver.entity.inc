@@ -30,6 +30,9 @@ function project_save($project) {
   if (empty($project->created)) {
     $project->created = time();
   }
+
+  // @todo add validation for serialized data: default_major, supported_majors and recommended_major
+
   $project->changed = time();
   return entity_save('project', $project);
 }
@@ -172,31 +175,113 @@ function release_uri($entity) {
 }
 
 /**
- * Options list callback for the supported_majors property
+ * Entity Property Callbacks
  */
-function _fserver_project_property_supported_majors_options() {
-  // @todo make this intelligent by looking at the attached releases
-  // @todo
-  return array(
-    '5.x' => t('5.x'),
-    '6.x' => t('6.x'),
-    '7.x' => t('7.x'),
-    '8.x' => t('8.x'),
-    '9.x' => t('9.x'),
-  );
+
+/**
+ * Entity property getter callback for default_major
+ */
+function fserver__property_serialized_get($project, array $options, $name) {
+  $return = NULL;
+  $name = isset($info['schema field']) ? $info['schema field'] : $name;
+  if ((is_array($project) || (is_object($project) && $project instanceof ArrayAccess)) && isset($project[$name])) {
+    if (is_array($project[$name])) {
+      $return = $project[$name];
+    }
+    else {
+      $return = unserialize($project[$name]);
+    }
+  }
+  // @todo get rid of the i18n stuff
+  elseif (is_object($project) && isset($project->$name)) {
+
+    if (is_array($project->$name)) {
+      $return = $project->$name;
+    }
+    else {
+      $return = unserialize($project->$name);
+    }
+  }
+
+  return $return;
 }
 
 /**
- * Options list callback for the recommended_majors property
+ * Entity property getter callback for default_major
  */
-function _fserver_project_property_recommended_majors_options() {
-  // @todo make this intelligent by looking at the attached releases
-  return array(
-    1 => 1,
-    2 => 2,
-    3 => 3,
-    4 => 4,
-  );
+function fserver__property_serialized_set(&$data, $name, $value, $langcode, $type, $info) {
+  // Serialize the value, the rest stays the same.
+  $value = serialize($value);
+  $name = isset($info['schema field']) ? $info['schema field'] : $name;
+  if (is_array($data) || (is_object($data) && $data instanceof ArrayAccess)) {
+    $data[$name] = $value;
+  }
+  elseif (is_object($data)) {
+    $data->$name = $value;
+  }
+}
+
+/**
+ * Entity property validation callback for default_major
+ *
+ * @see fserver_project_default_major_property_info().
+ */
+function fserver__project_property_default_major_validate($value) {
+  if (is_array($value)) {
+    foreach ($value as $key => $v) {
+      if (array_key_exists('api', $v) and array_key_exists('default_major', $v)) {
+        if (is_int($v['default_major']) and $v['default_major'] > 0 and is_string($v['api'])) {
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Entity property validation callback for recommended_major
+ *
+ * @see fserver_project_recommended_major_property_info().
+ */
+function fserver__project_property_recommended_major_validate($value) {
+  if (is_array($value)) {
+    foreach ($value as $key => $v) {
+      if (array_key_exists('api', $v) and array_key_exists('recommended_major', $v)) {
+        if (is_int($v['recommended_major']) and $v['recommended_major'] > 0 and is_string($v['api'])) {
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Entity property validation callback for supported_majors
+ *
+ * @see fserver_project_supported_majors_property_info().
+ */
+function fserver__project_property_supported_majors_validate($value) {
+  if (is_array($value)) {
+    foreach ($value as $key => $v) {
+      if (array_key_exists('api', $v) and array_key_exists('supported_majors', $v)) {
+        if (is_array($v['supported_majors']) and is_string($v['api'])) {
+          // Ensure all supported major values are integers
+          foreach ($v['supported_majors'] as $major) {
+            if (!is_int($major) or $major < 1) {
+              return FALSE;
+            }
+          }
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
 }
 
 /**
@@ -208,13 +293,69 @@ class FserverProject extends Entity {
     parent::__construct($values, 'project');
   }
 
+  /**
+   * Get the default major for the given API
+   *
+   * @param string $api
+   *  API version string (e.g. '7.x')
+   * @return bool|string
+   *  Returns the default major version, FALSE otherwise.
+   */
+  public function getDefaultMajor($api) {
+    $wrapper = entity_metadata_wrapper('project', $this);
+    $iterator = $wrapper->default_major->getIterator();
+    foreach ($iterator as $item) {
+      if ($item->api->value() == $api) {
+        return $item->default_major->value();
+        break;
+      }
+    }
+  }
+
+  /**
+   * Get the supported majors for the given API
+   *
+   * @param string $api
+   *  API version string (e.g. '7.x')
+   * @return bool|array
+   *  Returns the supported versions, FALSE otherwise.
+   */
+  public function getSupportedMajors($api) {
+    $wrapper = entity_metadata_wrapper('project', $this);
+    $iterator = $wrapper->supported_majors->getIterator();
+    foreach ($iterator as $item) {
+      if ($item->api->value() == $api) {
+        return $item->supported_majors->value();
+        break;
+      }
+    }
+  }
+
+  /**
+   * Get the Recommended major for the given API
+   *
+   * @param string $api
+   *  API version string (e.g. '7.x')
+   * @return bool|string
+   *  Returns the recommended major version, FALSE otherwise.
+   */
+  public function getRecommendedMajor($api) {
+    $wrapper = entity_metadata_wrapper('project', $this);
+    $iterator = $wrapper->recommended_major->getIterator();
+    foreach ($iterator as $item) {
+      if ($item->api->value() == $api) {
+        return $item->recommended_major->value();
+        break;
+      }
+    }
+  }
+
   public function next_version($api, $release_type = NULL) {
     // retrieve existing releases for this project
     $query = new EntityFieldQuery();
     $results = $query->entityCondition('entity_type', 'release')
                      ->fieldCondition('field_project_reference', 'target_id', $this->id)
                      ->propertyCondition('api', $api)
-                     //->propertyCondition('version_extra', $release_type, 'STARTS_WITH')
                      ->propertyOrderBy('date', 'DESC')
                      ->execute();
 
@@ -342,6 +483,39 @@ class FserverProjectController extends EntityAPIController {
       }
     }
     parent::delete($ids, $transaction);
+  }
+
+  public function load($ids = array(), $conditions = array()) {
+    // Expand serialized data
+    $entities = parent::load($ids, $conditions);
+    foreach ($entities as $key => $entity) {
+      if (!empty($entity->default_major) and !is_array($entity->default_major)) {
+        $entities[$key]->default_major = unserialize($entity->default_major);
+      }
+      if (!empty($entity->supported_majors) and !is_array($entity->supported_majors)) {
+        $entities[$key]->supported_majors = unserialize($entity->supported_majors);
+      }
+      if (!empty($entity->recommended_major) and !is_array($entity->recommended_major)) {
+        $entities[$key]->recommended_major = unserialize($entity->recommended_major);
+      }
+    }
+
+    return $entities;
+  }
+
+  public function save($entity, DatabaseTransaction $transaction = NULL) {
+    // Serialize array data
+    if (!empty($entity->default_major) and is_array($entity->default_major)) {
+      $entity->default_major = serialize($entity->default_major);
+    }
+    if (!empty($entity->supported_majors) and is_array($entity->supported_majors)) {
+      $entity->supported_majors = serialize($entity->supported_majors);
+    }
+    if (!empty($entity->recommended_major) and is_array($entity->recommended_major)) {
+      $entity->recommended_major = serialize($entity->recommended_major);
+    }
+
+    return parent::save($entity, $transaction);
   }
 }
 
@@ -473,6 +647,11 @@ class FserverProjectRelease {
     unset($this->project->field_compatibility);
     $this->project->api_version = $api;
     $this->project->type = 'project_' . $this->project->type;
+
+    // Load the API specific default, recommended and supported majors
+    $this->project->default_major = $this->project->getDefaultMajor($api);
+    $this->project->recommended_major = $this->project->getRecommendedMajor($api);
+    $this->project->supported_majors = $this->project->getSupportedMajors($api);
   }
 
   /**

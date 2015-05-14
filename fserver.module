@@ -422,8 +422,8 @@ function fserver__project_load($shortname) {
   }
 
   $project = array_keys($project['project']);
-  $project = entity_load('project', $project);
-  return array_pop($project);
+  $id = reset($project);
+  return project_load($id);
 }
 
 /**
