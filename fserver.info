@@ -85,4 +85,5 @@ files[] = includes/fserver.info.inc
 files[] = includes/fserver.entity.inc
 files[] = includes/fserver.entity_type.inc
 files[] = tests/fserver.test
+files[] = views/fserver_handler_fserver_project_default_major.inc
 project status url = https://updates.dropfort.com/fserver/release-history
