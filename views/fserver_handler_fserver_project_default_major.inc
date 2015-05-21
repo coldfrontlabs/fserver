@@ -210,7 +210,17 @@ class fserver_handler_filter_fserver_project_recommended_major extends views_han
   /* Prevent the default query from running. */
   function query() { }
 
+  /**
+   * override post_execute().
+   *
+   * This method will do a couple things: first, it will ensure
+   * only releases whose version_major matches the project's
+   * recommended major will be included, second: only one release
+   * per API will be kept (this logic assumes the releases are
+   * sorted by most recent to oldest).
+   */
   function post_execute(&$values) {
+    $apis_already_included = array();
     foreach ($values as $key => $value) {
       $release = NULL;
       $project = NULL;
@@ -230,8 +240,11 @@ class fserver_handler_filter_fserver_project_recommended_major extends views_han
         // Find the recommended major that corresponds to the release's API
         foreach ($recommended_majors as $rec_maj) {
           if ($rec_maj['api'] == $api) {
-            if ($rec_maj['recommended_major'] != $rwrapper->version_major->value()) {
+            if (in_array($api, $api_already_included) or ($rec_maj['recommended_major'] != $rwrapper->version_major->value())) {
               unset($values[$key]);
+            }
+            else {
+              $api_already_included[] = $api;
             }
             break;
           }
