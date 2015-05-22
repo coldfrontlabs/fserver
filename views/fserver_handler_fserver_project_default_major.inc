@@ -1,23 +1,6 @@
 <?php
 
 class fserver_handler_fserver_project_default_major_api extends views_handler_field {
-/*
-  function construct() {
-    parent::construct();
-  }
-
-  function init(&$view, &$options) {
-    parent::init($view, $options);
-  }
-
-  function option_definition() {
-    return parent::option_definition();
-  }
-
-  function options_form(&$form, &$form_state) {
-    parent::options_form($form, $form_state);
-  }
-*/
   /* Prevent the default query from running. */
   function query() { }
 
@@ -36,13 +19,6 @@ class fserver_handler_fserver_project_default_major_api extends views_handler_fi
     }
   }
 
-/*
-  function pre_render(&$values) {
-dpm('pre render');
-    dpm($values);
-  }
-*/
-
   function render($values) {
     $items = $this->get_value($values);
     $render = array(
@@ -58,20 +34,6 @@ dpm('pre render');
 }
 
 class fserver_handler_fserver_project_default_major_default_major extends views_handler_field {
-/*
-  function construct() {
-    parent::construct();
-  }
-
-  function option_definition() {
-    return parent::option_definition();
-  }
-
-  function options_form(&$form, &$form_state) {
-    parent::options_form($form, $form_state);
-  }
-*/
-
   /* Prevent the default query from running. */
   function query() { }
 
@@ -95,10 +57,6 @@ class fserver_handler_fserver_project_default_major_default_major extends views_
     }
   }
 
-  function pre_render(&$values) {
-    //dpm($values);
-  }
-
   function render($values) {
     $items = $this->get_value($values);
     $render = array(
@@ -114,24 +72,8 @@ class fserver_handler_fserver_project_default_major_default_major extends views_
 }
 
 class fserver_handler_fserver_project_default_major_fields_compare extends views_handler_filter {
-  /**
-   * Provide a list of all operators.
-   *
-  function fields_operator_options() {
-    return array(
-      '=' => t('Is equal to'),
-      '<>' => t('Is not equal to'),
-    );
-  }
-*/
-
   /* Prevent the default query from running. */
   function query() { }
-
-  function post_execute(&$values) {
-dpm($values);
-
-  }
 }
 
 class fserver_handler_fserver_project_recommended_major_api extends views_handler_field {
