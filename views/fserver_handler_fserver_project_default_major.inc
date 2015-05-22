@@ -369,3 +369,50 @@ class fserver_handler_filter_fserver_project_supported_majors extends views_hand
     }
   }
 }
+
+class fserver_handler_filter_fserver_project_other_releases extends views_handler_filter {
+  /* Prevent the default query from running. */
+  function query() { }
+
+  /**
+   * override post_execute().
+   *
+   * This method reverses the logic of recommended releases,
+   * acting as a set exclude leaving all other releases.
+   * Use this filter in conjunction with the supported majors
+   * filter to obtain all valid, supported other (non-recommended)
+   * releases. 
+   */
+  function post_execute(&$values) {
+    $apis_already_excluded = array();
+    foreach ($values as $key => $value) {
+      $release = NULL;
+      $project = NULL;
+      foreach ($value->_field_data as $field_data_item) {
+        if ($field_data_item['entity_type'] == 'release') {
+          $release = $field_data_item['entity'];
+        }
+        elseif ($field_data_item['entity_type'] == 'project') {
+          $project = $field_data_item['entity'];
+        }
+      }
+      if (!empty($release) and !empty($project)) {
+        $pwrapper = entity_metadata_wrapper('project', $project);
+        $rwrapper = entity_metadata_wrapper('release', $release);
+        $recommended_majors = $pwrapper->recommended_major->value();
+        $api = $rwrapper->api->value();
+        // Find the recommended major that corresponds to the release's API
+        foreach ($recommended_majors as $rec_maj) {
+          if ($rec_maj['api'] == $api) {
+            if (!in_array($api, $api_already_excluded) and ($rec_maj['recommended_major'] == $rwrapper->version_major->value())) {
+              unset($values[$key]);
+              $api_already_excluded[] = $api;
+            }
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+

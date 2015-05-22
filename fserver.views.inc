@@ -107,4 +107,12 @@ function fserver_views_data_alter(&$data) {
       'handler' => 'fserver_handler_filter_fserver_project_supported_majors',
     ),
   );
+  $data['views_entity_project']['filter_other_releases'] = array(
+    'title' => 'Fserver Project Other Releases - Release Filter',
+    'help' => t('Custom views filter handler for Fserver project other, non-recommended.'),
+    'filter' => array(
+      'handler' => 'fserver_handler_filter_fserver_project_other_releases',
+    ),
+  );
+
 }
