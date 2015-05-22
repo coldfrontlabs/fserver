@@ -277,16 +277,6 @@ function fserver_entity_info() {
   return $info;
 }
 
-/**
- * Implements hook_entity_property_info_alter().
- */
-function fserver_entity_property_info_alter(&$info) {
-  $info['project']['properties']['default_major']['entity views field'] = TRUE;
-  $info['project']['properties']['recommended_major']['entity views field'] = TRUE;
-  $info['project']['properties']['supported_majors']['entity views field'] = TRUE;
-
-}
-
 // @todo add with something similar to https://git.dropfort.com/dropfort/dropfort_project/blob/7.x-1.x/dropfort_project.module#L622
 
 /**
