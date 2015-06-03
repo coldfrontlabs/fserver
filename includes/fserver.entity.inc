@@ -119,7 +119,7 @@ function release_save($release) {
   if (empty($release->date)) {
     $release->date = time();
   }
-  return entity_save('release', $project);
+  return entity_save('release', $release);
 }
 
 /**
@@ -561,6 +561,20 @@ class FserverRelease extends Entity {
         $this->version .= '-' . $this->version_extra;
       }
 
+      // Get the project short name from the project reference.
+      if (empty($this->project_short_name)) {
+        $wrapper = entity_metadata_wrapper('release', $this);
+        $project = $wrapper->field_project_reference->value();
+        $project = project_load($project->id);
+        $this->project_short_name = $project->short_name;
+
+        // Error if the project short name is STILL empty.
+        if (empty($this->project_short_name)) {
+          // @todo: Handle/fix this error.
+          // Happens when creating Release from the Release Page inline form.
+          watchdog('fserver', 'Unhandled error: Release does not have a project.', NULL, WATCHDOG_ERROR);
+        }
+      }
       $this->name = $this->project_short_name . ' ' . $this->version;
     }
   }
