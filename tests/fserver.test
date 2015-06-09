@@ -105,12 +105,12 @@ class FserverTestCase extends DrupalWebTestCase {
     $update2 = fserver__project_update($load2);
     $this->assertNotEqual(FALSE, $update2, 'Update ' . $load2->title . ' successfull', $group);
     $update2 = fserver__project_load($load2->short_name);
-    $this->assertEqual($new_title_2, $update2->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+    $this->assertEqual($new_title_2, $update2->title, 'Update ' . $load2->title . ' loaded successfully', $group);
 
     $update3 = fserver__project_update($load3);
     $this->assertNotEqual(FALSE, $update3, 'Update ' . $load3->title . ' successfull', $group);
     $update3 = fserver__project_load($load3->short_name);
-    $this->assertEqual($new_title_3, $update3->title, 'Update ' . $load1->title . ' loaded successfully', $group);
+    $this->assertEqual($new_title_3, $update3->title, 'Update ' . $load3->title . ' loaded successfully', $group);
 
 
     // Test project deletion
