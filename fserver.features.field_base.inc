@@ -179,7 +179,6 @@ function fserver_field_default_field_bases() {
         '8.x' => '8.x',
         '7.x' => '7.x',
         '6.x' => '6.x',
-        '5.x' => '5.x',
       ),
       'allowed_values_function' => '',
     ),
