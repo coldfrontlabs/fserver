@@ -18,8 +18,12 @@ function fserver_filter_default_formats() {
     'status' => 1,
     'weight' => 0,
     'filters' => array(
+      'filter_markdown' => array(
+        'status' => 1,
+        'weight' => -50,
+      ),
       'filter_html' => array(
-        'weight' => -10,
+        'weight' => -49,
         'status' => 1,
         'settings' => array(
           'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
@@ -28,12 +32,12 @@ function fserver_filter_default_formats() {
         ),
       ),
       'filter_autop' => array(
-        'weight' => 0,
+        'weight' => -48,
         'status' => 1,
         'settings' => array(),
       ),
       'filter_url' => array(
-        'weight' => 0,
+        'weight' => -46,
         'status' => 1,
         'settings' => array(
           'filter_url_length' => 72,

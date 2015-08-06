@@ -16,6 +16,7 @@ dependencies[] = filter
 dependencies[] = image
 dependencies[] = inline_entity_form
 dependencies[] = list
+dependencies[] = markdown
 dependencies[] = node
 dependencies[] = options
 dependencies[] = strongarm
