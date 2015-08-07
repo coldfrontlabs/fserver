@@ -19,8 +19,9 @@ function fserver_filter_default_formats() {
     'weight' => 0,
     'filters' => array(
       'filter_markdown' => array(
-        'status' => 1,
         'weight' => -50,
+        'status' => 1,
+        'settings' => array(),
       ),
       'filter_html' => array(
         'weight' => -49,

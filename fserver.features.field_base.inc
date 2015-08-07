@@ -10,6 +10,34 @@
 function fserver_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_compatibility'
+  $field_bases['field_compatibility'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_compatibility',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        '8.x' => '8.x',
+        '7.x' => '7.x',
+        '6.x' => '6.x',
+      ),
+      'allowed_values_function' => '',
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_fserver_demo'
   $field_bases['field_fserver_demo'] = array(
     'active' => 1,
@@ -17,11 +45,13 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fserver_demo',
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'url',
-    'settings' => array(),
+    'settings' => array(
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'url',
   );
@@ -33,11 +63,13 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fserver_documentation',
-    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'url',
-    'settings' => array(),
+    'settings' => array(
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'url',
   );
@@ -49,14 +81,6 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fserver_image',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -67,6 +91,8 @@ function fserver_field_default_field_bases() {
     'settings' => array(
       'default_image' => 0,
       'uri_scheme' => 'private',
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'image',
@@ -79,14 +105,6 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fserver_release_ref',
-    'foreign keys' => array(
-      'release' => array(
-        'columns' => array(
-          'target_id' => 'id',
-        ),
-        'table' => 'release',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -109,6 +127,8 @@ function fserver_field_default_field_bases() {
       ),
       'profile2_private' => FALSE,
       'target_type' => 'release',
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -121,14 +141,6 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_project_reference',
-    'foreign keys' => array(
-      'project' => array(
-        'columns' => array(
-          'target_id' => 'id',
-        ),
-        'table' => 'project',
-      ),
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -154,36 +166,11 @@ function fserver_field_default_field_bases() {
         ),
       ),
       'target_type' => 'project',
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'entityreference',
-  );
-
-  // Exported field_base: 'field_compatibility'
-  $field_bases['field_compatibility'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_compatibility',
-    'foreign keys' => array(),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        '8.x' => '8.x',
-        '7.x' => '7.x',
-        '6.x' => '6.x',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_release_files'
@@ -193,14 +180,6 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_release_files',
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
     'indexes' => array(
       'fid' => array(
         0 => 'fid',
@@ -212,6 +191,8 @@ function fserver_field_default_field_bases() {
       'display_default' => 0,
       'display_field' => 0,
       'uri_scheme' => 'private',
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'file',
@@ -224,14 +205,6 @@ function fserver_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_release_notes',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -239,7 +212,10 @@ function fserver_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'views_base_columns' => array(),
+      'views_base_table' => FALSE,
+    ),
     'translatable' => 0,
     'type' => 'text_long',
   );
