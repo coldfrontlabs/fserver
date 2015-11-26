@@ -10,7 +10,7 @@
 function fserver_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_compatibility'
+  // Exported field_base: 'field_compatibility'.
   $field_bases['field_compatibility'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -38,7 +38,7 @@ function fserver_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_fserver_demo'
+  // Exported field_base: 'field_fserver_demo'.
   $field_bases['field_fserver_demo'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -56,7 +56,7 @@ function fserver_field_default_field_bases() {
     'type' => 'url',
   );
 
-  // Exported field_base: 'field_fserver_documentation'
+  // Exported field_base: 'field_fserver_documentation'.
   $field_bases['field_fserver_documentation'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -74,7 +74,7 @@ function fserver_field_default_field_bases() {
     'type' => 'url',
   );
 
-  // Exported field_base: 'field_fserver_image'
+  // Exported field_base: 'field_fserver_image'.
   $field_bases['field_fserver_image'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -98,7 +98,7 @@ function fserver_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_fserver_release_ref'
+  // Exported field_base: 'field_fserver_release_ref'.
   $field_bases['field_fserver_release_ref'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -134,7 +134,7 @@ function fserver_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_project_reference'
+  // Exported field_base: 'field_project_reference'.
   $field_bases['field_project_reference'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -165,15 +165,16 @@ function fserver_field_default_field_bases() {
           'theme' => 'theme',
         ),
       ),
+      'profile2_private' => FALSE,
       'target_type' => 'project',
       'views_base_columns' => array(),
-      'views_base_table' => FALSE,
+      'views_base_table' => 0,
     ),
     'translatable' => 0,
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_release_files'
+  // Exported field_base: 'field_release_files'.
   $field_bases['field_release_files'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -198,7 +199,7 @@ function fserver_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_release_notes'
+  // Exported field_base: 'field_release_notes'.
   $field_bases['field_release_notes'] = array(
     'active' => 1,
     'cardinality' => 1,

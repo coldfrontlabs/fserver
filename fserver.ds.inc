@@ -5,6 +5,57 @@
  */
 
 /**
+ * Implements hook_ds_field_settings_info().
+ */
+function fserver_ds_field_settings_info() {
+  $export = array();
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'release|release|default';
+  $ds_fieldsetting->entity_type = 'release';
+  $ds_fieldsetting->bundle = 'release';
+  $ds_fieldsetting->view_mode = 'default';
+  $ds_fieldsetting->settings = array(
+    'release_date' => array(
+      'weight' => '0',
+      'label' => 'inline',
+      'format' => 'default',
+    ),
+  );
+  $export['release|release|default'] = $ds_fieldsetting;
+
+  return $export;
+}
+
+/**
+ * Implements hook_ds_custom_fields_info().
+ */
+function fserver_ds_custom_fields_info() {
+  $export = array();
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'release_date';
+  $ds_field->label = 'Release Date';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'release' => 'release',
+  );
+  $ds_field->ui_limit = '';
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '[release:date:long]',
+      'format' => 'markdown_full_html',
+    ),
+    'use_token' => 1,
+  );
+  $export['release_date'] = $ds_field;
+
+  return $export;
+}
+
+/**
  * Implements hook_ds_layout_settings_info().
  */
 function fserver_ds_layout_settings_info() {
@@ -20,7 +71,7 @@ function fserver_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'left' => array(
-        0 => 'field_project_reference',
+        0 => 'release_date',
         1 => 'og_group_ref',
       ),
       'right' => array(
@@ -31,7 +82,7 @@ function fserver_ds_layout_settings_info() {
       ),
     ),
     'fields' => array(
-      'field_project_reference' => 'left',
+      'release_date' => 'left',
       'og_group_ref' => 'left',
       'field_release_files' => 'right',
       'field_release_notes' => 'footer',

@@ -10,7 +10,7 @@
 function fserver_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-fserver_project_page-body'
+  // Exported field_instance: 'node-fserver_project_page-body'.
   $field_instances['node-fserver_project_page-body'] = array(
     'bundle' => 'fserver_project_page',
     'default_value' => NULL,
@@ -54,7 +54,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fserver_project_page-field_fserver_demo'
+  // Exported field_instance: 'node-fserver_project_page-field_fserver_demo'.
   $field_instances['node-fserver_project_page-field_fserver_demo'] = array(
     'bundle' => 'fserver_project_page',
     'default_value' => NULL,
@@ -99,7 +99,7 @@ function fserver_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-fserver_project_page-field_fserver_documentation'
+  // 'node-fserver_project_page-field_fserver_documentation'.
   $field_instances['node-fserver_project_page-field_fserver_documentation'] = array(
     'bundle' => 'fserver_project_page',
     'default_value' => NULL,
@@ -143,7 +143,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fserver_project_page-field_fserver_image'
+  // Exported field_instance: 'node-fserver_project_page-field_fserver_image'.
   $field_instances['node-fserver_project_page-field_fserver_image'] = array(
     'bundle' => 'fserver_project_page',
     'deleted' => 0,
@@ -208,7 +208,7 @@ function fserver_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-fserver_project_page-field_project_reference'
+  // 'node-fserver_project_page-field_project_reference'.
   $field_instances['node-fserver_project_page-field_project_reference'] = array(
     'bundle' => 'fserver_project_page',
     'default_value' => NULL,
@@ -258,7 +258,7 @@ function fserver_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-fserver_release_page-field_fserver_release_ref'
+  // 'node-fserver_release_page-field_fserver_release_ref'.
   $field_instances['node-fserver_release_page-field_fserver_release_ref'] = array(
     'bundle' => 'fserver_release_page',
     'deleted' => 0,
@@ -278,7 +278,7 @@ function fserver_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'node',
@@ -304,7 +304,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'project-distribution-field_compatibility'
+  // Exported field_instance: 'project-distribution-field_compatibility'.
   $field_instances['project-distribution-field_compatibility'] = array(
     'bundle' => 'distribution',
     'default_value' => NULL,
@@ -318,6 +318,12 @@ function fserver_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 0,
       ),
+      'project_maintenance' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -341,7 +347,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'project-installprofile-field_compatibility'
+  // Exported field_instance: 'project-installprofile-field_compatibility'.
   $field_instances['project-installprofile-field_compatibility'] = array(
     'bundle' => 'installprofile',
     'default_value' => NULL,
@@ -355,6 +361,12 @@ function fserver_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 0,
       ),
+      'project_maintenance' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -378,7 +390,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'project-module-field_compatibility'
+  // Exported field_instance: 'project-module-field_compatibility'.
   $field_instances['project-module-field_compatibility'] = array(
     'bundle' => 'module',
     'default_value' => NULL,
@@ -391,6 +403,12 @@ function fserver_field_default_field_instances() {
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 2,
+      ),
+      'project_maintenance' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -415,7 +433,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'project-theme-field_compatibility'
+  // Exported field_instance: 'project-theme-field_compatibility'.
   $field_instances['project-theme-field_compatibility'] = array(
     'bundle' => 'theme',
     'default_value' => NULL,
@@ -428,6 +446,12 @@ function fserver_field_default_field_instances() {
         'settings' => array(),
         'type' => 'list_default',
         'weight' => 0,
+      ),
+      'project_maintenance' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -452,7 +476,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'release-release-field_project_reference'
+  // Exported field_instance: 'release-release-field_project_reference'.
   $field_instances['release-release-field_project_reference'] = array(
     'bundle' => 'release',
     'default_value' => NULL,
@@ -461,12 +485,9 @@ function fserver_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -478,7 +499,7 @@ function fserver_field_default_field_instances() {
     'entity_type' => 'release',
     'fences_wrapper' => 'div',
     'field_name' => 'field_project_reference',
-    'label' => 'Project Reference',
+    'label' => 'Project',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -496,7 +517,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'release-release-field_release_files'
+  // Exported field_instance: 'release-release-field_release_files'.
   $field_instances['release-release-field_release_files'] = array(
     'bundle' => 'release',
     'deleted' => 0,
@@ -506,7 +527,7 @@ function fserver_field_default_field_instances() {
         'label' => 'above',
         'module' => 'file',
         'settings' => array(),
-        'type' => 'file_default',
+        'type' => 'file_table',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -552,7 +573,7 @@ function fserver_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'release-release-field_release_notes'
+  // Exported field_instance: 'release-release-field_release_notes'.
   $field_instances['release-release-field_release_notes'] = array(
     'bundle' => 'release',
     'default_value' => NULL,
@@ -560,7 +581,7 @@ function fserver_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -602,6 +623,7 @@ function fserver_field_default_field_instances() {
   t('File');
   t('Link this description to the given project entity.');
   t('Link to documentation page.');
+  t('Project');
   t('Project Reference');
   t('Release');
   t('Release Notes');
