@@ -14,7 +14,7 @@ function fserver_ui_views_default_views() {
   $view->name = 'fserver_ui_projects';
   $view->description = 'List of projects';
   $view->tag = 'Fserver UI';
-  $view->base_table = 'project';
+  $view->base_table = 'fserver_project';
   $view->human_name = 'Projects';
   $view->core = 7;
   $view->api_version = '3.0';
@@ -39,7 +39,6 @@ function fserver_ui_views_default_views() {
     'title' => 'title',
     'type' => 'type',
     'project_status' => 'project_status',
-    'view_link' => 'view_link',
   );
   $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
@@ -64,11 +63,6 @@ function fserver_ui_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'view_link' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
   );
   $handler->display->display_options['style_options']['sticky'] = TRUE;
   $handler->display->display_options['style_options']['summary'] = 'List of projects available through Feature Server';
@@ -89,60 +83,56 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No projects available.';
-  /* Field: Project: Title */
+  /* Relationship: Entity Reference: Referencing entity */
+  $handler->display->display_options['relationships']['reverse_field_project_reference_node']['id'] = 'reverse_field_project_reference_node';
+  $handler->display->display_options['relationships']['reverse_field_project_reference_node']['table'] = 'fserver_project';
+  $handler->display->display_options['relationships']['reverse_field_project_reference_node']['field'] = 'reverse_field_project_reference_node';
+  $handler->display->display_options['relationships']['reverse_field_project_reference_node']['required'] = TRUE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'reverse_field_project_reference_node';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Project: Label */
   $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'project';
+  $handler->display->display_options['fields']['title']['table'] = 'fserver_project';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = 'Name';
   $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['path'] = '[path]';
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'node/[nid]';
   $handler->display->display_options['fields']['title']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
-  /* Field: Project: project type */
+  /* Field: Project: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'project';
+  $handler->display->display_options['fields']['type']['table'] = 'fserver_project';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = 'Type';
   /* Field: Project: Compatibility */
   $handler->display->display_options['fields']['field_compatibility']['id'] = 'field_compatibility';
   $handler->display->display_options['fields']['field_compatibility']['table'] = 'field_data_field_compatibility';
   $handler->display->display_options['fields']['field_compatibility']['field'] = 'field_compatibility';
   $handler->display->display_options['fields']['field_compatibility']['delta_offset'] = '0';
-  /* Field: Project: Project Status */
+  /* Field: Project: Project_status */
   $handler->display->display_options['fields']['project_status']['id'] = 'project_status';
-  $handler->display->display_options['fields']['project_status']['table'] = 'project';
+  $handler->display->display_options['fields']['project_status']['table'] = 'fserver_project';
   $handler->display->display_options['fields']['project_status']['field'] = 'project_status';
   $handler->display->display_options['fields']['project_status']['label'] = 'Status';
   /* Field: Project: Link */
-  $handler->display->display_options['fields']['view_link']['id'] = 'view_link';
-  $handler->display->display_options['fields']['view_link']['table'] = 'project';
-  $handler->display->display_options['fields']['view_link']['field'] = 'view_link';
-  $handler->display->display_options['fields']['view_link']['label'] = '';
-  $handler->display->display_options['fields']['view_link']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_link']['text'] = 'more';
-  /* Field: Content: Screenshots */
-  $handler->display->display_options['fields']['field_fserver_image']['id'] = 'field_fserver_image';
-  $handler->display->display_options['fields']['field_fserver_image']['table'] = 'field_data_field_fserver_image';
-  $handler->display->display_options['fields']['field_fserver_image']['field'] = 'field_fserver_image';
-  $handler->display->display_options['fields']['field_fserver_image']['relationship'] = 'reverse_field_project_reference_node';
-  $handler->display->display_options['fields']['field_fserver_image']['label'] = '';
-  $handler->display->display_options['fields']['field_fserver_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_fserver_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_fserver_image']['settings'] = array(
-    'image_style' => 'thumbnail',
-    'image_link' => 'content',
-  );
-  $handler->display->display_options['fields']['field_fserver_image']['delta_offset'] = '0';
-  /* Sort criterion: Project: Name */
+  $handler->display->display_options['fields']['link']['id'] = 'link';
+  $handler->display->display_options['fields']['link']['table'] = 'fserver_project';
+  $handler->display->display_options['fields']['link']['field'] = 'link';
+  /* Sort criterion: Project: Short_name */
   $handler->display->display_options['sorts']['short_name']['id'] = 'short_name';
-  $handler->display->display_options['sorts']['short_name']['table'] = 'project';
+  $handler->display->display_options['sorts']['short_name']['table'] = 'fserver_project';
   $handler->display->display_options['sorts']['short_name']['field'] = 'short_name';
   $handler->display->display_options['sorts']['short_name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['short_name']['expose']['label'] = 'Name';
-  /* Sort criterion: Project: project type */
+  /* Sort criterion: Project: Type */
   $handler->display->display_options['sorts']['type']['id'] = 'type';
-  $handler->display->display_options['sorts']['type']['table'] = 'project';
+  $handler->display->display_options['sorts']['type']['table'] = 'fserver_project';
   $handler->display->display_options['sorts']['type']['field'] = 'type';
   $handler->display->display_options['sorts']['type']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['type']['expose']['label'] = 'Type';
@@ -168,7 +158,7 @@ function fserver_ui_views_default_views() {
   );
   /* Filter criterion: Project type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'project';
+  $handler->display->display_options['filters']['type']['table'] = 'fserver_project';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['ui_name'] = 'Project type';
   $handler->display->display_options['filters']['type']['group'] = 1;
@@ -195,13 +185,6 @@ function fserver_ui_views_default_views() {
     2 => '2',
     1 => 0,
   );
-  /* Filter criterion: Content: Nid */
-  $handler->display->display_options['filters']['nid']['id'] = 'nid';
-  $handler->display->display_options['filters']['nid']['table'] = 'node';
-  $handler->display->display_options['filters']['nid']['field'] = 'nid';
-  $handler->display->display_options['filters']['nid']['relationship'] = 'reverse_field_project_reference_node';
-  $handler->display->display_options['filters']['nid']['operator'] = 'not empty';
-  $handler->display->display_options['filters']['nid']['group'] = 1;
 
   /* Display: Projects Page */
   $handler = $view->new_display('page', 'Projects Page', 'fserver_ui_projects');
@@ -222,42 +205,13 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
-  $translatables['fserver_ui_projects'] = array(
-    t('Master'),
-    t('Projects'),
-    t('more'),
-    t('Filter'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Items per page'),
-    t('- All -'),
-    t('Offset'),
-    t('« first'),
-    t('‹ previous'),
-    t('next ›'),
-    t('last »'),
-    t('Create Project'),
-    t('No projects available.'),
-    t('Content referencing Project from field_project_reference'),
-    t('Name'),
-    t('Description'),
-    t('Type'),
-    t('Compatibility'),
-    t('Status'),
-    t('Text Filter'),
-    t('Projects Page'),
-    t('Projects Block'),
-    t('List projects in a block'),
-  );
   $export['fserver_ui_projects'] = $view;
 
   $view = new view();
   $view->name = 'fserver_ui_releases';
   $view->description = 'List of releases for a given project.';
   $view->tag = 'Fserver UI';
-  $view->base_table = 'release';
+  $view->base_table = 'fserver_release';
   $view->human_name = 'Releases';
   $view->core = 7;
   $view->api_version = '3.0';
@@ -316,7 +270,7 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['content'] = 'No releases available.';
   /* Field: Release: Version */
   $handler->display->display_options['fields']['version']['id'] = 'version';
-  $handler->display->display_options['fields']['version']['table'] = 'release';
+  $handler->display->display_options['fields']['version']['table'] = 'fserver_release';
   $handler->display->display_options['fields']['version']['field'] = 'version';
   $handler->display->display_options['fields']['version']['element_label_colon'] = FALSE;
   /* Field: Release: File */
@@ -331,59 +285,15 @@ function fserver_ui_views_default_views() {
   $handler->display->display_options['fields']['field_release_files']['separator'] = ' |  ';
   /* Field: Release: Date */
   $handler->display->display_options['fields']['date']['id'] = 'date';
-  $handler->display->display_options['fields']['date']['table'] = 'release';
+  $handler->display->display_options['fields']['date']['table'] = 'fserver_release';
   $handler->display->display_options['fields']['date']['field'] = 'date';
   $handler->display->display_options['fields']['date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['date']['date_format'] = 'custom';
   $handler->display->display_options['fields']['date']['custom_date_format'] = 'Y-M-d';
-  /* Field: Release: Link */
-  $handler->display->display_options['fields']['view_link']['id'] = 'view_link';
-  $handler->display->display_options['fields']['view_link']['table'] = 'release';
-  $handler->display->display_options['fields']['view_link']['field'] = 'view_link';
-  $handler->display->display_options['fields']['view_link']['label'] = 'Links';
-  $handler->display->display_options['fields']['view_link']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_link']['text'] = 'Notes';
-  /* Contextual filter: Content: Nid */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['relationship'] = 'reverse_field_project_reference_node';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
-  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
-    'fserver_project_page' => 'fserver_project_page',
-  );
-  $handler->display->display_options['arguments']['nid']['validate_options']['access'] = TRUE;
 
   /* Display: Releases Bock */
   $handler = $view->new_display('block', 'Releases Bock', 'fserver_ui_block_releases');
   $handler->display->display_options['display_description'] = 'List of releases for a given project';
-  $translatables['fserver_ui_releases'] = array(
-    t('Master'),
-    t('Releases'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('No releases available.'),
-    t('project'),
-    t('Content referencing Project from field_project_reference'),
-    t('Version'),
-    t('Downloads'),
-    t('Date'),
-    t('Links'),
-    t('Notes'),
-    t('All'),
-    t('Releases Bock'),
-    t('List of releases for a given project'),
-  );
   $export['fserver_ui_releases'] = $view;
 
   return $export;
